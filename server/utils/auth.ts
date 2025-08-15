@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcrypt'
 import { getHeader, getCookie } from 'h3'
 import { prisma } from './prisma'
 
