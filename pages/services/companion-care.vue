@@ -1,0 +1,92 @@
+<template>
+  <div class="min-h-screen">
+    <!-- Hero Section -->
+    <section class="relative h-96 bg-gradient-to-r from-blue-900 to-green-800 flex items-center justify-center">
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="relative z-10 text-center text-white px-4">
+        <h1 class="text-5xl font-bold mb-4">Companion Care</h1>
+        <p class="text-2xl text-blue-100">Warm, Reliable Presence</p>
+        <p class="text-lg text-blue-200">Social connection and support for daily living</p>
+      </div>
+    </section>
+
+    <!-- Content Section -->
+    <div class="max-w-4xl mx-auto px-4 py-16">
+      <!-- Service Overview -->
+      <div class="text-center mb-16">
+        <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
+          <Icon name="mdi:account-group" class="text-4xl text-green-600" />
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Companion Care Services</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Our Companion Care services provide a warm, reliable presence offering social connection, 
+          light housekeeping, errands, and support with daily routines. We help maintain independence 
+          while providing meaningful companionship.
+        </p>
+      </div>
+
+      <!-- What We Offer -->
+      <div class="mb-16">
+        <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">What We Offer</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+              <Icon name="mdi:chat" class="text-2xl text-blue-600" />
+            </div>
+            <h4 class="text-xl font-bold text-gray-900 mb-3">Social Connection</h4>
+            <p class="text-gray-600">Meaningful conversation, companionship, and emotional support to combat loneliness.</p>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+              <Icon name="mdi:home" class="text-2xl text-green-600" />
+            </div>
+            <h4 class="text-xl font-bold text-gray-900 mb-3">Light Housekeeping</h4>
+            <p class="text-gray-600">Assistance with laundry, meal preparation, and maintaining a clean, safe environment.</p>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+              <Icon name="mdi:shopping" class="text-2xl text-purple-600" />
+            </div>
+            <h4 class="text-xl font-bold text-gray-900 mb-3">Errands & Shopping</h4>
+            <p class="text-gray-600">Help with grocery shopping, picking up prescriptions, and running errands.</p>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+              <Icon name="mdi:calendar" class="text-2xl text-orange-600" />
+            </div>
+            <h4 class="text-xl font-bold text-gray-900 mb-3">Daily Routines</h4>
+            <p class="text-gray-600">Support with daily activities, medication reminders, and maintaining regular schedules.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact CTA -->
+      <div class="text-center">
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Ready to Get Started?</h3>
+        <p class="text-lg text-gray-600 mb-8">
+          Contact us today to discuss your companion care needs.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <NuxtLink to="/contact" class="btn-primary text-lg px-8 py-3">
+            Contact Us
+          </NuxtLink>
+          <NuxtLink to="/services" class="btn-secondary text-lg px-8 py-3">
+            View All Services
+          </NuxtLink>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+useHead({
+  title: 'Companion Care Services - Lucerna & Stern Health',
+  meta: [
+    { name: 'description', content: 'Companion care services providing social connection, light housekeeping, errands, and daily routine support. Warm, reliable presence for meaningful companionship.' }
+  ]
+})
+</script> 

@@ -1,0 +1,255 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id        String   @id @default(cuid())
+    email     String   @unique
+    password  String
+    role      UserRole @default(CLIENT)
+    firstName String
+    lastName  String
+    phone     String?
+    whatsapp  Boolean  @default(false)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // Relations
+    patients         Patient[]
+    bookings         Booking[]      @relation("ClientBookings")
+    carerBookings    Booking[]      @relation("CarerBookings")
+    notifications    Notification[]
+    documents        Document[]
+    logs             Log[]
+    sentMessages     Message[]      @relation("SentMessages")
+    receivedMessages Message[]      @relation("ReceivedMessages")
+    reports          Report[]
+
+    @@map("users")
+}
+
+model Patient {
+    id                String   @id @default(cuid())
+    clientId          String
+    firstName         String
+    lastName          String
+    dateOfBirth       DateTime
+    medicalConditions Json?
+    emergencyContact  Json?
+    address           String?
+    createdAt         DateTime @default(now())
+    updatedAt         DateTime @updatedAt
+
+    // Relations
+    client   User      @relation(fields: [clientId], references: [id], onDelete: Cascade)
+    bookings Booking[]
+
+    @@map("patients")
+}
+
+model Booking {
+    id        String        @id @default(cuid())
+    clientId  String
+    carerId   String?
+    patientId String
+    careType  CareType
+    frequency Frequency
+    startDate DateTime
+    endDate   DateTime?
+    startTime String? // Time in HH:MM format
+    endTime   String? // Time in HH:MM format
+    location  String? // Location for the booking
+    status    BookingStatus @default(PENDING)
+    notes     String?
+    createdAt DateTime      @default(now())
+    updatedAt DateTime      @updatedAt
+
+    // Relations
+    client    User       @relation("ClientBookings", fields: [clientId], references: [id], onDelete: Cascade)
+    carer     User?      @relation("CarerBookings", fields: [carerId], references: [id])
+    patient   Patient    @relation(fields: [patientId], references: [id], onDelete: Cascade)
+    payments  Payment[]
+    documents Document[]
+    logs      Log[]
+    messages  Message[]
+
+    @@map("bookings")
+}
+
+model Payment {
+    id            String        @id @default(cuid())
+    bookingId     String
+    amount        Float
+    currency      String        @default("USD")
+    paymentMethod PaymentMethod
+    status        PaymentStatus @default(PENDING)
+    transactionId String?
+    receiptUrl    String?
+    createdAt     DateTime      @default(now())
+    updatedAt     DateTime      @updatedAt
+
+    // Relations
+    booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+    @@map("payments")
+}
+
+model Notification {
+    id        String           @id @default(cuid())
+    userId    String
+    type      NotificationType
+    title     String
+    message   String
+    isRead    Boolean          @default(false)
+    createdAt DateTime         @default(now())
+
+    // Relations
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("notifications")
+}
+
+model Document {
+    id         String       @id @default(cuid())
+    bookingId  String
+    type       DocumentType
+    fileName   String
+    fileUrl    String
+    uploadedBy String
+    createdAt  DateTime     @default(now())
+
+    // Relations
+    booking  Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+    uploader User    @relation(fields: [uploadedBy], references: [id])
+
+    @@map("documents")
+}
+
+model Log {
+    id              String    @id @default(cuid())
+    bookingId       String
+    carerId         String
+    taskCompleted   Json?
+    medicationGiven Json?
+    visitStartTime  DateTime?
+    visitEndTime    DateTime?
+    notes           String?
+    createdAt       DateTime  @default(now())
+
+    // Relations
+    booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+    carer   User    @relation(fields: [carerId], references: [id])
+
+    @@map("logs")
+}
+
+model Message {
+    id         String   @id @default(cuid())
+    senderId   String
+    receiverId String
+    bookingId  String?
+    message    String
+    isRead     Boolean  @default(false)
+    createdAt  DateTime @default(now())
+
+    // Relations
+    sender   User     @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+    receiver User     @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+    booking  Booking? @relation(fields: [bookingId], references: [id])
+
+    @@map("messages")
+}
+
+model Report {
+    id          String       @id @default(cuid())
+    name        String
+    type        ReportType
+    dateRange   String
+    generatedAt DateTime     @default(now())
+    status      ReportStatus @default(PROCESSING)
+    content     Json?
+    generatedBy String
+
+    // Relations
+    generator User @relation(fields: [generatedBy], references: [id], onDelete: Cascade)
+
+    @@map("reports")
+}
+
+// Enums
+enum UserRole {
+    ADMIN
+    CLIENT
+    CARER
+}
+
+enum CareType {
+    ELDERLY_CARE
+    DISABILITY_CARE
+    POST_SURGERY_CARE
+    PALLIATIVE_CARE
+}
+
+enum Frequency {
+    ONCE
+    DAILY
+    WEEKLY
+    MONTHLY
+}
+
+enum BookingStatus {
+    PENDING
+    ASSIGNED
+    CONFIRMED
+    IN_PROGRESS
+    COMPLETED
+    CANCELLED
+}
+
+enum PaymentMethod {
+    STRIPE
+    PAYPAL
+    ECOCASH
+}
+
+enum PaymentStatus {
+    PENDING
+    COMPLETED
+    FAILED
+    REFUNDED
+}
+
+enum NotificationType {
+    EMAIL
+    SMS
+    PUSH
+}
+
+enum DocumentType {
+    CARE_PLAN
+    MEDICAL_RECORD
+    INVOICE
+    RECEIPT
+}
+
+enum ReportType {
+    BOOKING_SUMMARY
+    CARER_PERFORMANCE
+    REVENUE_ANALYSIS
+    SERVICE_BREAKDOWN
+    CLIENT_ACTIVITY
+}
+
+enum ReportStatus {
+    PROCESSING
+    COMPLETED
+    FAILED
+}
