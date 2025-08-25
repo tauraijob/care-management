@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-50 flex">
+  <div class="min-h-screen bg-gray-50 flex client-theme">
     <!-- Client Sidebar - Fixed position, full height -->
     <div class="fixed left-0 top-0 h-screen w-64 z-40">
       <ClientSidebar />

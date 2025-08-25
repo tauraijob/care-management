@@ -1,6 +1,6 @@
 import { defineEventHandler, createError } from 'h3'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -22,6 +22,7 @@ export default defineEventHandler(async (event) => {
         }
 
         // Fetch all carers
+        const prisma = await getPrisma()
         const carers = await prisma.user.findMany({
             where: {
                 role: 'CARER'

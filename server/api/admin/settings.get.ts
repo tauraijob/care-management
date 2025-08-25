@@ -1,5 +1,5 @@
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { createError } from 'h3'
 
 export default defineEventHandler(async (event) => {
@@ -47,6 +47,7 @@ export default defineEventHandler(async (event) => {
         ])
 
         // Get recent activity
+        const prisma = await getPrisma()
         const recentActivity = await prisma.log.findMany({
             take: 10,
             orderBy: {

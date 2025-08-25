@@ -5,7 +5,7 @@
       <!-- Sidebar Header -->
       <div class="p-6 border-b border-gray-100">
         <div class="flex items-center space-x-3">
-          <div class="w-8 h-8 bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg flex items-center justify-center">
+          <div class="w-8 h-8 bg-lucerna-primary rounded-lg flex items-center justify-center">
             <Icon name="mdi:lightning-bolt" class="text-white text-sm" />
           </div>
           <div>
@@ -19,8 +19,8 @@
       <nav class="flex-1 px-4 py-6 space-y-2">
         <NuxtLink 
           to="/admin/dashboard" 
-          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all duration-200 font-medium"
-          :class="{ 'bg-green-50 text-green-600 border-r-2 border-green-600': $route.path === '/admin/dashboard' }"
+          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-white hover:bg-lucerna-primary rounded-xl transition-all duration-200 font-medium"
+          :class="{ 'bg-lucerna-primary text-white border-r-2 border-lucerna-primary': $route.path === '/admin/dashboard' }"
         >
           <Icon name="mdi:view-dashboard" class="text-lg" />
           <span>Dashboard</span>
@@ -28,8 +28,8 @@
         
         <NuxtLink 
           to="/admin/users" 
-          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all duration-200 font-medium"
-          :class="{ 'bg-green-50 text-green-600 border-r-2 border-green-600': $route.path.startsWith('/admin/users') }"
+          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-white hover:bg-lucerna-primary rounded-xl transition-all duration-200 font-medium"
+          :class="{ 'bg-lucerna-primary text-white border-r-2 border-lucerna-primary': $route.path.startsWith('/admin/users') }"
         >
           <Icon name="mdi:account-group" class="text-lg" />
           <span>Users</span>
@@ -37,8 +37,8 @@
         
         <NuxtLink 
           to="/admin/bookings" 
-          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all duration-200 font-medium"
-          :class="{ 'bg-green-50 text-green-600 border-r-2 border-green-600': $route.path.startsWith('/admin/bookings') }"
+          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-white hover:bg-lucerna-primary rounded-xl transition-all duration-200 font-medium"
+          :class="{ 'bg-lucerna-primary text-white border-r-2 border-lucerna-primary': $route.path.startsWith('/admin/bookings') }"
         >
           <Icon name="mdi:calendar" class="text-lg" />
           <span>Bookings</span>
@@ -46,8 +46,8 @@
         
         <NuxtLink 
           to="/admin/payments" 
-          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all duration-200 font-medium"
-          :class="{ 'bg-green-50 text-green-600 border-r-2 border-green-600': $route.path.startsWith('/admin/payments') }"
+          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-white hover:bg-lucerna-primary rounded-xl transition-all duration-200 font-medium"
+          :class="{ 'bg-lucerna-primary text-white border-r-2 border-lucerna-primary': $route.path.startsWith('/admin/payments') }"
         >
           <Icon name="mdi:currency-usd" class="text-lg" />
           <span>Payments</span>
@@ -55,8 +55,8 @@
         
         <NuxtLink 
           to="/admin/reports" 
-          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all duration-200 font-medium"
-          :class="{ 'bg-green-50 text-green-600 border-r-2 border-green-600': $route.path.startsWith('/admin/reports') }"
+          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-white hover:bg-lucerna-primary rounded-xl transition-all duration-200 font-medium"
+          :class="{ 'bg-lucerna-primary text-white border-r-2 border-lucerna-primary': $route.path.startsWith('/admin/reports') }"
         >
           <Icon name="mdi:chart-line" class="text-lg" />
           <span>Reports</span>
@@ -64,8 +64,8 @@
         
         <NuxtLink 
           to="/admin/settings" 
-          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all duration-200 font-medium"
-          :class="{ 'bg-green-50 text-green-600 border-r-2 border-green-600': $route.path.startsWith('/admin/settings') }"
+          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-white hover:bg-lucerna-primary rounded-xl transition-all duration-200 font-medium"
+          :class="{ 'bg-lucerna-primary text-white border-r-2 border-lucerna-primary': $route.path.startsWith('/admin/settings') }"
         >
           <Icon name="mdi:cog" class="text-lg" />
           <span>Settings</span>
@@ -78,14 +78,14 @@
         <div class="space-y-2">
           <NuxtLink 
             to="/admin/users/create" 
-            class="flex items-center space-x-3 px-4 py-2 text-sm text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg transition-all duration-200"
+            class="flex items-center space-x-3 px-4 py-2 text-sm text-gray-600 hover:text-white hover:bg-lucerna-primary rounded-lg transition-all duration-200"
           >
             <Icon name="mdi:account-plus" class="text-sm" />
             <span>Add User</span>
           </NuxtLink>
           <NuxtLink 
             to="/admin/reports/analytics" 
-            class="flex items-center space-x-3 px-4 py-2 text-sm text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg transition-all duration-200"
+            class="flex items-center space-x-3 px-4 py-2 text-sm text-gray-600 hover:text-white hover:bg-lucerna-primary rounded-lg transition-all duration-200"
           >
             <Icon name="mdi:chart-bar" class="text-sm" />
             <span>Analytics</span>
@@ -96,7 +96,7 @@
       <!-- User Info -->
       <div class="p-4 border-t border-gray-100">
         <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full flex items-center justify-center font-semibold text-sm">
+          <div class="w-10 h-10 bg-lucerna-primary text-white rounded-full flex items-center justify-center font-semibold text-sm">
             {{ userInitials }}
           </div>
           <div class="flex-1 min-w-0">

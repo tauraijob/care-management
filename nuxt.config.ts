@@ -11,7 +11,10 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: true,
     minify: true,
-    compatibilityDate: '2025-08-04',
+    compatibilityDate: '2025-08-20',
+    externals: {
+      external: ['@prisma/client', 'prisma']
+    },
     security: {
       headers: {
         'X-Frame-Options': 'DENY',
@@ -36,8 +39,8 @@ export default defineNuxtConfig({
         { name: 'keywords', content: 'healthcare, home care, Zimbabwe, diaspora, medical care, elderly care' },
         { name: 'author', content: 'Lucerna & Stern Health' },
         { name: 'robots', content: 'index, follow' },
-        { name: 'theme-color', content: '#4CAF50' },
-        { name: 'msapplication-TileColor', content: '#4CAF50' },
+        { name: 'theme-color', content: '#0A2342' },
+        { name: 'msapplication-TileColor', content: '#0A2342' },
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
         { name: 'apple-mobile-web-app-title', content: 'Lucerna Health' },
@@ -171,13 +174,16 @@ export default defineNuxtConfig({
 
   // Build configuration
   build: {
-    transpile: ['@headlessui/vue', '@heroicons/vue']
+    transpile: ['@headlessui/vue', '@heroicons/vue', '@prisma/client']
   },
 
   // Vite configuration
   vite: {
     optimizeDeps: {
       include: ['@headlessui/vue', '@heroicons/vue']
+    },
+    ssr: {
+      external: ['@prisma/client', 'prisma']
     },
     build: {
       rollupOptions: {

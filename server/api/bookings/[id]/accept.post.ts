@@ -1,5 +1,5 @@
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { createError } from 'h3'
 import { getRouterParam } from 'h3'
 
@@ -18,6 +18,7 @@ export default defineEventHandler(async (event) => {
         }
 
         // Check if booking exists and is available for this carer
+        const prisma = await getPrisma()
         const existingBooking = await prisma.booking.findFirst({
             where: {
                 id: bookingId,

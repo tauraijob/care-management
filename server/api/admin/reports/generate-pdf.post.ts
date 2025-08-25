@@ -1,7 +1,7 @@
 import { defineEventHandler, readBody, createError, setHeader } from 'h3'
 import puppeteer from 'puppeteer'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 
 export default defineEventHandler(async (event) => {
     try {

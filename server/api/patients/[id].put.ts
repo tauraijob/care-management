@@ -1,4 +1,4 @@
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
 import { getRouterParam } from 'h3'
 
@@ -31,6 +31,7 @@ export default defineEventHandler(async (event) => {
         }
 
         // Verify patient belongs to user
+        const prisma = await getPrisma()
         const existingPatient = await prisma.patient.findFirst({
             where: {
                 id: patientId,

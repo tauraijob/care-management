@@ -4,11 +4,18 @@
 
 /* Custom CSS Variables for Brand Colors */
 :root {
-    --lucerna-background: #E0F2F7;
-    --lucerna-primary: #4CAF50;
-    --lucerna-primary-dark: #45a049;
-    --lucerna-text: #1A237E;
-    --lucerna-accent: #B2EBF2;
+    --lucerna-background: #F5F7F9;
+    /* Light Grey / Off White */
+    --lucerna-primary: #0A2342;
+    /* Navy Blue */
+    --lucerna-primary-dark: #081A33;
+    /* Darker Navy for hover */
+    --lucerna-text: #0A2342;
+    /* Ensure strong contrast */
+    --lucerna-secondary: #4A6470;
+    /* Cool Grey Blue */
+    --lucerna-accent: #FF6600;
+    /* Highlight Orange */
 }
 
 /* Base Styles */
@@ -183,9 +190,503 @@
 /* Utility Styles */
 @layer utilities {
 
+    /* Admin Theme Overrides: enforce solid colors for icons and buttons */
+    .admin-theme :is(svg, .icon) {
+        color: var(--lucerna-primary) !important;
+        fill: currentColor !important;
+    }
+
+    /* Keep icons readable on dark/brand surfaces within admin */
+    .admin-theme :is(.bg-lucerna-primary,
+        .bg-lucerna-secondary,
+        .bg-gradient-to-r,
+        .bg-gradient-to-br,
+        .from-lucerna-primary,
+        .from-lucerna-primary-dark,
+        .from-green-600,
+        .from-green-800,
+        .to-emerald-600,
+        .to-emerald-700,
+        .bg-gray-900,
+        .bg-slate-900,
+        .bg-black) :is(svg, .icon) {
+        color: #ffffff !important;
+    }
+
+    .admin-theme .btn-primary {
+        background-color: var(--lucerna-primary) !important;
+        color: #ffffff !important;
+        box-shadow: none !important;
+    }
+
+    .admin-theme .btn-primary:hover {
+        background-color: var(--lucerna-primary-dark) !important;
+    }
+
+    .admin-theme .btn-secondary {
+        background-color: var(--lucerna-primary) !important;
+        color: #ffffff !important;
+        border-color: transparent !important;
+    }
+
+    .admin-theme .btn-secondary:hover {
+        background-color: var(--lucerna-primary-dark) !important;
+    }
+
+    .admin-theme .btn-outline {
+        border-color: var(--lucerna-primary) !important;
+        color: var(--lucerna-primary) !important;
+    }
+
+    .admin-theme .btn-outline:hover {
+        background-color: var(--lucerna-primary) !important;
+        color: #ffffff !important;
+    }
+
+    /* Admin: ensure white-background buttons/links use brand text for contrast */
+    .admin-theme button.bg-white,
+    .admin-theme a.bg-white {
+        color: var(--lucerna-primary) !important;
+        border-color: var(--lucerna-primary) !important;
+    }
+
+    .admin-theme button.bg-white :is(svg, .icon),
+    .admin-theme a.bg-white :is(svg, .icon) {
+        color: var(--lucerna-primary) !important;
+        fill: currentColor !important;
+    }
+
+    /* Admin: normalize form controls (avoid stark white fields) */
+    .admin-theme input[type="text"],
+    .admin-theme input[type="email"],
+    .admin-theme input[type="password"],
+    .admin-theme input[type="search"],
+    .admin-theme input[type="number"],
+    .admin-theme input[type="date"],
+    .admin-theme input[type="datetime-local"],
+    .admin-theme input[type="time"],
+    .admin-theme select,
+    .admin-theme textarea {
+        background-color: #F9FAFB !important;
+        /* gray-50 */
+        border: 1px solid #D1D5DB !important;
+        /* gray-300 */
+        color: #111827 !important;
+        /* gray-900 */
+        border-radius: 0.5rem !important;
+        /* rounded-lg */
+    }
+
+    .admin-theme input:focus,
+    .admin-theme select:focus,
+    .admin-theme textarea:focus {
+        outline: none !important;
+        border-color: var(--lucerna-primary) !important;
+        box-shadow: 0 0 0 2px rgba(10, 35, 66, 0.2) !important;
+        /* ring */
+    }
+
+    /* Client/Carer: match admin input styling */
+    .client-theme input[type="text"],
+    .client-theme input[type="email"],
+    .client-theme input[type="password"],
+    .client-theme input[type="search"],
+    .client-theme input[type="number"],
+    .client-theme input[type="date"],
+    .client-theme input[type="datetime-local"],
+    .client-theme input[type="time"],
+    .client-theme select,
+    .client-theme textarea,
+    .carer-theme input[type="text"],
+    .carer-theme input[type="email"],
+    .carer-theme input[type="password"],
+    .carer-theme input[type="search"],
+    .carer-theme input[type="number"],
+    .carer-theme input[type="date"],
+    .carer-theme input[type="datetime-local"],
+    .carer-theme input[type="time"],
+    .carer-theme select,
+    .carer-theme textarea {
+        background-color: #F9FAFB !important;
+        /* gray-50 */
+        border: 1px solid #D1D5DB !important;
+        /* gray-300 */
+        color: #111827 !important;
+        /* gray-900 */
+        border-radius: 0.5rem !important;
+        /* rounded-lg */
+    }
+
+    .client-theme input:focus,
+    .client-theme select:focus,
+    .client-theme textarea:focus,
+    .carer-theme input:focus,
+    .carer-theme select:focus,
+    .carer-theme textarea:focus {
+        outline: none !important;
+        border-color: var(--lucerna-primary) !important;
+        box-shadow: 0 0 0 2px rgba(10, 35, 66, 0.2) !important;
+        /* ring */
+    }
+
+    /* (Removed circular dependency with text-white utility) */
+
+    /* Brand overrides for legacy blue utilities -> map to brand primary */
+    .text-blue-600 {
+        color: var(--lucerna-primary) !important;
+    }
+
+    .hover\:text-blue-600:hover {
+        color: var(--lucerna-primary) !important;
+    }
+
+    .text-blue-700 {
+        color: var(--lucerna-primary-dark) !important;
+    }
+
+    .hover\:text-blue-700:hover {
+        color: var(--lucerna-primary-dark) !important;
+    }
+
+    .bg-blue-50 {
+        background-color: var(--lucerna-background) !important;
+    }
+
+    .hover\:bg-blue-50:hover {
+        background-color: var(--lucerna-background) !important;
+    }
+
+    .bg-blue-600 {
+        background-color: var(--lucerna-primary) !important;
+    }
+
+    .hover\:bg-blue-700:hover {
+        background-color: var(--lucerna-primary-dark) !important;
+    }
+
+    .border-blue-200 {
+        border-color: #dbe5ef !important;
+    }
+
+    .border-blue-600 {
+        border-color: var(--lucerna-primary) !important;
+    }
+
+    .focus\:ring-blue-500:focus {
+        --tw-ring-color: var(--lucerna-primary) !important;
+    }
+
+    .focus\:border-blue-500:focus {
+        border-color: var(--lucerna-primary) !important;
+    }
+
+    /* Map common indigo utilities to brand */
+    .text-indigo-600,
+    .text-indigo-500 {
+        color: var(--lucerna-primary) !important;
+    }
+
+    .hover\:text-indigo-600:hover,
+    .hover\:text-indigo-700:hover {
+        color: var(--lucerna-primary-dark) !important;
+    }
+
+    .bg-indigo-600,
+    .bg-indigo-500 {
+        background-color: var(--lucerna-primary) !important;
+        color: #ffffff !important;
+    }
+
+    .hover\:bg-indigo-700:hover {
+        background-color: var(--lucerna-primary-dark) !important;
+    }
+
+    .border-indigo-500 {
+        border-color: var(--lucerna-primary) !important;
+    }
+
+    .focus\:ring-indigo-500:focus {
+        --tw-ring-color: var(--lucerna-primary) !important;
+    }
+
+    .focus\:border-indigo-500:focus {
+        border-color: var(--lucerna-primary) !important;
+    }
+
+    /* Gradient remaps to brand primary */
+    .from-blue-600 {
+        --tw-gradient-from: #0A2342 var(--tw-gradient-from-position);
+        --tw-gradient-to: rgb(10 35 66 / 0) var(--tw-gradient-to-position);
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    }
+
+    .to-purple-600 {
+        --tw-gradient-to: #081A33 var(--tw-gradient-to-position);
+    }
+
+    .from-green-600 {
+        --tw-gradient-from: #0A2342 var(--tw-gradient-from-position);
+        --tw-gradient-to: rgb(10 35 66 / 0) var(--tw-gradient-to-position);
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    }
+
+    .from-green-500 {
+        --tw-gradient-from: #0A2342 var(--tw-gradient-from-position);
+        --tw-gradient-to: rgb(10 35 66 / 0) var(--tw-gradient-to-position);
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    }
+
+    .to-emerald-600 {
+        --tw-gradient-to: #081A33 var(--tw-gradient-to-position);
+    }
+
+    .to-emerald-500 {
+        --tw-gradient-to: #081A33 var(--tw-gradient-to-position);
+    }
+
+    /* Map legacy dark gradients to brand */
+    .from-blue-900,
+    .from-blue-800,
+    .from-green-800,
+    .from-emerald-700,
+    .from-emerald-600 {
+        --tw-gradient-from: #0A2342 var(--tw-gradient-from-position);
+        --tw-gradient-to: rgb(10 35 66 / 0) var(--tw-gradient-to-position);
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    }
+
+    .to-green-800,
+    .to-emerald-700,
+    .to-blue-900,
+    .to-slate-900,
+    .to-gray-900 {
+        --tw-gradient-to: #081A33 var(--tw-gradient-to-position);
+    }
+
+    /* Contrast-safe defaults on brand surfaces */
+    .bg-lucerna-primary,
+    .from-lucerna-primary,
+    .from-blue-600,
+    .bg-gradient-to-r.from-lucerna-primary,
+    .bg-gradient-to-br.from-lucerna-primary,
+    .bg-lucerna-secondary,
+    .from-lucerna-primary-dark {
+        color: #ffffff !important;
+    }
+
+    .bg-lucerna-accent {
+        /* Use very dark slate for readability on orange */
+        color: #111827 !important;
+        /* Tailwind gray-900 */
+    }
+
+    /* Generic dark surfaces from legacy utilities -> force readable text */
+    :is(.bg-gray-900, .bg-slate-900, .bg-zinc-900, .bg-neutral-900, .bg-black,
+        .from-blue-900, .from-green-800, .from-emerald-700, .to-blue-900, .to-green-800) {
+        color: #ffffff !important;
+    }
+
+    :is(.bg-gray-900, .bg-slate-900, .bg-zinc-900, .bg-neutral-900, .bg-black) a {
+        color: #ffffff !important;
+    }
+
+    .bg-lucerna-background,
+    .bg-white,
+    .from-white {
+        color: var(--lucerna-text) !important;
+    }
+
+    /* Links on brand surfaces */
+    .bg-lucerna-primary a,
+    .bg-lucerna-secondary a,
+    .bg-gradient-to-r.from-lucerna-primary a,
+    .bg-gradient-to-br.from-lucerna-primary a {
+        color: #ffffff !important;
+    }
+
+    /* White text and icons on navy brand gradients remapped via legacy classes */
+    :is(.from-green-600, .from-green-500, .to-emerald-600, .to-emerald-500) {
+        color: #ffffff !important;
+    }
+
+    :is(.from-green-600, .from-green-500, .to-emerald-600, .to-emerald-500) a {
+        color: #ffffff !important;
+    }
+
+    :is(.from-green-600, .from-green-500, .to-emerald-600, .to-emerald-500) :is(svg, .icon) {
+        color: #ffffff !important;
+        fill: currentColor !important;
+    }
+
+    /* Override nested text utility colors within navy brand surfaces */
+    :is(.bg-lucerna-primary, .bg-lucerna-primary-dark, .bg-lucerna-secondary,
+        .from-lucerna-primary, .from-lucerna-primary-dark,
+        .from-green-600, .from-green-500, .to-emerald-600, .to-emerald-500) :is(.text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600, .text-gray-500,
+        .text-lucerna-primary, .text-lucerna-secondary) {
+        color: #ffffff !important;
+    }
+
+    .bg-lucerna-accent a {
+        color: #111827 !important;
+    }
+
+    /* Explicit text-on-* helpers for components */
+    .text-on-primary {
+        color: #ffffff !important;
+    }
+
+    .text-on-secondary {
+        color: #ffffff !important;
+    }
+
+    .text-on-accent {
+        color: #111827 !important;
+    }
+
+    .text-on-background {
+        color: var(--lucerna-text) !important;
+    }
+
+    /* Auto-contrast helper: set --contrast-on via surface classes */
+    .bg-lucerna-primary,
+    .from-lucerna-primary,
+    .from-lucerna-primary-dark,
+    .bg-lucerna-secondary {
+        --contrast-on: #ffffff;
+    }
+
+    .bg-lucerna-accent {
+        --contrast-on: #111827;
+    }
+
+    .bg-lucerna-background,
+    .bg-white {
+        --contrast-on: var(--lucerna-text);
+    }
+
+    .text-contrast {
+        color: var(--contrast-on, var(--lucerna-text)) !important;
+    }
+
+    /* Force-high-contrast helper for any dark section */
+    .on-dark {
+        color: #ffffff !important;
+    }
+
+    .on-dark :is(h1, h2, h3, h4, h5, h6, p, span, a, li, small, strong, em, label) {
+        color: #ffffff !important;
+    }
+
+    .on-dark :is(svg, .icon) {
+        color: #ffffff !important;
+        fill: currentColor !important;
+    }
+
+    .on-dark .btn-primary {
+        background-color: #ffffff !important;
+        color: var(--lucerna-primary) !important;
+    }
+
+    .on-dark .btn-secondary,
+    .on-dark .btn-outline {
+        border-color: #ffffff !important;
+        color: #ffffff !important;
+    }
+
+    .on-dark .form-label {
+        color: #ffffff !important;
+    }
+
+    /* Contrast rescue: enforce readable text on dark brand surfaces */
+    :is(.bg-lucerna-primary, .bg-lucerna-primary-dark, .bg-lucerna-secondary) :is(.text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600, .text-gray-500,
+        .text-lucerna-primary, .text-lucerna-secondary) {
+        color: #ffffff !important;
+    }
+
+    /* Buttons on dark brand surfaces invert for visibility */
+    :is(.bg-lucerna-primary, .bg-lucerna-primary-dark, .bg-lucerna-secondary) .btn-primary {
+        background-color: #ffffff !important;
+        color: var(--lucerna-primary) !important;
+    }
+
+    :is(.bg-lucerna-primary, .bg-lucerna-primary-dark, .bg-lucerna-secondary) .btn-outline {
+        border-color: #ffffff !important;
+        color: #ffffff !important;
+    }
+
+    /* Map common green utilities to brand */
+    .bg-blue-900,
+    .bg-blue-800,
+    .bg-green-800,
+    .bg-emerald-700,
+    .bg-emerald-600 {
+        background-color: var(--lucerna-primary) !important;
+        color: #ffffff !important;
+    }
+
+    .text-blue-100,
+    .text-blue-200,
+    .text-green-100,
+    .text-emerald-100 {
+        color: #ffffff !important;
+    }
+
+    .text-green-600 {
+        color: var(--lucerna-primary) !important;
+    }
+
+    .hover\:text-green-600:hover {
+        color: var(--lucerna-primary) !important;
+    }
+
+    .text-green-500 {
+        color: var(--lucerna-primary) !important;
+    }
+
+    .hover\:text-green-700:hover {
+        color: var(--lucerna-primary-dark) !important;
+    }
+
+    .bg-green-50 {
+        background-color: var(--lucerna-background) !important;
+    }
+
+    .hover\:bg-green-50:hover {
+        background-color: var(--lucerna-background) !important;
+    }
+
+    .bg-green-600 {
+        background-color: var(--lucerna-primary) !important;
+    }
+
+    .hover\:bg-green-700:hover {
+        background-color: var(--lucerna-primary-dark) !important;
+    }
+
+    .border-green-600 {
+        border-color: var(--lucerna-primary) !important;
+    }
+
+    .border-green-200 {
+        border-color: #e1e8ee !important;
+    }
+
+    .focus\:ring-green-500:focus {
+        --tw-ring-color: var(--lucerna-primary) !important;
+    }
+
+    .focus\:border-green-500:focus {
+        border-color: var(--lucerna-primary) !important;
+    }
+
     /* Text Colors */
     .text-lucerna-primary {
         color: var(--lucerna-primary);
+    }
+
+    /* Force brand text color with higher priority */
+    .text-brand {
+        color: var(--lucerna-primary) !important;
     }
 
     .text-lucerna-text {
@@ -203,6 +704,10 @@
 
     .bg-lucerna-accent {
         background-color: var(--lucerna-accent);
+    }
+
+    .bg-lucerna-secondary {
+        background-color: var(--lucerna-secondary);
     }
 
     /* Border Colors */

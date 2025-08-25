@@ -1,8 +1,6 @@
 import { hash, compare } from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { getPrisma } from '../../utils/prisma'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -54,6 +52,7 @@ export default defineEventHandler(async (event) => {
         }
 
         // Get current user with password
+        const prisma = await getPrisma()
         const user = await prisma.user.findUnique({
             where: { id: decoded.userId },
             select: {

@@ -1,4 +1,4 @@
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
 
 export default defineEventHandler(async (event) => {
@@ -19,6 +19,8 @@ export default defineEventHandler(async (event) => {
                 statusMessage: 'Admin access required'
             })
         }
+
+        const prisma = await getPrisma()
 
         // Get current date and date 30 days ago
         const now = new Date()
@@ -72,94 +74,57 @@ export default defineEventHandler(async (event) => {
                 include: {
                     booking: {
                         include: {
-                            patient: {
-                                select: { firstName: true, lastName: true }
-                            },
-                            client: {
-                                select: { firstName: true, lastName: true }
-                            }
+                            patient: { select: { firstName: true, lastName: true } },
+                            client: { select: { firstName: true, lastName: true } }
                         }
                     }
                 }
             }),
 
             // User statistics by role
-            prisma.user.groupBy({
-                by: ['role'],
-                _count: { role: true }
-            }),
+            prisma.user.groupBy({ by: ['role'], _count: { role: true } }),
 
             // Booking statistics by status
-            prisma.booking.groupBy({
-                by: ['status'],
-                _count: { status: true }
-            }),
+            prisma.booking.groupBy({ by: ['status'], _count: { status: true } }),
 
             // Payment statistics by status
-            prisma.payment.groupBy({
-                by: ['status'],
-                _count: { status: true },
-                _sum: { amount: true }
-            }),
+            prisma.payment.groupBy({ by: ['status'], _count: { status: true }, _sum: { amount: true } }),
 
             // Top carers by booking count
             prisma.user.findMany({
                 where: { role: 'CARER' },
-                include: {
-                    _count: {
-                        select: { carerBookings: true }
-                    }
-                },
-                orderBy: {
-                    carerBookings: { _count: 'desc' }
-                },
+                include: { _count: { select: { carerBookings: true } } },
+                orderBy: { carerBookings: { _count: 'desc' } },
                 take: 10
             }),
 
             // Revenue statistics (last 30 days)
             prisma.payment.aggregate({
-                where: {
-                    createdAt: { gte: thirtyDaysAgo },
-                    status: 'COMPLETED'
-                },
+                where: { createdAt: { gte: thirtyDaysAgo }, status: 'COMPLETED' },
                 _sum: { amount: true },
                 _count: true
             }),
 
             // Today's bookings
             prisma.booking.count({
-                where: {
-                    startDate: {
-                        gte: today,
-                        lt: new Date(today.getTime() + 24 * 60 * 60 * 1000)
-                    }
-                }
+                where: { startDate: { gte: today, lt: new Date(today.getTime() + 24 * 60 * 60 * 1000) } }
             }),
 
             // Today's revenue
             prisma.payment.aggregate({
-                where: {
-                    createdAt: {
-                        gte: today,
-                        lt: new Date(today.getTime() + 24 * 60 * 60 * 1000)
-                    },
-                    status: 'COMPLETED'
-                },
+                where: { createdAt: { gte: today, lt: new Date(today.getTime() + 24 * 60 * 60 * 1000) }, status: 'COMPLETED' },
                 _sum: { amount: true }
             }),
 
             // Monthly revenue trend (last 6 months)
             prisma.payment.groupBy({
                 by: ['createdAt'],
-                where: {
-                    createdAt: { gte: new Date(now.getTime() - 6 * 30 * 24 * 60 * 60 * 1000) },
-                    status: 'COMPLETED'
-                },
+                where: { createdAt: { gte: new Date(now.getTime() - 6 * 30 * 24 * 60 * 60 * 1000) }, status: 'COMPLETED' },
                 _sum: { amount: true }
             })
         ])
 
-        // Format the data
+        // Format the data (unchanged)
         const dashboardData = {
             overview: {
                 totalUsers,
@@ -184,7 +149,7 @@ export default defineEventHandler(async (event) => {
                 payments: recentPayments.map(payment => ({
                     id: payment.id,
                     amount: payment.amount,
-                    currency: 'USD', // Always USD
+                    currency: 'USD',
                     status: payment.status,
                     method: payment.paymentMethod,
                     patient: `${payment.booking.patient.firstName} ${payment.booking.patient.lastName}`,
@@ -202,10 +167,7 @@ export default defineEventHandler(async (event) => {
                     return acc
                 }, {} as any),
                 payments: paymentStats.reduce((acc, stat) => {
-                    acc[stat.status.toLowerCase()] = {
-                        count: stat._count.status,
-                        amount: stat._sum.amount || 0
-                    }
+                    acc[stat.status.toLowerCase()] = { count: stat._count.status, amount: stat._sum.amount || 0 }
                     return acc
                 }, {} as any)
             },
@@ -215,25 +177,16 @@ export default defineEventHandler(async (event) => {
                 email: carer.email,
                 bookingCount: carer._count.carerBookings
             })),
-            revenueTrend: monthlyRevenue.map(item => ({
-                date: item.createdAt,
-                revenue: item._sum.amount || 0
-            }))
+            revenueTrend: monthlyRevenue.map(item => ({ date: item.createdAt, revenue: item._sum.amount || 0 }))
         }
 
-        return {
-            success: true,
-            data: dashboardData
-        }
+        return { success: true, data: dashboardData }
     } catch (error: any) {
         if (error.statusCode) {
             throw error
         }
 
         console.error('Admin dashboard error:', error)
-        throw createError({
-            statusCode: 500,
-            statusMessage: 'Internal server error'
-        })
+        throw createError({ statusCode: 500, statusMessage: 'Internal server error' })
     }
 })

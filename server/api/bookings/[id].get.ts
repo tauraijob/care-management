@@ -1,6 +1,6 @@
 import { defineEventHandler, createError } from 'h3'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { getRouterParam } from 'h3'
 
 export default defineEventHandler(async (event) => {
@@ -40,6 +40,7 @@ export default defineEventHandler(async (event) => {
         // Admin can view any booking, so no additional filter needed
 
         // Fetch the booking with all related data
+        const prisma = await getPrisma()
         const booking = await prisma.booking.findFirst({
             where: whereClause,
             include: {

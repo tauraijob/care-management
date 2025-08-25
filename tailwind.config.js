@@ -11,13 +11,14 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                // Brand colors from logo
+                // Brand colors (see brandguide.md)
                 'lucerna': {
-                    'background': '#E0F2F7',    // Light blue background
-                    'primary': '#4CAF50',       // Green logo color
-                    'primary-dark': '#45a049',  // Darker green for hover
-                    'text': '#1A237E',          // Dark blue text
-                    'accent': '#B2EBF2',        // Light blue accent
+                    'background': '#F5F7F9',
+                    'primary': '#0A2342',
+                    'primary-dark': '#081A33',
+                    'secondary': '#4A6470',
+                    'text': '#0A2342',
+                    'accent': '#FF6600',
                 },
                 // Semantic colors
                 'success': {

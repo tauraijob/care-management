@@ -1,5 +1,5 @@
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { createError } from 'h3'
 
 export default defineEventHandler(async (event) => {
@@ -52,6 +52,7 @@ export default defineEventHandler(async (event) => {
         }
 
         // First, check if there's a patient record for the carer, if not create one
+        const prisma = await getPrisma()
         let patient = await prisma.patient.findFirst({
             where: { clientId: user.id }
         })

@@ -1,12 +1,12 @@
 <template>
   <div class="min-h-screen">
     <!-- Hero Section -->
-    <section class="relative h-96 bg-gradient-to-r from-blue-900 to-green-800 flex items-center justify-center">
+    <section class="relative h-96 bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark flex items-center justify-center">
       <div class="absolute inset-0 bg-black/40"></div>
       <div class="relative z-10 text-center text-white px-4">
         <h1 class="text-5xl font-bold mb-4">Contact Us</h1>
-        <p class="text-2xl text-blue-100">We're Here to Help</p>
-        <p class="text-lg text-blue-200">Get in touch with our care team today</p>
+        <p class="text-2xl text-white/90">We're Here to Help</p>
+        <p class="text-lg text-white/80">Get in touch with our care team today</p>
       </div>
     </section>
 
@@ -22,37 +22,37 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <!-- Contact Information -->
         <div class="space-y-8">
-          <div class="bg-blue-50 rounded-xl p-8">
-            <h3 class="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
+          <div class="bg-lucerna-background rounded-xl p-8 text-contrast">
+            <h3 class="text-2xl font-bold text-on-background mb-6">Contact Information</h3>
             
             <div class="space-y-6">
               <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Icon name="mdi:email" class="text-2xl text-blue-600" />
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-lucerna-primary">
+                  <Icon name="mdi:email" class="text-2xl text-white" />
                 </div>
                 <div>
-                  <h4 class="font-semibold text-gray-900 mb-1">Email</h4>
-                  <p class="text-gray-600">info@lucernaandsternhealth.co.zw</p>
+                  <h4 class="font-semibold text-on-background mb-1">Email</h4>
+                  <p class="opacity-80 text-on-background">info@lucernaandsternhealth.co.zw</p>
                 </div>
               </div>
 
               <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Icon name="mdi:phone" class="text-2xl text-green-600" />
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-lucerna-primary">
+                  <Icon name="mdi:phone" class="text-2xl text-white" />
                 </div>
                 <div>
-                  <h4 class="font-semibold text-gray-900 mb-1">Phone & WhatsApp</h4>
-                  <p class="text-gray-600">+263 710708027</p>
+                  <h4 class="font-semibold text-on-background mb-1">Phone & WhatsApp</h4>
+                  <p class="opacity-80 text-on-background">+263 710708027</p>
                 </div>
               </div>
 
               <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Icon name="mdi:clock" class="text-2xl text-purple-600" />
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-lucerna-primary">
+                  <Icon name="mdi:clock" class="text-2xl text-white" />
                 </div>
                 <div>
-                  <h4 class="font-semibold text-gray-900 mb-1">Response Time</h4>
-                  <p class="text-gray-600">We'll respond promptly and guide you through the next steps with clarity and care.</p>
+                  <h4 class="font-semibold text-on-background mb-1">Response Time</h4>
+                  <p class="opacity-80 text-on-background">We'll respond promptly and guide you through the next steps with clarity and care.</p>
                 </div>
               </div>
             </div>
@@ -62,19 +62,19 @@
             <h3 class="text-2xl font-bold text-gray-900 mb-6">Why Choose Us</h3>
             <ul class="space-y-4">
               <li class="flex items-start space-x-3">
-                <Icon name="mdi:check-circle" class="text-green-600 mt-1 flex-shrink-0" />
+                <Icon name="mdi:check-circle" class="text-lucerna-primary mt-1 flex-shrink-0" />
                 <span class="text-gray-700">Free initial consultation to understand your needs</span>
               </li>
               <li class="flex items-start space-x-3">
-                <Icon name="mdi:check-circle" class="text-green-600 mt-1 flex-shrink-0" />
+                <Icon name="mdi:check-circle" class="text-lucerna-primary mt-1 flex-shrink-0" />
                 <span class="text-gray-700">Personalized care plans tailored to your family</span>
               </li>
               <li class="flex items-start space-x-3">
-                <Icon name="mdi:check-circle" class="text-green-600 mt-1 flex-shrink-0" />
+                <Icon name="mdi:check-circle" class="text-lucerna-primary mt-1 flex-shrink-0" />
                 <span class="text-gray-700">24/7 support for families in the diaspora</span>
               </li>
               <li class="flex items-start space-x-3">
-                <Icon name="mdi:check-circle" class="text-green-600 mt-1 flex-shrink-0" />
+                <Icon name="mdi:check-circle" class="text-lucerna-primary mt-1 flex-shrink-0" />
                 <span class="text-gray-700">Culturally sensitive care that respects Zimbabwean traditions</span>
               </li>
             </ul>
@@ -92,7 +92,7 @@
                   id="firstName"
                   v-model="form.firstName"
                   type="text"
-                  class="input-field focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  class="input-field focus:ring-2 focus:ring-lucerna-primary focus:border-transparent"
                   required
                 />
               </div>
@@ -102,7 +102,7 @@
                   id="lastName"
                   v-model="form.lastName"
                   type="text"
-                  class="input-field focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  class="input-field focus:ring-2 focus:ring-lucerna-primary focus:border-transparent"
                   required
                 />
               </div>
@@ -114,7 +114,7 @@
                 id="email"
                 v-model="form.email"
                 type="email"
-                class="input-field focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                class="input-field focus:ring-2 focus:ring-lucerna-primary focus:border-transparent"
                 required
               />
             </div>
@@ -125,7 +125,7 @@
                 id="phone"
                 v-model="form.phone"
                 type="tel"
-                class="input-field focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                class="input-field focus:ring-2 focus:ring-lucerna-primary focus:border-transparent"
               />
             </div>
 
@@ -134,7 +134,7 @@
               <select
                 id="location"
                 v-model="form.location"
-                class="input-field focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                class="input-field focus:ring-2 focus:ring-lucerna-primary focus:border-transparent"
                 required
               >
                 <option value="" class="text-gray-900">Select your location</option>
@@ -155,7 +155,7 @@
               <select
                 id="serviceInterest"
                 v-model="form.serviceInterest"
-                class="input-field focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                class="input-field focus:ring-2 focus:ring-lucerna-primary focus:border-transparent"
                 required
               >
                 <option value="" class="text-gray-900">Select a service</option>
@@ -179,7 +179,7 @@
                 id="message"
                 v-model="form.message"
                 rows="4"
-                class="input-field focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                class="input-field focus:ring-2 focus:ring-lucerna-primary focus:border-transparent"
                 placeholder="Tell us about your care needs and how we can help..."
                 required
               ></textarea>
@@ -238,11 +238,11 @@ useHead({ title: 'Contact Us - Lucerna & Stern Health' })
 
 <style scoped>
 .input-field {
-  @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors bg-white text-gray-900;
+  @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lucerna-primary focus:border-transparent transition-colors bg-white text-gray-900;
 }
 
 .btn-primary {
-  @apply inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium;
+  @apply inline-flex items-center px-4 py-2 bg-lucerna-primary text-white rounded-lg hover:bg-lucerna-primary-dark transition-colors font-medium;
 }
 
 .form-label {

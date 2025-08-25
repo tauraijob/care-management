@@ -1,4 +1,4 @@
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
 
 export default defineEventHandler(async (event) => {
@@ -170,6 +170,7 @@ export default defineEventHandler(async (event) => {
 
         // Calculate growth rate (compare with previous period)
         const previousStart = new Date(start.getTime() - (end.getTime() - start.getTime()))
+        const prisma = await getPrisma()
         const previousRevenue = await prisma.payment.aggregate({
             where: {
                 status: 'COMPLETED',

@@ -1,5 +1,5 @@
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
         if (!user || user.role !== 'ADMIN') throw createError({ statusCode: 403, statusMessage: 'Admin access required' })
         
         // Fetch real reports from database
+        const prisma = await getPrisma()
         const reports = await prisma.report.findMany({
             orderBy: { generatedAt: 'desc' },
             include: {

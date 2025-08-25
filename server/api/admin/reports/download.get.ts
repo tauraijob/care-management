@@ -1,5 +1,5 @@
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib'
 
 export default defineEventHandler(async (event) => {
@@ -14,6 +14,7 @@ export default defineEventHandler(async (event) => {
         if (!id) throw createError({ statusCode: 400, statusMessage: 'Missing report id' })
 
         // Fetch report from database
+        const prisma = await getPrisma()
         const report = await prisma.report.findUnique({
             where: { id: id as string },
             include: {

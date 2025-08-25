@@ -1,5 +1,5 @@
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
         if (!user || user.role !== 'ADMIN') throw createError({ statusCode: 403, statusMessage: 'Admin access required' })
 
         // Completion Rate
+        const prisma = await getPrisma()
         const totalBookings = await prisma.booking.count()
         const completedBookings = await prisma.booking.count({ where: { status: 'COMPLETED' } })
         const completionRate = totalBookings > 0 ? ((completedBookings / totalBookings) * 100).toFixed(1) : '0.0'

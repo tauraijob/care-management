@@ -1,6 +1,6 @@
 import { defineEventHandler, readBody, createError } from 'h3'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -53,6 +53,7 @@ export default defineEventHandler(async (event) => {
         }
 
         // Validate that client exists
+        const prisma = await getPrisma()
         const client = await prisma.user.findUnique({
             where: { id: clientId, role: 'CLIENT' }
         })

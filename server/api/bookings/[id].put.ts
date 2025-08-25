@@ -1,4 +1,4 @@
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { getUserFromToken } from '~/server/utils/auth'
 import { getHeader } from 'h3'
 
@@ -27,6 +27,7 @@ export default defineEventHandler(async (event) => {
         const { status, carerId, notes } = body
 
         // Find the booking
+        const prisma = await getPrisma()
         const existingBooking = await prisma.booking.findUnique({
             where: { id: bookingId },
             include: {

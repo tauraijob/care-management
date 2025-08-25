@@ -1,5 +1,5 @@
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { createError } from 'h3'
 
 export default defineEventHandler(async (event) => {
@@ -16,6 +16,7 @@ export default defineEventHandler(async (event) => {
         const endDate = query.endDate ? new Date(query.endDate as string) : new Date(startDate.getTime() + 14 * 24 * 60 * 60 * 1000) // default 2 weeks
 
         // Fetch bookings for this carer
+        const prisma = await getPrisma()
         const bookings = await prisma.booking.findMany({
             where: {
                 carerId: user.id,

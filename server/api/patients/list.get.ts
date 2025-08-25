@@ -1,4 +1,4 @@
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
 
 export default defineEventHandler(async (event) => {
@@ -32,6 +32,7 @@ export default defineEventHandler(async (event) => {
             whereClause.clientId = user.id
         } else if (user.role === 'CARER') {
             // Carers can see patients they have bookings for
+        const prisma = await getPrisma()
             const carerBookings = await prisma.booking.findMany({
                 where: { carerId: user.id },
                 select: { patientId: true }

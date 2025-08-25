@@ -1,5 +1,5 @@
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -13,6 +13,7 @@ export default defineEventHandler(async (event) => {
         if (!id) throw createError({ statusCode: 400, statusMessage: 'Missing report id' })
         
         // Delete report from database
+        const prisma = await getPrisma()
         await prisma.report.delete({
             where: { id: id as string }
         })

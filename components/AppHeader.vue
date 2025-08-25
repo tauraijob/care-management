@@ -28,59 +28,58 @@
           <!-- Logo -->
           <div class="flex items-center">
             <NuxtLink to="/" class="flex items-center">
-              <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-10 w-auto" />
+              <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-10 w-auto rounded-[10px]" />
             </NuxtLink>
           </div>
 
           <!-- Desktop Navigation Menu -->
           <nav class="hidden md:flex items-center space-x-8">
-            <NuxtLink to="/" class="text-gray-600 hover:text-blue-600 transition-colors">Home</NuxtLink>
+            <NuxtLink to="/" class="text-gray-600 hover:text-lucerna-primary transition-colors">Home</NuxtLink>
             
             <!-- About Us Dropdown -->
             <div class="relative group">
-              <button class="text-gray-600 hover:text-blue-600 transition-colors flex items-center">
+              <button class="text-gray-600 hover:text-lucerna-primary transition-colors flex items-center">
                 About Us
                 <Icon name="mdi:chevron-down" class="ml-1 text-sm" />
               </button>
               <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div class="py-2">
-                  <NuxtLink to="/about#story" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">Our Story</NuxtLink>
-                  <NuxtLink to="/about#team" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">Our Team</NuxtLink>
-                  <NuxtLink to="/about#why" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">Why Lucerna & Stern Health</NuxtLink>
+                  <NuxtLink to="/about#story" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-background hover:text-lucerna-primary">Our Story</NuxtLink>
+                  <NuxtLink to="/about#team" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-background hover:text-lucerna-primary">Our Team</NuxtLink>
+                  <NuxtLink to="/about#why" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-background hover:text-lucerna-primary">Why Lucerna & Stern Health</NuxtLink>
                 </div>
               </div>
             </div>
 
             <!-- Services Dropdown -->
             <div class="relative group">
-              <button class="text-gray-600 hover:text-blue-600 transition-colors flex items-center">
+              <button class="text-gray-600 hover:text-lucerna-primary transition-colors flex items-center">
                 Services
                 <Icon name="mdi:chevron-down" class="ml-1 text-sm" />
               </button>
               <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div class="py-2">
-                  <NuxtLink to="/services#home-health" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">Home Health Aide Services</NuxtLink>
-                  <NuxtLink to="/services#concierge" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">Concierge Services</NuxtLink>
-                  <NuxtLink to="/services#chronic" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">Chronic Conditions</NuxtLink>
+                  <NuxtLink to="/services#home-health" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-background hover:text-lucerna-primary">Home Health Aide Services</NuxtLink>
+                  <NuxtLink to="/services#concierge" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-background hover:text-lucerna-primary">Concierge Services</NuxtLink>
+                  <NuxtLink to="/services#chronic" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-background hover:text-lucerna-primary">Chronic Conditions</NuxtLink>
                 </div>
               </div>
             </div>
 
-            <NuxtLink to="/technology" class="text-gray-600 hover:text-blue-600 transition-colors">Technology</NuxtLink>
-            <NuxtLink to="/blog" class="text-gray-600 hover:text-blue-600 transition-colors">Blog</NuxtLink>
-            <NuxtLink to="/support" class="text-gray-600 hover:text-blue-600 transition-colors">FAQs</NuxtLink>
-            <NuxtLink to="/contact" class="text-gray-600 hover:text-blue-600 transition-colors">Contact</NuxtLink>
+            <NuxtLink to="/technology" class="text-gray-600 hover:text-lucerna-primary transition-colors">Technology</NuxtLink>
+            <NuxtLink to="/support" class="text-gray-600 hover:text-lucerna-primary transition-colors">FAQs</NuxtLink>
+            <NuxtLink to="/contact" class="text-gray-600 hover:text-lucerna-primary transition-colors">Contact</NuxtLink>
           </nav>
 
           <!-- Desktop Auth Buttons -->
           <div class="hidden md:flex items-center space-x-4">
-            <NuxtLink to="/login" class="text-gray-600 hover:text-blue-600 transition-colors">Login</NuxtLink>
+            <NuxtLink to="/login" class="text-gray-600 hover:text-lucerna-primary transition-colors">Login</NuxtLink>
             <NuxtLink to="/register" class="btn-primary">Get Started</NuxtLink>
           </div>
 
           <!-- Mobile menu button -->
           <div class="md:hidden flex items-center">
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-gray-600 hover:text-blue-600">
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-gray-600 hover:text-lucerna-primary">
               <Icon v-if="!mobileMenuOpen" name="mdi:menu" class="w-6 h-6" />
               <Icon v-else name="mdi:close" class="w-6 h-6" />
             </button>
@@ -90,15 +89,15 @@
         <!-- Mobile Navigation Menu -->
         <div v-if="mobileMenuOpen" class="md:hidden">
           <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
-            <NuxtLink to="/" @click="mobileMenuOpen = false" class="block px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Home</NuxtLink>
+            <NuxtLink to="/" @click="mobileMenuOpen = false" class="block px-3 py-2 text-gray-600 hover:text-lucerna-primary hover:bg-lucerna-background rounded-md">Home</NuxtLink>
             
             <!-- Mobile About Us -->
             <div class="px-3 py-2">
               <div class="text-gray-600 font-medium mb-2">About Us</div>
               <div class="pl-4 space-y-1">
-                <NuxtLink to="/about#story" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-blue-600">Our Story</NuxtLink>
-                <NuxtLink to="/about#team" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-blue-600">Our Team</NuxtLink>
-                <NuxtLink to="/about#why" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-blue-600">Why Lucerna & Stern Health</NuxtLink>
+                <NuxtLink to="/about#story" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Our Story</NuxtLink>
+                <NuxtLink to="/about#team" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Our Team</NuxtLink>
+                <NuxtLink to="/about#why" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Why Lucerna & Stern Health</NuxtLink>
               </div>
             </div>
 
@@ -106,21 +105,20 @@
             <div class="px-3 py-2">
               <div class="text-gray-600 font-medium mb-2">Services</div>
               <div class="pl-4 space-y-1">
-                <NuxtLink to="/services#home-health" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-blue-600">Home Health Aide Services</NuxtLink>
-                <NuxtLink to="/services#concierge" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-blue-600">Concierge Services</NuxtLink>
-                <NuxtLink to="/services#chronic" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-blue-600">Chronic Conditions</NuxtLink>
+                <NuxtLink to="/services#home-health" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Home Health Aide Services</NuxtLink>
+                <NuxtLink to="/services#concierge" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Concierge Services</NuxtLink>
+                <NuxtLink to="/services#chronic" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Chronic Conditions</NuxtLink>
               </div>
             </div>
 
-            <NuxtLink to="/technology" @click="mobileMenuOpen = false" class="block px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Technology</NuxtLink>
-            <NuxtLink to="/blog" @click="mobileMenuOpen = false" class="block px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Blog</NuxtLink>
-            <NuxtLink to="/support" @click="mobileMenuOpen = false" class="block px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">FAQs</NuxtLink>
-            <NuxtLink to="/contact" @click="mobileMenuOpen = false" class="block px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Contact</NuxtLink>
+            <NuxtLink to="/technology" @click="mobileMenuOpen = false" class="block px-3 py-2 text-gray-600 hover:text-lucerna-primary hover:bg-lucerna-background rounded-md">Technology</NuxtLink>
+            <NuxtLink to="/support" @click="mobileMenuOpen = false" class="block px-3 py-2 text-gray-600 hover:text-lucerna-primary hover:bg-lucerna-background rounded-md">FAQs</NuxtLink>
+            <NuxtLink to="/contact" @click="mobileMenuOpen = false" class="block px-3 py-2 text-gray-600 hover:text-lucerna-primary hover:bg-lucerna-background rounded-md">Contact</NuxtLink>
             
             <!-- Mobile Auth Buttons -->
             <div class="pt-4 pb-2 space-y-2">
-              <NuxtLink to="/login" @click="mobileMenuOpen = false" class="block px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md">Login</NuxtLink>
-              <NuxtLink to="/register" @click="mobileMenuOpen = false" class="block px-3 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-md text-center">Get Started</NuxtLink>
+              <NuxtLink to="/login" @click="mobileMenuOpen = false" class="block px-3 py-2 text-gray-600 hover:text-lucerna-primary hover:bg-lucerna-background rounded-md">Login</NuxtLink>
+              <NuxtLink to="/register" @click="mobileMenuOpen = false" class="block px-3 py-2 bg-lucerna-primary text-white hover:bg-lucerna-primary-dark rounded-md text-center">Get Started</NuxtLink>
             </div>
           </div>
         </div>

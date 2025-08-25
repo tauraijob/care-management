@@ -4,12 +4,12 @@
     <PublicHeader />
     
     <!-- Hero Section -->
-    <section class="relative h-96 bg-gradient-to-r from-blue-900 to-green-800 flex items-center justify-center">
-      <div class="absolute inset-0 bg-black/40"></div>
+    <section class="relative h-96 flex items-center justify-center" style="background-image: url('/uploads/pic1.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+      <div class="absolute inset-0 bg-black/50"></div>
       <div class="relative z-10 text-center text-white px-4">
         <h1 class="text-5xl font-bold mb-4">About Us</h1>
-        <p class="text-2xl text-blue-100">Global Insight. Local Compassion</p>
-        <p class="text-lg text-blue-200">Care inspired by international standards, tailored for Zimbabwe.</p>
+        <p class="text-2xl text-white/90">Global Insight. Local Compassion</p>
+        <p class="text-lg text-white/80">Care inspired by international standards, tailored for Zimbabwe.</p>
       </div>
     </section>
 

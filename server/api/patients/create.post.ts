@@ -1,4 +1,4 @@
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
 
 export default defineEventHandler(async (event) => {
@@ -47,6 +47,7 @@ export default defineEventHandler(async (event) => {
         }
 
         // Create patient
+        const prisma = await getPrisma()
         const patient = await prisma.patient.create({
             data: {
                 clientId: user.id,

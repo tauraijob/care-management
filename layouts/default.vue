@@ -9,13 +9,13 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white">
+    <footer class="bg-lucerna-primary text-white">
       <div class="max-w-7xl mx-auto px-4 py-12">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
           <!-- Company Info -->
           <div class="col-span-1 md:col-span-2">
             <div class="flex items-center space-x-2 mb-4">
-              <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-8 w-auto" />
+              <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-8 w-auto rounded-[10px]" />
             </div>
             <p class="text-gray-300 mb-4">
               Professional care services with Zimbabwean heart. Bridging global standards with local delivery.
@@ -60,7 +60,7 @@
           </div>
         </div>
 
-        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <div class="border-t border-white/20 mt-8 pt-8 text-center text-white/80">
           <p>&copy; 2024 Lucerna & Stern Health. All rights reserved.</p>
         </div>
       </div>

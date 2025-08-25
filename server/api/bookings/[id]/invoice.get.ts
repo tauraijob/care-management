@@ -1,6 +1,6 @@
 import { defineEventHandler, createError, setHeader } from 'h3'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { getRouterParam } from 'h3'
 
 export default defineEventHandler(async (event) => {
@@ -30,6 +30,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Check if booking exists and belongs to this client
+        const prisma = await getPrisma()
     const booking = await prisma.booking.findFirst({
       where: {
         id: bookingId,

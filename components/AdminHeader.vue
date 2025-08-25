@@ -5,7 +5,7 @@
         <!-- Logo and Brand -->
         <div class="flex items-center">
           <NuxtLink to="/admin/dashboard" class="flex items-center">
-            <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-10 w-auto" />
+            <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-10 w-auto rounded-[10px]" />
           </NuxtLink>
         </div>
         
@@ -14,7 +14,7 @@
           <!-- Mobile Menu Button -->
           <button 
             @click="$emit('toggleSidebar')" 
-            class="lg:hidden p-2 text-gray-600 hover:text-green-600 transition-colors duration-200 hover:bg-green-50 rounded-lg"
+            class="lg:hidden p-2 text-gray-600 hover:text-lucerna-primary transition-colors duration-200 hover:bg-lucerna-background rounded-lg"
           >
             <span class="text-xl">☰</span>
           </button>
@@ -22,7 +22,7 @@
           <!-- Notifications -->
           <button 
             @click="notificationsOpen = !notificationsOpen" 
-            class="relative p-2 text-gray-600 hover:text-green-600 transition-colors duration-200 hover:bg-green-50 rounded-lg"
+            class="relative p-2 text-gray-600 hover:text-lucerna-primary transition-colors duration-200 hover:bg-lucerna-background rounded-lg"
           >
             <Icon name="mdi:bell" class="text-xl" />
             <span v-if="unreadNotifications > 0" class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 animate-pulse"></span>
@@ -34,7 +34,7 @@
               @click="userMenuOpen = !userMenuOpen" 
               class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 transition-colors duration-200 p-2 rounded-lg hover:bg-gray-50"
             >
-              <div class="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full flex items-center justify-center font-semibold shadow-lg">
+              <div class="w-10 h-10 bg-lucerna-primary text-white rounded-full flex items-center justify-center font-semibold shadow-lg">
                 {{ userInitials }}
               </div>
               <div class="hidden md:block text-left">

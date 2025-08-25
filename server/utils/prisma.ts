@@ -1,9 +1,8 @@
-import { PrismaClient } from '@prisma/client'
+let prismaInstance: any | undefined
 
-const globalForPrisma = globalThis as unknown as {
-    prisma: PrismaClient | undefined
+export const getPrisma = async (): Promise<any> => {
+	if (prismaInstance) return prismaInstance
+	const { PrismaClient } = await import('@prisma/client')
+	prismaInstance = new PrismaClient()
+	return prismaInstance
 }
-
-export const prisma = globalForPrisma.prisma ?? new PrismaClient()
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma

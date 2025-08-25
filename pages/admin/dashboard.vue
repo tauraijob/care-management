@@ -8,14 +8,14 @@
   <div v-else class="max-w-7xl mx-auto">
         <!-- Welcome Section -->
         <div class="mb-8">
-          <div class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white shadow-xl">
+          <div class="bg-lucerna-primary rounded-2xl p-8 text-white shadow-xl">
             <div class="flex items-center justify-between">
               <div>
                 <h1 class="text-3xl font-bold mb-2">
-                  Welcome back, {{ user.firstName }}! <Icon name="mdi:lightning-bolt" class="inline" />
+                  Welcome back, {{ user.firstName }}!
                 </h1>
-                <p class="text-green-100 text-lg">Here's your platform overview and management dashboard</p>
-                <div class="flex items-center mt-4 space-x-4">
+                <p class="text-white/80 text-lg">Here is today’s overview</p>
+                <div class="flex items-center mt-4 space-x-4 text-white/80">
                   <div class="flex items-center space-x-2">
                     <Icon name="mdi:calendar" class="text-lg" />
                     <span class="text-sm">{{ new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</span>
@@ -27,7 +27,7 @@
                 </div>
               </div>
               <div class="hidden lg:block">
-                <div class="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
+                <div class="w-24 h-24 bg-white/15 rounded-full flex items-center justify-center">
                   <Icon name="mdi:lightning-bolt" class="text-white text-4xl" />
                 </div>
               </div>
@@ -35,166 +35,43 @@
           </div>
         </div>
 
-        <!-- Quick Actions -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <NuxtLink to="/admin/users/create" class="group bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
-            <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Icon name="mdi:account-plus" class="text-white text-xl" />
-                </div>
-              </div>
-              <div class="ml-4">
-                <p class="text-sm font-semibold text-gray-900 group-hover:text-green-600 transition-colors">Add User</p>
-                <p class="text-sm text-gray-500">Create new user account</p>
-              </div>
-            </div>
-          </NuxtLink>
-
-          <NuxtLink to="/admin/bookings" class="group bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
-            <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Icon name="mdi:calendar" class="text-white text-xl" />
-                </div>
-              </div>
-              <div class="ml-4">
-                <p class="text-sm font-semibold text-gray-900 group-hover:text-green-600 transition-colors">Manage Bookings</p>
-                <p class="text-sm text-gray-500">Review and approve bookings</p>
-              </div>
-            </div>
-          </NuxtLink>
-
-          <NuxtLink to="/admin/reports" class="group bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
-            <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Icon name="mdi:chart-line" class="text-white text-xl" />
-                </div>
-              </div>
-              <div class="ml-4">
-                <p class="text-sm font-semibold text-gray-900 group-hover:text-green-600 transition-colors">View Reports</p>
-                <p class="text-sm text-gray-500">Analytics and insights</p>
-              </div>
-            </div>
-          </NuxtLink>
-
-          <NuxtLink to="/admin/settings" class="group bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
-            <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Icon name="mdi:cog" class="text-white text-xl" />
-                </div>
-              </div>
-              <div class="ml-4">
-                <p class="text-sm font-semibold text-gray-900 group-hover:text-green-600 transition-colors">Settings</p>
-                <p class="text-sm text-gray-500">Platform configuration</p>
-              </div>
-            </div>
-          </NuxtLink>
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <StatCard label="Total Users" :value="dashboardData?.data?.overview?.totalUsers || 0" icon="mdi:account-group" />
+          <StatCard label="Bookings Today" :value="dashboardData?.data?.overview?.todayBookings || 0" icon="mdi:calendar-today" />
+          <StatCard label="Revenue (Today)" :value="formatCurrency(dashboardData?.data?.overview?.todayRevenue || 0)" icon="mdi:cash" />
+          <StatCard label="Total Revenue" :value="formatCurrency(dashboardData?.data?.overview?.totalRevenue || 0)" icon="mdi:currency-usd" />
         </div>
 
-        <!-- Dashboard Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-            <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                  <Icon name="mdi:account-group" class="text-blue-600 text-xl" />
-                </div>
+        <!-- Charts + Quick Actions -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div class="lg:col-span-2 bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-gray-900">Revenue</h3>
+              <div class="flex items-center gap-2">
+                <button @click="revenueRange = '7d'" :class="rangeBtnClass('7d')">7d</button>
+                <button @click="revenueRange = '30d'" :class="rangeBtnClass('30d')">30d</button>
+                <button @click="revenueRange = '6mo'" :class="rangeBtnClass('6mo')">6mo</button>
               </div>
-              <div class="ml-4">
-                <p class="text-sm font-medium text-gray-500">Total Users</p>
-                <p class="text-2xl font-bold text-gray-900">{{ dashboardData?.data?.overview?.totalUsers || 0 }}</p>
-              </div>
+            </div>
+            <MiniLineChart :labels="filteredRevenueLabels" :data="filteredRevenueSeries" />
+            <div class="mt-3 text-xs text-gray-500 flex justify-between">
+              <span>Total: {{ formatCurrency(totalFilteredRevenue) }}</span>
+              <span>Avg/day: {{ formatCurrency(avgFilteredRevenue) }}</span>
             </div>
           </div>
-
           <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-            <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                  <Icon name="mdi:calendar-check" class="text-green-600 text-xl" />
-                </div>
-              </div>
-              <div class="ml-4">
-                <p class="text-sm font-medium text-gray-500">Total Bookings</p>
-                <p class="text-2xl font-bold text-gray-900">{{ dashboardData?.data?.overview?.totalBookings || 0 }}</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-            <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                  <Icon name="mdi:currency-usd" class="text-purple-600 text-xl" />
-                </div>
-              </div>
-              <div class="ml-4">
-                <p class="text-sm font-medium text-gray-500">Total Revenue</p>
-                <p class="text-2xl font-bold text-gray-900">{{ formatCurrency(dashboardData?.data?.overview?.totalRevenue || 0) }}</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-            <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                  <Icon name="mdi:star" class="text-yellow-600 text-xl" />
-                </div>
-              </div>
-              <div class="ml-4">
-                <p class="text-sm font-medium text-gray-500">Total Patients</p>
-                <p class="text-2xl font-bold text-gray-900">{{ dashboardData?.data?.overview?.totalPatients || 0 }}</p>
-              </div>
-            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Booking Status</h3>
+            <DonutChart :labels="statusLabels" :data="statusSeries" />
           </div>
         </div>
 
-        <!-- Additional Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-            <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
-                  <Icon name="mdi:account-heart" class="text-indigo-600 text-xl" />
-                </div>
-              </div>
-              <div class="ml-4">
-                <p class="text-sm font-medium text-gray-500">Active Carers</p>
-                <p class="text-2xl font-bold text-gray-900">{{ dashboardData?.data?.statistics?.users?.carer || 0 }}</p>
-              </div>
-            </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div>
+            <AlertBanner :items="alerts" />
           </div>
-
-          <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-            <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center">
-                  <Icon name="mdi:account" class="text-pink-600 text-xl" />
-                </div>
-              </div>
-              <div class="ml-4">
-                <p class="text-sm font-medium text-gray-500">Active Clients</p>
-                <p class="text-2xl font-bold text-gray-900">{{ dashboardData?.data?.statistics?.users?.client || 0 }}</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-            <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
-                  <Icon name="mdi:calendar-clock" class="text-orange-600 text-xl" />
-                </div>
-              </div>
-              <div class="ml-4">
-                <p class="text-sm font-medium text-gray-500">Pending Bookings</p>
-                <p class="text-2xl font-bold text-gray-900">{{ dashboardData?.data?.statistics?.bookings?.pending || 0 }}</p>
-              </div>
-            </div>
+          <div class="lg:col-span-2">
+            <QuickActions />
           </div>
         </div>
 
@@ -212,10 +89,11 @@
                   <p class="text-xs text-gray-500">{{ formatDate(booking.startDate) }} - {{ booking.status }}</p>
                 </div>
                 <span class="px-2 py-1 text-xs font-medium rounded-full" :class="{
-                  'bg-green-100 text-green-800': booking.status === 'CONFIRMED',
+                  'bg-green-100 text-green-800': booking.status === 'CONFIRMED' || booking.status === 'COMPLETED',
                   'bg-yellow-100 text-yellow-800': booking.status === 'PENDING',
-                  'bg-blue-100 text-blue-800': booking.status === 'COMPLETED',
-                  'bg-red-100 text-red-800': booking.status === 'CANCELLED'
+                  'bg-blue-100 text-blue-800': booking.status === 'IN_PROGRESS' || booking.status === 'IN PROGRESS',
+                  'bg-red-100 text-red-800': booking.status === 'CANCELLED',
+                  'bg-gray-100 text-gray-800': !['CONFIRMED','COMPLETED','PENDING','IN_PROGRESS','IN PROGRESS','CANCELLED'].includes(booking.status)
                 }">
                   {{ booking.status }}
                 </span>
@@ -278,6 +156,11 @@
 </template>
 
 <script setup>
+import StatCard from '~/components/dashboard/StatCard.vue'
+import MiniLineChart from '~/components/dashboard/MiniLineChart.vue'
+import DonutChart from '~/components/dashboard/DonutChart.vue'
+import QuickActions from '~/components/dashboard/QuickActions.vue'
+import AlertBanner from '~/components/dashboard/AlertBanner.vue'
 // Apply admin layout
 definePageMeta({ 
   layout: 'admin'
@@ -329,4 +212,40 @@ const formatDate = (dateString) => {
     return 'Invalid Date'
   }
 }
+
+// Derived series for charts
+const revenueRaw = computed(() => (dashboardData.value?.data?.revenueTrend || []).map(r => ({ date: new Date(r.date), revenue: r.revenue })))
+const revenueRange = ref('6mo')
+const filteredRevenue = computed(() => {
+  const now = new Date()
+  let start
+  if (revenueRange.value === '7d') start = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+  else if (revenueRange.value === '30d') start = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
+  else start = new Date(now.getTime() - 6 * 30 * 24 * 60 * 60 * 1000)
+  return revenueRaw.value.filter(p => p.date >= start)
+})
+const filteredRevenueLabels = computed(() => filteredRevenue.value.map(r => r.date.toLocaleDateString('en-US', { month: 'short', day: '2-digit' })))
+const filteredRevenueSeries = computed(() => filteredRevenue.value.map(r => r.revenue))
+const totalFilteredRevenue = computed(() => filteredRevenue.value.reduce((a, b) => a + (b.revenue || 0), 0))
+const avgFilteredRevenue = computed(() => {
+  if (!filteredRevenue.value.length) return 0
+  return totalFilteredRevenue.value / filteredRevenue.value.length
+})
+
+const rangeBtnClass = (key) => [
+  'px-2 py-1 text-xs rounded-md border',
+  revenueRange.value === key ? 'bg-lucerna-primary text-white border-lucerna-primary' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+]
+
+const statusLabels = computed(() => Object.keys(dashboardData.value?.data?.statistics?.bookings || {}))
+const statusSeries = computed(() => Object.values(dashboardData.value?.data?.statistics?.bookings || {}))
+
+const alerts = computed(() => {
+  const list = []
+  const pending = dashboardData.value?.data?.statistics?.bookings?.pending || 0
+  if (pending > 0) list.push(`${pending} pending bookings require approval`)
+  const failed = dashboardData.value?.data?.statistics?.payments?.failed?.count || 0
+  if (failed > 0) list.push(`${failed} failed payments need review`)
+  return list
+})
 </script>

@@ -1,8 +1,6 @@
 import { hash, compare } from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { getPrisma } from '../../utils/prisma'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -35,6 +33,7 @@ export default defineEventHandler(async (event) => {
         }
 
         // Check if user already exists
+        const prisma = await getPrisma()
         const existingUser = await prisma.user.findUnique({
             where: { email }
         })

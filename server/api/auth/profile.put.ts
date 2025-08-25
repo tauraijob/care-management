@@ -1,8 +1,6 @@
 import { hash } from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { getPrisma } from '../../utils/prisma'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -49,6 +47,7 @@ export default defineEventHandler(async (event) => {
         }
 
         // Update user profile
+        const prisma = await getPrisma()
         const updatedUser = await prisma.user.update({
             where: { id: decoded.userId },
             data: {

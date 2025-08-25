@@ -1,4 +1,4 @@
-import { prisma } from '~/server/utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
 
 export default defineEventHandler(async (event) => {
@@ -40,6 +40,7 @@ export default defineEventHandler(async (event) => {
             whereClause.status = status
         }
 
+        const prisma = await getPrisma()
         const [bookings, total] = await Promise.all([
             prisma.booking.findMany({
                 where: whereClause,

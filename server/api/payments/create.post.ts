@@ -1,7 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { getPrisma } from '../../utils/prisma'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -62,6 +60,7 @@ export default defineEventHandler(async (event) => {
         }
 
         // Verify booking exists and belongs to user
+        const prisma = await getPrisma()
         const booking = await prisma.booking.findFirst({
             where: {
                 id: bookingId,
