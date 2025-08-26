@@ -1,5 +1,6 @@
 import { getPrisma } from '~/server/utils/prisma'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
+import { createError, getQuery } from 'h3'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -27,18 +28,27 @@ export default defineEventHandler(async (event) => {
 
         let whereClause: any = {}
 
+        // Initialize Prisma
+        const prisma = await getPrisma()
+
         // Filter by user role
         if (user.role === 'CLIENT') {
             whereClause.clientId = user.id
         } else if (user.role === 'CARER') {
             // Carers can see patients they have bookings for
-        const prisma = await getPrisma()
             const carerBookings = await prisma.booking.findMany({
                 where: { carerId: user.id },
                 select: { patientId: true }
             })
-            const patientIds = carerBookings.map(booking => booking.patientId)
-            whereClause.id = { in: patientIds }
+            const patientIds = carerBookings
+                .map(booking => booking.patientId)
+                .filter((id): id is string => Boolean(id))
+            if (patientIds.length > 0) {
+                whereClause.id = { in: patientIds }
+            } else {
+                // If no related patients, return empty result via impossible condition
+                whereClause.id = { in: ['__none__'] }
+            }
         }
         // ADMIN can see all patients
 

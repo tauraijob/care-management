@@ -19,8 +19,8 @@
       <nav class="flex-1 px-4 py-6 space-y-2">
         <NuxtLink 
           to="/client/dashboard" 
-          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all duration-200 font-medium"
-          :class="{ 'bg-green-50 text-green-600 border-r-2 border-green-600': $route.path === '/client/dashboard' }"
+          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-white hover:bg-lucerna-primary rounded-xl transition-all duration-200 font-medium"
+          :class="{ 'bg-lucerna-primary text-white border-r-2 border-lucerna-primary': $route.path === '/client/dashboard' }"
         >
           <Icon name="mdi:view-dashboard" class="text-lg" />
           <span>Dashboard</span>
@@ -28,8 +28,8 @@
         
         <NuxtLink 
           to="/client/bookings" 
-          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all duration-200 font-medium"
-          :class="{ 'bg-green-50 text-green-600 border-r-2 border-green-600': $route.path.startsWith('/client/bookings') }"
+          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-white hover:bg-lucerna-primary rounded-xl transition-all duration-200 font-medium"
+          :class="{ 'bg-lucerna-primary text-white border-r-2 border-lucerna-primary': $route.path.startsWith('/client/bookings') }"
         >
           <Icon name="mdi:calendar" class="text-lg" />
           <span>My Bookings</span>
@@ -37,8 +37,8 @@
         
         <NuxtLink 
           to="/client/patients" 
-          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all duration-200 font-medium"
-          :class="{ 'bg-green-50 text-green-600 border-r-2 border-green-600': $route.path.startsWith('/client/patients') }"
+          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-white hover:bg-lucerna-primary rounded-xl transition-all duration-200 font-medium"
+          :class="{ 'bg-lucerna-primary text-white border-r-2 border-lucerna-primary': $route.path.startsWith('/client/patients') }"
         >
           <Icon name="mdi:account-group" class="text-lg" />
           <span>Patients</span>
@@ -46,8 +46,8 @@
         
         <NuxtLink 
           to="/client/payments" 
-          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all duration-200 font-medium"
-          :class="{ 'bg-green-50 text-green-600 border-r-2 border-green-600': $route.path.startsWith('/client/payments') }"
+          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-white hover:bg-lucerna-primary rounded-xl transition-all duration-200 font-medium"
+          :class="{ 'bg-lucerna-primary text-white border-r-2 border-lucerna-primary': $route.path.startsWith('/client/payments') }"
         >
           <Icon name="mdi:currency-usd" class="text-lg" />
           <span>Payments</span>
@@ -55,8 +55,8 @@
         
         <NuxtLink 
           to="/client/profile" 
-          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all duration-200 font-medium"
-          :class="{ 'bg-green-50 text-green-600 border-r-2 border-green-600': $route.path.startsWith('/client/profile') }"
+          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-white hover:bg-lucerna-primary rounded-xl transition-all duration-200 font-medium"
+          :class="{ 'bg-lucerna-primary text-white border-r-2 border-lucerna-primary': $route.path.startsWith('/client/profile') }"
         >
           <Icon name="mdi:account" class="text-lg" />
           <span>Profile</span>
@@ -64,8 +64,8 @@
         
         <NuxtLink 
           to="/client/settings" 
-          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all duration-200 font-medium"
-          :class="{ 'bg-green-50 text-green-600 border-r-2 border-green-600': $route.path.startsWith('/client/settings') }"
+          class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-white hover:bg-lucerna-primary rounded-xl transition-all duration-200 font-medium"
+          :class="{ 'bg-lucerna-primary text-white border-r-2 border-lucerna-primary': $route.path.startsWith('/client/settings') }"
         >
           <Icon name="mdi:cog" class="text-lg" />
           <span>Settings</span>
@@ -78,14 +78,14 @@
         <div class="space-y-2">
           <NuxtLink 
             to="/client/bookings/create" 
-            class="flex items-center space-x-3 px-4 py-2 text-sm text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg transition-all duration-200"
+            class="flex items-center space-x-3 px-4 py-2 text-sm text-gray-600 hover:text-white hover:bg-lucerna-primary rounded-lg transition-all duration-200"
           >
             <Icon name="mdi:calendar-plus" class="text-sm" />
             <span>Book Care</span>
           </NuxtLink>
           <NuxtLink 
             to="/client/patients/create" 
-            class="flex items-center space-x-3 px-4 py-2 text-sm text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg transition-all duration-200"
+            class="flex items-center space-x-3 px-4 py-2 text-sm text-gray-600 hover:text-white hover:bg-lucerna-primary rounded-lg transition-all duration-200"
           >
             <Icon name="mdi:account-plus" class="text-sm" />
             <span>Add Patient</span>

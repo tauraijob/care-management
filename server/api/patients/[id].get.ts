@@ -1,6 +1,6 @@
 import { getPrisma } from '~/server/utils/prisma'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
-import { getRouterParam } from 'h3'
+import { getRouterParam, createError } from 'h3'
 
 export default defineEventHandler(async (event) => {
     try {

@@ -11,19 +11,21 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: true,
     minify: true,
-    compatibilityDate: '2025-08-20',
+    compatibilityDate: '2025-08-26',
     externals: {
       external: ['@prisma/client', 'prisma']
     },
-    security: {
-      headers: {
-        'X-Frame-Options': 'DENY',
-        'X-Content-Type-Options': 'nosniff',
-        'X-XSS-Protection': '1; mode=block',
-        'Referrer-Policy': 'strict-origin-when-cross-origin',
-        'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'none';",
-        'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
-        'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
+    routeRules: {
+      '/**': {
+        headers: {
+          'X-Frame-Options': 'DENY',
+          'X-Content-Type-Options': 'nosniff',
+          'X-XSS-Protection': '1; mode=block',
+          'Referrer-Policy': 'strict-origin-when-cross-origin',
+          'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'none';",
+          'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+          'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
+        }
       }
     }
   },
@@ -53,18 +55,14 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
-        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
-        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
         { rel: 'manifest', href: '/site.webmanifest' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }
       ],
       script: [
-        // Structured data for SEO
         {
           type: 'application/ld+json',
-          children: JSON.stringify({
+          innerHTML: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'MedicalOrganization',
             name: 'Lucerna & Stern Health',
@@ -108,7 +106,6 @@ export default defineNuxtConfig({
     cssPath: '~/assets/css/main.css',
     configPath: 'tailwind.config.js',
     exposeConfig: false,
-    injectPosition: 0,
     viewer: true
   },
 
@@ -136,7 +133,6 @@ export default defineNuxtConfig({
 
   // Sitemap configuration
   sitemap: {
-    siteUrl: 'https://lucernahealth.com',
     exclude: [
       '/admin/**',
       '/client/**',
@@ -222,24 +218,6 @@ export default defineNuxtConfig({
   vue: {
     compilerOptions: {
       isCustomElement: (tag) => tag.startsWith('nuxt-')
-    }
-  },
-
-  // PWA configuration (for future mobile app)
-  pwa: {
-    registerType: 'autoUpdate',
-    workbox: {
-      navigateFallback: '/',
-      globPatterns: ['**/*.{js,css,html,png,svg,ico}']
-    },
-    client: {
-      installPrompt: true
-    },
-    devOptions: {
-      enabled: true,
-      suppressWarnings: true,
-      navigateFallbackAllowlist: [/^\/$/],
-      type: 'module'
     }
   }
 })
