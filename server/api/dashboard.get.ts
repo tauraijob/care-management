@@ -1,5 +1,6 @@
 import { getPrisma } from '~/server/utils/prisma'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
+import { createError } from 'h3'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -23,6 +24,9 @@ export default defineEventHandler(async (event) => {
         // Get current date and date 30 days ago
         const now = new Date()
         const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
+
+        // Initialize Prisma
+        const prisma = await getPrisma()
 
         // Fetch data based on user role
         if (user.role === 'CLIENT') {

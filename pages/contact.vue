@@ -238,7 +238,7 @@ useHead({ title: 'Contact Us - Lucerna & Stern Health' })
 
 <style scoped>
 .input-field {
-  @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lucerna-primary focus:border-transparent transition-colors bg-white text-gray-900;
+  @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lucerna-primary focus:border-transparent transition-colors bg-white text-gray-900 placeholder-gray-500;
 }
 
 .btn-primary {
@@ -247,5 +247,16 @@ useHead({ title: 'Contact Us - Lucerna & Stern Health' })
 
 .form-label {
   @apply block text-sm font-medium text-gray-700 mb-2;
+}
+
+/* Ensure placeholder and option text colors are readable */
+input::placeholder,
+textarea::placeholder {
+  @apply text-gray-500;
+}
+
+select,
+option {
+  @apply text-gray-900;
 }
 </style>
