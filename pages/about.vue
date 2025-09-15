@@ -16,20 +16,27 @@
     <!-- Main Navigation Tabs -->
     <section class="bg-white border-b border-gray-200">
       <div class="max-w-7xl mx-auto px-4">
-        <nav class="flex flex-wrap justify-center space-x-8 py-6">
-          <button 
-            v-for="tab in mainTabs" 
+        <nav class="flex flex-wrap justify-center gap-6 py-6">
+          <NuxtLink
+            v-for="tab in mainTabs"
             :key="tab.id"
-            @click="activeMainTab = tab.id"
+            :to="{ path: '/about', hash: `#${tab.id}` }"
             :class="[
-              'px-4 py-2 text-lg font-medium transition-colors',
-              activeMainTab === tab.id 
-                ? 'text-blue-600 border-b-2 border-blue-600' 
-                : 'text-gray-600 hover:text-blue-600'
+              'px-1 py-2 text-lg font-medium transition-colors focus:outline-none',
+              activeMainTab === tab.id
+                ? 'text-lucerna-primary border-b-2 border-lucerna-primary'
+                : 'text-gray-700 hover:text-lucerna-primary focus:text-lucerna-primary',
             ]"
           >
-            {{ tab.title }}
-          </button>
+            <span
+              :class="[
+                'inline-block pb-1',
+                activeMainTab === tab.id ? 'border-b-2 border-lucerna-primary' : 'border-b-2 border-transparent hover:border-lucerna-primary/80 focus:border-lucerna-primary',
+              ]"
+            >
+              {{ tab.title }}
+            </span>
+          </NuxtLink>
         </nav>
       </div>
     </section>
@@ -37,32 +44,35 @@
     <!-- Content Sections -->
     <div class="max-w-7xl mx-auto px-4 py-16">
       <!-- Our Story -->
-      <div v-if="activeMainTab === 'story'" class="space-y-16">
+      <div v-if="activeMainTab === 'story'" id="story" class="space-y-16">
         <div class="text-center">
-          <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Story</h2>
-          <p class="text-xl text-gray-600">Rooted at Home. Strengthened by the Diaspora.</p>
+          <span class="inline-block text-lucerna-primary font-semibold tracking-wide uppercase bg-lucerna-background rounded-full px-3 py-1 mb-3">Rooted at Home. Strengthened by Diaspora</span>
+          <h2 class="text-4xl font-bold text-gray-900 mb-2">Our Story</h2>
         </div>
 
-        <div class="prose prose-lg max-w-none">
-          <p class="text-lg text-gray-700 leading-relaxed mb-8">
-            Lucerna & Stern Health was founded by a committed group of Zimbabweans, some based right here at home, and others living and working abroad. What binds us together is a shared purpose: to bring high-quality, compassionate care to families across Zimbabwe, inspired by the best practices we've witnessed around the world.
-          </p>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <img src="/uploads/pic1.png" alt="Our Story" class="w-full h-80 object-cover rounded-xl shadow" />
+          <div class="prose prose-lg max-w-none">
+            <p class="text-lg text-gray-700 leading-relaxed mb-8">
+              Lucerna & Stern Health was founded by a committed group of Zimbabweans, some based right here at home, and others living and working abroad. What binds us together is a shared purpose: to bring high-quality, compassionate care to families across Zimbabwe, inspired by the best practices we've witnessed around the world.
+            </p>
 
-          <p class="text-lg text-gray-700 leading-relaxed mb-8">
-            We've experienced first-hand the challenges of caring for loved ones in today's changing world. Many of us have parents, grandparents, and relatives who once relied on the strong, extended family networks that defined Zimbabwean life. But with mass migration, smaller households, and growing health needs, the traditional ways of caring are no longer always possible.
-          </p>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8">
+              We've experienced first-hand the challenges of caring for loved ones in today's changing world. Many of us have parents, grandparents, and relatives who once relied on the strong, extended family networks that defined Zimbabwean life. But with mass migration, smaller households, and growing health needs, the traditional ways of caring are no longer always possible.
+            </p>
 
-          <p class="text-lg text-gray-700 leading-relaxed mb-8">
-            At Lucerna & Stern Health, we are more than care providers. We are sons, daughters, nieces, and nephews who have walked this journey ourselves. We understand what it means to want the best for someone you love, even when you're far away. That's why we've created a service that feels close, personal, and deeply respectful.
-          </p>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8">
+              At Lucerna & Stern Health, we are more than care providers. We are sons, daughters, nieces, and nephews who have walked this journey ourselves. We understand what it means to want the best for someone you love, even when you're far away. That's why we've created a service that feels close, personal, and deeply respectful.
+            </p>
 
-          <p class="text-lg text-gray-700 leading-relaxed mb-8">
-            Educated and trained in Zimbabwe, the UK, and other global health systems, our founders bring decades of combined clinical experience, cultural awareness, and a commitment to quality. Some continue to serve in the NHS and other international care settings, ensuring we stay connected to the highest standards of professional care. But we don't just follow global practices; we adapt them to fit Zimbabwe's context with warmth, practicality, and dignity. Our care is proudly local, yet globally informed.
-          </p>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8">
+              Educated and trained in Zimbabwe, the UK, and other global health systems, our founders bring decades of combined clinical experience, cultural awareness, and a commitment to quality. Some continue to serve in the NHS and other international care settings, ensuring we stay connected to the highest standards of professional care. But we don't just follow global practices; we adapt them to fit Zimbabwe's context with warmth, practicality, and dignity. Our care is proudly local, yet globally informed.
+            </p>
 
-          <p class="text-lg text-gray-700 leading-relaxed mb-8">
-            We are also proud to be an accredited provider of Nursing Aide training. This means we're not only delivering care, we're developing a generation of care professionals who are trained to meet international benchmarks while honouring the values and realities of Zimbabwean families.
-          </p>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8">
+              We are also proud to be an accredited provider of Nursing Aide training. This means we're not only delivering care, we're developing a generation of care professionals who are trained to meet international benchmarks while honouring the values and realities of Zimbabwean families.
+            </p>
+          </div>
         </div>
 
         <!-- The Changing Nature of Care in Zimbabwe -->
@@ -100,14 +110,14 @@
       </div>
 
       <!-- Our Team -->
-      <div v-if="activeMainTab === 'team'" class="space-y-16">
+      <div v-if="activeMainTab === 'team'" id="team" class="space-y-16 mt-16 md:mt-24 scroll-mt-24">
         <div class="text-center">
           <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Team</h2>
         </div>
 
         <!-- Hiring Section -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div>
+          <div class="lg:order-1">
             <h3 class="text-3xl font-bold text-gray-900 mb-6">Hiring: We Hire Like It's Personal—Because It Is</h3>
             <p class="text-lg text-gray-700 leading-relaxed mb-6">
               At Lucerna & Stern Health, every client is treated like family. That begins with the people we hire. We look for more than just qualifications; we seek out caregivers who show genuine empathy, patience, and integrity.
@@ -119,30 +129,30 @@
               Our recruitment process is thoughtful and thorough. Every nurse and aide is carefully selected not only for their clinical expertise but for their ability to deliver care with kindness, respect, and heart. Because when care feels personal, it makes all the difference.
             </p>
           </div>
-          <div class="bg-blue-50 rounded-xl p-8">
+          <div class="bg-white rounded-xl p-8 border border-gray-200">
             <h4 class="text-2xl font-bold text-gray-900 mb-6">Our Caregivers Set the Standard</h4>
             <p class="text-lg text-gray-700 mb-6">
               At Lucerna & Stern Health, we work with only the best—because your loved one deserves nothing less. Our home health aides, private nurses, and allied health professionals are:
             </p>
             <ul class="space-y-3 text-lg text-gray-700">
               <li class="flex items-start">
-                <Icon name="mdi:check-circle" class="text-green-600 mt-1 mr-3 flex-shrink-0" />
+                <Icon name="mdi:check-circle" class="text-lucerna-primary mt-1 mr-3 flex-shrink-0" />
                 <span>Among the top-tier of care professionals in their field</span>
               </li>
               <li class="flex items-start">
-                <Icon name="mdi:check-circle" class="text-green-600 mt-1 mr-3 flex-shrink-0" />
+                <Icon name="mdi:check-circle" class="text-lucerna-primary mt-1 mr-3 flex-shrink-0" />
                 <span>Carefully vetted with verified professional references</span>
               </li>
               <li class="flex items-start">
-                <Icon name="mdi:check-circle" class="text-green-600 mt-1 mr-3 flex-shrink-0" />
+                <Icon name="mdi:check-circle" class="text-lucerna-primary mt-1 mr-3 flex-shrink-0" />
                 <span>Fully screened, background-checked, and credentialed</span>
               </li>
               <li class="flex items-start">
-                <Icon name="mdi:check-circle" class="text-green-600 mt-1 mr-3 flex-shrink-0" />
+                <Icon name="mdi:check-circle" class="text-lucerna-primary mt-1 mr-3 flex-shrink-0" />
                 <span>Paid fair, competitive wages with access to ongoing support</span>
               </li>
               <li class="flex items-start">
-                <Icon name="mdi:check-circle" class="text-green-600 mt-1 mr-3 flex-shrink-0" />
+                <Icon name="mdi:check-circle" class="text-lucerna-primary mt-1 mr-3 flex-shrink-0" />
                 <span>Trained beyond the basics to deliver exceptional, person-centred care</span>
               </li>
             </ul>
@@ -172,37 +182,40 @@
               Contact Us Today to begin the care journey with Lucerna & Stern Health.
             </button>
           </div>
-          <div class="bg-gray-100 rounded-xl p-8 flex items-center justify-center">
-            <div class="text-center text-gray-500">
-              <Icon name="mdi:account-group" class="text-6xl mb-4" />
-              <p class="text-lg">Professional Healthcare Team</p>
-              <p class="text-sm">Registered Nurses, Nursing Aides, Allied Health Professionals</p>
+          <div class="space-y-6">
+            <img src="/uploads/pic4.png" alt="Team of Support" class="w-full h-80 object-cover rounded-xl shadow" />
+            <div class="bg-gray-100 rounded-xl p-8 flex items-center justify-center">
+              <div class="text-center text-gray-500">
+                <Icon name="mdi:account-group" class="text-6xl mb-4" />
+                <p class="text-lg">Professional Healthcare Team</p>
+                <p class="text-sm">Registered Nurses, Nursing Aides, Allied Health Professionals</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Why Lucerna & Stern Health -->
-      <div v-if="activeMainTab === 'why'" class="space-y-16">
+      <div v-if="activeMainTab === 'why'" id="why" class="space-y-16">
         <div class="text-center">
           <h2 class="text-4xl font-bold text-gray-900 mb-4">Why Lucerna & Stern Health</h2>
         </div>
 
         <!-- Sub Navigation Tabs -->
         <div class="bg-white border-b border-gray-200">
-          <nav class="flex flex-wrap justify-center space-x-8 py-6">
+          <nav class="flex flex-wrap justify-center gap-6 py-6">
             <button 
               v-for="tab in subTabs" 
               :key="tab.id"
               @click="activeSubTab = tab.id"
               :class="[
-                'px-4 py-2 text-lg font-medium transition-colors',
+                'px-1 py-2 text-lg font-medium transition-colors focus:outline-none',
                 activeSubTab === tab.id 
-                  ? 'text-blue-600 border-b-2 border-blue-600' 
-                  : 'text-gray-600 hover:text-blue-600'
+                  ? 'text-lucerna-primary border-b-2 border-lucerna-primary' 
+                  : 'text-gray-700 hover:text-lucerna-primary focus:text-lucerna-primary'
               ]"
             >
-              {{ tab.title }}
+              <span :class="['inline-block pb-1', activeSubTab === tab.id ? 'border-b-2 border-lucerna-primary' : 'border-b-2 border-transparent hover:border-lucerna-primary/80 focus:border-lucerna-primary']">{{ tab.title }}</span>
             </button>
           </nav>
         </div>
@@ -210,27 +223,36 @@
         <!-- Sub Tab Content -->
         <div class="space-y-12">
           <!-- Our Mission -->
-          <div v-if="activeSubTab === 'mission'" class="text-center">
-            <h3 class="text-3xl font-bold text-gray-900 mb-6">Our Mission</h3>
-            <p class="text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto">
+          <div v-if="activeSubTab === 'mission'" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <img src="/uploads/pic2.png" alt="Our Mission" class="w-full h-72 object-cover rounded-xl shadow" />
+            <div class="text-center lg:text-left">
+              <h3 class="text-3xl font-bold text-gray-900 mb-6">Our Mission</h3>
+              <p class="text-xl text-gray-700 leading-relaxed">
               At Lucerna & Stern Health, our mission is to deliver exceptional, dignified care in the comfort of home, guided by compassion, respect, and clinical excellence. We are committed to supporting every client and their loved ones with unwavering integrity, confidentiality, and cultural understanding.
-            </p>
+              </p>
+            </div>
           </div>
 
           <!-- Our Purpose -->
-          <div v-if="activeSubTab === 'purpose'" class="text-center">
-            <h3 class="text-3xl font-bold text-gray-900 mb-6">Our Purpose</h3>
-            <p class="text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto">
+          <div v-if="activeSubTab === 'purpose'" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <img src="/uploads/pic5.png" alt="Our Purpose" class="w-full h-72 object-cover rounded-xl shadow lg:order-2" />
+            <div class="text-center lg:text-left lg:order-1">
+              <h3 class="text-3xl font-bold text-gray-900 mb-6">Our Purpose</h3>
+              <p class="text-xl text-gray-700 leading-relaxed">
               At Lucerna & Stern Health, our purpose is to bridge the gap between medical need and compassionate living, empowering individuals to heal, thrive, and age with dignity in the place they know best: home. We exist to give families peace of mind by delivering personalised care that respects cultural values and meets the highest standards of support.
-            </p>
+              </p>
+            </div>
           </div>
 
           <!-- Our Vision -->
-          <div v-if="activeSubTab === 'vision'" class="text-center">
-            <h3 class="text-3xl font-bold text-gray-900 mb-6">Our Vision</h3>
-            <p class="text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto">
+          <div v-if="activeSubTab === 'vision'" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <img src="/uploads/pic6.png" alt="Our Vision" class="w-full h-72 object-cover rounded-xl shadow" />
+            <div class="text-center lg:text-left">
+              <h3 class="text-3xl font-bold text-gray-900 mb-6">Our Vision</h3>
+              <p class="text-xl text-gray-700 leading-relaxed">
               To transform the landscape of home-based care in Zimbabwe by setting the benchmark for excellence, compassion, and culturally rooted support. We aim to ensure that every Zimbabwean has access to dignified, professional care within the comfort of their own home.
-            </p>
+              </p>
+            </div>
           </div>
 
           <!-- Our Values -->
@@ -379,7 +401,10 @@
 
 <script setup>
 // Main navigation tabs
-const activeMainTab = ref('story')
+const route = useRoute()
+const hash = computed(() => (route.hash || '').replace('#', ''))
+const validMain = ['story', 'team', 'why']
+const activeMainTab = computed(() => validMain.includes(hash.value) ? hash.value : 'story')
 const mainTabs = ref([
   { id: 'story', title: 'Our Story' },
   { id: 'team', title: 'Our Team' },

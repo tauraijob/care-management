@@ -1,13 +1,7 @@
 <template>
   <nav class="bg-white/90 backdrop-blur-md border-b border-white/20 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16">
-        <!-- Logo and Brand -->
-        <div class="flex items-center">
-          <NuxtLink to="/carer/dashboard" class="flex items-center">
-            <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-10 w-auto rounded-[10px]" />
-          </NuxtLink>
-        </div>
+      <div class="flex justify-end h-16">
         
         <!-- Right Side Actions -->
         <div class="flex items-center space-x-4">
@@ -20,13 +14,38 @@
           </button>
           
           <!-- Notifications -->
-          <button 
-            @click="notificationsOpen = !notificationsOpen" 
-            class="relative p-2 text-gray-600 hover:text-lucerna-primary transition-colors duration-200 hover:bg-lucerna-background rounded-lg"
-          >
-            <Icon name="mdi:bell" class="text-xl" />
-            <span v-if="unreadNotifications > 0" class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 animate-pulse"></span>
-          </button>
+          <div class="relative">
+            <button 
+              @click="toggleNotifications" 
+              class="p-0 rounded-full focus:outline-none"
+              aria-label="Notifications"
+            >
+              <div class="w-9 h-9 rounded-full bg-lucerna-primary hover:bg-lucerna-primary-dark transition-colors duration-200 shadow-sm flex items-center justify-center">
+                <Icon name="mdi:bell" class="text-white text-base" />
+              </div>
+              <span v-if="unreadNotifications > 0" class="absolute -top-0.5 -right-0.5 block h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-white animate-pulse"></span>
+            </button>
+
+            <!-- Notifications dropdown -->
+            <div v-if="notificationsOpen" class="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 z-50 border border-gray-100">
+              <div class="px-4 py-3 border-b border-gray-100">
+                <p class="text-sm font-semibold text-gray-900">Notifications</p>
+              </div>
+              <div v-if="notifications.length === 0" class="p-4 text-sm text-gray-500">No notifications</div>
+              <ul v-else class="max-h-80 overflow-auto divide-y divide-gray-100">
+                <li v-for="n in notifications" :key="n.id" class="p-3 hover:bg-gray-50 flex space-x-3">
+                  <div class="w-8 h-8 rounded-full bg-[#0034b3] flex items-center justify-center flex-shrink-0">
+                    <Icon :name="notificationIcon(n.type)" class="text-white text-sm" style="color:#ffffff !important; fill:currentColor" />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate">{{ n.title || 'Notification' }}</p>
+                    <p class="text-xs text-gray-500 line-clamp-2">{{ stripHtml(n.message) }}</p>
+                    <p class="text-[11px] text-gray-400 mt-1">{{ timeAgo(n.createdAt) }}</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
           
           <!-- User Menu -->
           <div class="relative">
@@ -34,14 +53,14 @@
               @click="userMenuOpen = !userMenuOpen" 
               class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 transition-colors duration-200 p-2 rounded-lg hover:bg-gray-50"
             >
-              <div class="w-10 h-10 bg-lucerna-primary text-white rounded-full flex items-center justify-center font-semibold shadow-lg">
-                {{ userInitials }}
+              <div class="w-10 h-10 bg-lucerna-primary rounded-full flex items-center justify-center font-semibold shadow-lg">
+                <Icon name="mdi:account" class="text-white" />
               </div>
               <div class="hidden md:block text-left">
                 <p class="text-sm font-medium">{{ user?.firstName || 'Carer' }} {{ user?.lastName || 'User' }}</p>
                 <p class="text-xs text-gray-500">Healthcare Carer</p>
               </div>
-              <span class="text-lg transition-transform duration-200" :class="{ 'rotate-180': userMenuOpen }">▼</span>
+              <Icon name="mdi:chevron-down" class="text-lg text-gray-600" :class="{ 'rotate-180': userMenuOpen }" />
             </button>
             
             <!-- User dropdown -->
@@ -80,7 +99,8 @@ const route = useRoute()
 
 const userMenuOpen = ref(false)
 const notificationsOpen = ref(false)
-const unreadNotifications = ref(2) // This would come from your notifications system
+const unreadNotifications = ref(0)
+const notifications = ref([])
 
 const userInitials = computed(() => {
   if (!user.value) return ''
@@ -104,8 +124,58 @@ onMounted(() => {
       notificationsOpen.value = false
     }
   })
+  loadNotifications()
 })
 
 // Define emits
 defineEmits(['toggleSidebar'])
+
+const loadNotifications = async () => {
+  try {
+    const res = await $fetch('/api/notifications/list', { credentials: 'include' })
+    notifications.value = res.notifications || []
+    unreadNotifications.value = notifications.value.filter((n) => !n.isRead).length
+  } catch (e) {
+    console.error('Failed to load notifications', e)
+  }
+}
+
+const toggleNotifications = async () => {
+  notificationsOpen.value = !notificationsOpen.value
+  if (notificationsOpen.value && unreadNotifications.value > 0) {
+    try {
+      const ids = notifications.value.filter((n) => !n.isRead).map((n) => n.id)
+      await $fetch('/api/notifications/mark-read', { method: 'POST', body: { ids }, credentials: 'include' })
+      notifications.value = notifications.value.map((n) => ({ ...n, isRead: true }))
+      unreadNotifications.value = 0
+    } catch (e) {
+      console.error('Failed to mark notifications read', e)
+    }
+  }
+}
+
+const stripHtml = (html) => {
+  if (!html) return ''
+  const tmp = document.createElement('div')
+  tmp.innerHTML = html
+  return tmp.textContent || tmp.innerText || ''
+}
+
+const notificationIcon = (type) => {
+  const t = (type || '').toString().toLowerCase()
+  if (t.includes('email')) return 'mdi:email'
+  if (t.includes('sms')) return 'mdi:message-text'
+  if (t.includes('push')) return 'mdi:bell'
+  if (t.includes('whatsapp')) return 'mdi:whatsapp'
+  return 'mdi:bell'
+}
+
+const timeAgo = (date) => {
+  const d = new Date(date)
+  const diff = (Date.now() - d.getTime()) / 1000
+  if (diff < 60) return `${Math.floor(diff)}s ago`
+  if (diff < 3600) return `${Math.floor(diff/60)}m ago`
+  if (diff < 86400) return `${Math.floor(diff/3600)}h ago`
+  return d.toLocaleDateString()
+}
 </script> 

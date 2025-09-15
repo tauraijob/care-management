@@ -4,146 +4,149 @@ import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
 import { getPrisma } from '~/server/utils/prisma'
 
 export default defineEventHandler(async (event) => {
-    try {
-        // Authenticate user
-        const token = extractTokenFromRequest(event)
-        if (!token) {
-            throw createError({
-                statusCode: 401,
-                statusMessage: 'No token provided'
-            })
-        }
+  try {
+    // Authenticate user
+    const token = extractTokenFromRequest(event)
+    if (!token) {
+      throw createError({
+        statusCode: 401,
+        statusMessage: 'No token provided'
+      })
+    }
 
-        const user = await getUserFromToken(token)
-        if (!user || user.role !== 'ADMIN') {
-            throw createError({
-                statusCode: 403,
-                statusMessage: 'Access denied. Admin role required.'
-            })
-        }
+    const user = await getUserFromToken(token)
+    if (!user || user.role !== 'ADMIN') {
+      throw createError({
+        statusCode: 403,
+        statusMessage: 'Access denied. Admin role required.'
+      })
+    }
 
-        // Get request body
-        const body = await readBody(event)
-        const { filters = {}, reportType = 'booking-analytics' } = body
+    // Get request body
+    const body = await readBody(event)
+    const { filters = {}, reportType = 'booking-analytics' } = body
 
-        // Fetch booking data based on filters
-        const where: any = {}
+    // Fetch booking data based on filters
+    const where: any = {}
 
-        if (filters.status) {
-            where.status = filters.status
-        }
+    if (filters.status) {
+      where.status = filters.status
+    }
 
-        if (filters.fromDate) {
-            where.startDate = {
-                gte: new Date(filters.fromDate)
+    if (filters.fromDate) {
+      where.startDate = {
+        gte: new Date(filters.fromDate)
+      }
+    }
+
+    if (filters.toDate) {
+      where.endDate = {
+        lte: new Date(filters.toDate)
+      }
+    }
+
+    // Initialize Prisma
+    const prisma = await getPrisma()
+
+    // Fetch bookings with related data
+    const [bookings, totalCount, stats] = await Promise.all([
+      prisma.booking.findMany({
+        where,
+        include: {
+          patient: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              dateOfBirth: true
             }
-        }
-
-        if (filters.toDate) {
-            where.endDate = {
-                lte: new Date(filters.toDate)
+          },
+          client: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              phone: true,
+              email: true
             }
-        }
+          },
+          carer: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              phone: true,
+              email: true
+            }
+          },
+          payments: {
+            select: {
+              id: true,
+              amount: true,
+              currency: true,
+              status: true,
+              paymentMethod: true
+            }
+          }
+        },
+        orderBy: { createdAt: 'desc' }
+      }),
 
-        // Fetch bookings with related data
-        const [bookings, totalCount, stats] = await Promise.all([
-            prisma.booking.findMany({
-                where,
-                include: {
-                    patient: {
-                        select: {
-                            id: true,
-                            firstName: true,
-                            lastName: true,
-                            dateOfBirth: true
-                        }
-                    },
-                    client: {
-                        select: {
-                            id: true,
-                            firstName: true,
-                            lastName: true,
-                            phone: true,
-                            email: true
-                        }
-                    },
-                    carer: {
-                        select: {
-                            id: true,
-                            firstName: true,
-                            lastName: true,
-                            phone: true,
-                            email: true
-                        }
-                    },
-                    payments: {
-                        select: {
-                            id: true,
-                            amount: true,
-                            currency: true,
-                            status: true,
-                            paymentMethod: true
-                        }
-                    }
-                },
-                orderBy: { createdAt: 'desc' }
-            }),
+      prisma.booking.count({ where }),
 
-            prisma.booking.count({ where }),
+      // Get overall booking statistics
+      prisma.booking.groupBy({
+        by: ['status'],
+        _count: { status: true }
+      })
+    ])
 
-            // Get overall booking statistics
-            prisma.booking.groupBy({
-                by: ['status'],
-                _count: { status: true }
-            })
-        ])
+    // Calculate statistics
+    const bookingStats = stats.reduce((acc, stat) => {
+      const statusKey = stat.status.toLowerCase().replace('_', '-')
+      acc[statusKey] = stat._count.status
+      return acc
+    }, {} as any)
 
-        // Calculate statistics
-        const bookingStats = stats.reduce((acc, stat) => {
-            const statusKey = stat.status.toLowerCase().replace('_', '-')
-            acc[statusKey] = stat._count.status
-            return acc
-        }, {} as any)
+    // Format bookings for PDF
+    const formattedBookings = bookings.map(booking => ({
+      id: booking.id,
+      patient: {
+        id: booking.patient.id,
+        name: `${booking.patient.firstName} ${booking.patient.lastName}`,
+        dateOfBirth: booking.patient.dateOfBirth
+      },
+      client: {
+        id: booking.client.id,
+        name: `${booking.client.firstName} ${booking.client.lastName}`,
+        phone: booking.client.phone,
+        email: booking.client.email
+      },
+      carer: booking.carer ? {
+        id: booking.carer.id,
+        name: `${booking.carer.firstName} ${booking.carer.lastName}`,
+        phone: booking.carer.phone,
+        email: booking.carer.email
+      } : null,
+      careType: booking.careType,
+      frequency: booking.frequency,
+      startDate: booking.startDate,
+      endDate: booking.endDate,
+      status: booking.status,
+      notes: booking.notes,
+      payment: booking.payments.length > 0 ? {
+        id: booking.payments[0].id,
+        amount: booking.payments[0].amount,
+        currency: booking.payments[0].currency,
+        status: booking.payments[0].status,
+        method: booking.payments[0].paymentMethod
+      } : null,
+      createdAt: booking.createdAt,
+      updatedAt: booking.updatedAt
+    }))
 
-        // Format bookings for PDF
-        const formattedBookings = bookings.map(booking => ({
-            id: booking.id,
-            patient: {
-                id: booking.patient.id,
-                name: `${booking.patient.firstName} ${booking.patient.lastName}`,
-                dateOfBirth: booking.patient.dateOfBirth
-            },
-            client: {
-                id: booking.client.id,
-                name: `${booking.client.firstName} ${booking.client.lastName}`,
-                phone: booking.client.phone,
-                email: booking.client.email
-            },
-            carer: booking.carer ? {
-                id: booking.carer.id,
-                name: `${booking.carer.firstName} ${booking.carer.lastName}`,
-                phone: booking.carer.phone,
-                email: booking.carer.email
-            } : null,
-            careType: booking.careType,
-            frequency: booking.frequency,
-            startDate: booking.startDate,
-            endDate: booking.endDate,
-            status: booking.status,
-            notes: booking.notes,
-            payment: booking.payments.length > 0 ? {
-                id: booking.payments[0].id,
-                amount: booking.payments[0].amount,
-                currency: booking.payments[0].currency,
-                status: booking.payments[0].status,
-                method: booking.payments[0].paymentMethod
-            } : null,
-            createdAt: booking.createdAt,
-            updatedAt: booking.updatedAt
-        }))
-
-        // Generate HTML content for PDF
-        const htmlContent = `
+    // Generate HTML content for PDF
+    const htmlContent = `
       <!DOCTYPE html>
       <html>
       <head>
@@ -309,45 +312,45 @@ export default defineEventHandler(async (event) => {
       </html>
     `
 
-        // Generate PDF using Puppeteer
-        const browser = await puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
-        })
+    // Generate PDF using Puppeteer
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    })
 
-        const page = await browser.newPage()
-        await page.setContent(htmlContent, { waitUntil: 'networkidle0' })
+    const page = await browser.newPage()
+    await page.setContent(htmlContent, { waitUntil: 'networkidle0' })
 
-        const pdfBuffer = await page.pdf({
-            format: 'A4',
-            margin: {
-                top: '20mm',
-                right: '20mm',
-                bottom: '20mm',
-                left: '20mm'
-            },
-            printBackground: true
-        })
+    const pdfBuffer = await page.pdf({
+      format: 'A4',
+      margin: {
+        top: '20mm',
+        right: '20mm',
+        bottom: '20mm',
+        left: '20mm'
+      },
+      printBackground: true
+    })
 
-        await browser.close()
+    await browser.close()
 
-        // Set response headers for PDF download
-        setHeader(event, 'Content-Type', 'application/pdf')
-        setHeader(event, 'Content-Disposition', `attachment; filename="booking-analytics-report-${new Date().toISOString().split('T')[0]}.pdf"`)
-        setHeader(event, 'Content-Length', pdfBuffer.length.toString())
+    // Set response headers for PDF download
+    setHeader(event, 'Content-Type', 'application/pdf')
+    setHeader(event, 'Content-Disposition', `attachment; filename="booking-analytics-report-${new Date().toISOString().split('T')[0]}.pdf"`)
+    setHeader(event, 'Content-Length', pdfBuffer.length.toString())
 
-        return pdfBuffer
+    return pdfBuffer
 
-    } catch (error: any) {
-        console.error('PDF generation error:', error)
+  } catch (error: any) {
+    console.error('PDF generation error:', error)
 
-        if (error.statusCode) {
-            throw error
-        }
-
-        throw createError({
-            statusCode: 500,
-            statusMessage: 'Failed to generate PDF report'
-        })
+    if (error.statusCode) {
+      throw error
     }
+
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Failed to generate PDF report'
+    })
+  }
 })

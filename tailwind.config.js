@@ -14,11 +14,11 @@ module.exports = {
                 // Brand colors (see brandguide.md)
                 'lucerna': {
                     'background': '#F5F7F9',
-                    'primary': '#0A2342',
-                    'primary-dark': '#081A33',
-                    'secondary': '#4A6470',
+                    'primary': '#0034b3',
+                    'primary-dark': '#00298f',
+                    'secondary': '#00053a',
                     'text': '#0A2342',
-                    'accent': '#FF6600',
+                    'accent': '#00ffff',
                 },
                 // Semantic colors
                 'success': {

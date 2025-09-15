@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen">
     <!-- Hero Section -->
-    <section class="relative h-96 bg-gradient-to-r from-blue-900 to-green-800 flex items-center justify-center">
+    <section class="relative h-96 bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark flex items-center justify-center">
       <div class="absolute inset-0 bg-black/40"></div>
       <div class="relative z-10 text-center text-white px-4">
         <h1 class="text-5xl font-bold mb-4">Physiotherapy</h1>
@@ -11,18 +11,22 @@
     </section>
 
     <!-- Content Section -->
-    <div class="max-w-4xl mx-auto px-4 py-16">
+    <div class="max-w-7xl mx-auto px-4 py-16">
       <!-- Service Overview -->
-      <div class="text-center mb-16">
-        <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
-          <Icon name="mdi:human-handsup" class="text-4xl text-green-600" />
+      <div class="mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <img src="/uploads/pic2.png" alt="Physiotherapy" class="w-full h-80 object-cover rounded-xl shadow" />
+          <div>
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+              <Icon name="mdi:human-handsup" class="text-3xl text-green-600" />
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Physiotherapy Services</h2>
+            <p class="text-xl text-gray-600">
+              Our Physiotherapy services provide specialized physical therapy in the comfort of your home. We focus on improving
+              mobility, reducing pain, and enhancing overall physical function through evidence-based treatment approaches.
+            </p>
+          </div>
         </div>
-        <h2 class="text-3xl font-bold text-gray-900 mb-6">Physiotherapy Services</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Our Physiotherapy services provide specialized physical therapy in the comfort of your home. 
-          We focus on improving mobility, reducing pain, and enhancing overall physical function 
-          through evidence-based treatment approaches.
-        </p>
       </div>
 
       <!-- What We Offer -->

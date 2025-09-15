@@ -19,6 +19,8 @@ export default defineEventHandler(async (event) => {
             })
         }
 
+        const prisma = await getPrisma()
+
         const query = getQuery(event)
         const { page = 1, limit = 10, status, paymentMethod, dateRange } = query
 

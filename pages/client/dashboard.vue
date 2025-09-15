@@ -19,7 +19,7 @@
   <div v-else class="max-w-7xl mx-auto">
         <!-- Welcome Section -->
         <div class="mb-8">
-          <div class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white shadow-xl">
+          <div class="bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark rounded-2xl p-8 text-white shadow-xl">
             <div class="flex items-center justify-between">
               <div>
                 <h1 class="text-3xl font-bold mb-2">
@@ -51,12 +51,12 @@
           <NuxtLink v-if="user.role === 'CLIENT'" to="/client/bookings/create" class="group bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
             <div class="flex items-center">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div class="w-12 h-12 bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Icon name="mdi:plus" class="text-white text-xl" />
                 </div>
               </div>
               <div class="ml-4">
-                <p class="text-sm font-semibold text-gray-900 group-hover:text-green-600 transition-colors">New Booking</p>
+                <p class="text-sm font-semibold text-gray-900 group-hover:text-lucerna-primary transition-colors">New Booking</p>
                 <p class="text-sm text-gray-500">Schedule care for a patient</p>
               </div>
             </div>
@@ -65,12 +65,12 @@
           <NuxtLink v-if="user.role === 'CLIENT'" to="/client/patients/create" class="group bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
             <div class="flex items-center">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div class="w-12 h-12 bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Icon name="mdi:account-plus" class="text-white text-xl" />
                 </div>
               </div>
               <div class="ml-4">
-                <p class="text-sm font-semibold text-gray-900 group-hover:text-green-600 transition-colors">Add Patient</p>
+                <p class="text-sm font-semibold text-gray-900 group-hover:text-lucerna-primary transition-colors">Add Patient</p>
                 <p class="text-sm text-gray-500">Register a new patient</p>
               </div>
             </div>
@@ -79,12 +79,12 @@
           <NuxtLink to="/client/bookings" class="group bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
             <div class="flex items-center">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div class="w-12 h-12 bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Icon name="mdi:calendar" class="text-white text-xl" />
                 </div>
               </div>
               <div class="ml-4">
-                <p class="text-sm font-semibold text-gray-900 group-hover:text-green-600 transition-colors">My Bookings</p>
+                <p class="text-sm font-semibold text-gray-900 group-hover:text-lucerna-primary transition-colors">My Bookings</p>
                 <p class="text-sm text-gray-500">View all bookings</p>
               </div>
             </div>
@@ -93,12 +93,12 @@
           <NuxtLink to="/client/payments" class="group bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
             <div class="flex items-center">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div class="w-12 h-12 bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Icon name="mdi:currency-usd" class="text-white text-xl" />
                 </div>
               </div>
               <div class="ml-4">
-                <p class="text-sm font-semibold text-gray-900 group-hover:text-green-600 transition-colors">Payments</p>
+                <p class="text-sm font-semibold text-gray-900 group-hover:text-lucerna-primary transition-colors">Payments</p>
                 <p class="text-sm text-gray-500">View payment history</p>
               </div>
             </div>

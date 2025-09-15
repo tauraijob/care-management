@@ -11,18 +11,22 @@
     </section>
 
     <!-- Content Section -->
-    <div class="max-w-4xl mx-auto px-4 py-16">
+    <div class="max-w-7xl mx-auto px-4 py-16">
       <!-- Service Overview -->
-      <div class="text-center mb-16">
-        <div class="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-8">
-          <Icon name="mdi:nurse" class="text-4xl text-blue-600" />
+      <div class="mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <img src="/uploads/pic6.png" alt="Skilled Nursing" class="w-full h-80 object-cover rounded-xl shadow" />
+          <div>
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+              <Icon name="mdi:nurse" class="text-3xl text-blue-600" />
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Skilled Nursing Services</h2>
+            <p class="text-xl text-gray-600">
+              Our Skilled Nursing services provide professional medical care delivered by licensed nurses in the comfort of your home.
+              We offer comprehensive clinical care, medication management, and health monitoring for complex medical needs.
+            </p>
+          </div>
         </div>
-        <h2 class="text-3xl font-bold text-gray-900 mb-6">Skilled Nursing Services</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Our Skilled Nursing services provide professional medical care delivered by licensed 
-          nurses in the comfort of your home. We offer comprehensive clinical care, medication 
-          management, and health monitoring for complex medical needs.
-        </p>
       </div>
 
       <!-- What We Offer -->

@@ -21,14 +21,14 @@
     <div v-else>
       <!-- Header -->
       <div class="mb-8">
-        <div class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white shadow-xl">
+        <div class="bg-[#0034b3] rounded-2xl p-8 text-white shadow-xl">
           <div class="flex items-center justify-between">
             <div>
               <h1 class="text-3xl font-bold mb-2">My Bookings</h1>
-              <p class="text-green-100 text-lg">Manage your healthcare appointments and care schedules</p>
+              <p class="text-white/80 text-lg">Manage your healthcare appointments and care schedules</p>
             </div>
             <div class="flex items-center space-x-4">
-              <NuxtLink to="/client/bookings/create" class="btn-primary">
+              <NuxtLink to="/client/bookings/create" class="px-4 py-2 bg-white text-brand rounded-lg font-medium hover:brightness-95 transition-colors shadow-soft">
                 <Icon name="mdi:plus" class="mr-2" />
                 New Booking
               </NuxtLink>
@@ -45,8 +45,8 @@
               <p class="text-sm font-medium text-gray-600">Total Bookings</p>
               <p class="text-2xl font-bold text-gray-900">{{ stats.total }}</p>
             </div>
-            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-              <Icon name="mdi:calendar" class="text-green-600 text-xl" />
+            <div class="w-12 h-12 bg-[#0034b3]/10 rounded-xl flex items-center justify-center">
+              <Icon name="mdi:calendar" class="text-[#0034b3] text-xl" />
             </div>
           </div>
         </div>
@@ -57,8 +57,8 @@
               <p class="text-sm font-medium text-gray-600">Active</p>
               <p class="text-2xl font-bold text-gray-900">{{ stats.active }}</p>
             </div>
-            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-              <Icon name="mdi:play" class="text-green-600 text-xl" />
+            <div class="w-12 h-12 bg-[#0034b3]/10 rounded-xl flex items-center justify-center">
+              <Icon name="mdi:play" class="text-[#0034b3] text-xl" />
             </div>
           </div>
         </div>
@@ -105,7 +105,7 @@
                   v-model="filters.search" 
                   type="text" 
                   placeholder="Search by patient name, care type, or booking ID..."
-                  class="w-full pl-10 pr-4 py-3 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                  class="w-full pl-10 pr-4 py-3 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0034b3] focus:border-[#0034b3] transition"
                 />
               </div>
             </div>
@@ -113,7 +113,7 @@
             <!-- Status Filter -->
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-              <select v-model="filters.status" class="w-full p-3 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition">
+              <select v-model="filters.status" class="w-full p-3 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0034b3] focus:border-[#0034b3] transition">
                 <option value="" class="text-gray-900">All Status</option>
                 <option value="PENDING" class="text-gray-900">Pending</option>
                 <option value="CONFIRMED" class="text-gray-900">Confirmed</option>
@@ -126,7 +126,7 @@
             <!-- Care Type Filter -->
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Care Type</label>
-              <select v-model="filters.careType" class="w-full p-3 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition">
+              <select v-model="filters.careType" class="w-full p-3 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0034b3] focus:border-[#0034b3] transition">
                 <option value="" class="text-gray-900">All Types</option>
                 <option value="ELDERLY_CARE" class="text-gray-900">Elderly Care</option>
                 <option value="DISABILITY_CARE" class="text-gray-900">Disability Care</option>
@@ -143,7 +143,7 @@
               <input 
                 type="date" 
                 v-model="filters.fromDate" 
-                class="w-full p-3 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                class="w-full p-3 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0034b3] focus:border-[#0034b3] transition"
               />
             </div>
             <div>
@@ -151,11 +151,11 @@
               <input 
                 type="date" 
                 v-model="filters.toDate" 
-                class="w-full p-3 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                class="w-full p-3 bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0034b3] focus:border-[#0034b3] transition"
               />
             </div>
             <div class="flex items-end">
-              <button @click="clearFilters" class="w-full px-4 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition">
+              <button @click="clearFilters" class="w-full px-4 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-[#0034b3] focus:border-[#0034b3] transition">
                 Clear Filters
               </button>
             </div>
@@ -181,7 +181,7 @@
 
         <div class="p-6">
           <div v-if="loading" class="text-center py-12">
-            <div class="w-16 h-16 text-green-500 animate-spin mx-auto mb-4 text-4xl">
+            <div class="w-16 h-16 text-[#0034b3] animate-spin mx-auto mb-4 text-4xl">
               <Icon name="mdi:loading" />
             </div>
             <p class="text-gray-500">Loading bookings...</p>
@@ -193,18 +193,18 @@
             <Icon name="mdi:calendar" class="w-16 h-16 text-gray-400 mx-auto mb-4 text-4xl" />
             <h3 class="text-lg font-medium text-gray-900 mb-2">No bookings found</h3>
             <p class="text-gray-500 mb-6">Try adjusting your filters or create a new booking</p>
-            <NuxtLink to="/client/bookings/create" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+            <NuxtLink to="/client/bookings/create" class="inline-flex items-center px-4 py-2 bg-white text-brand rounded-lg hover:brightness-95 transition-colors shadow-soft">
               <Icon name="mdi:plus" class="mr-2" />
               Create New Booking
             </NuxtLink>
           </div>
 
           <div v-else class="space-y-4">
-            <div v-for="booking in paginatedBookings" :key="booking.id" class="bg-gradient-to-r from-gray-50 to-green-50 rounded-xl p-6 hover:shadow-md transition-shadow duration-300">
+            <div v-for="booking in paginatedBookings" :key="booking.id" class="bg-gradient-to-r from-gray-50 to-[#0034b3]/5 rounded-xl p-6 hover:shadow-md transition-shadow duration-300">
               <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center space-x-4">
-                  <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                    <Icon name="mdi:account" class="text-green-600 text-xl" />
+                  <div class="w-12 h-12 bg-[#0034b3]/10 rounded-xl flex items-center justify-center">
+                    <Icon name="mdi:account" class="text-[#0034b3] text-xl" />
                   </div>
                   <div>
                     <h3 class="text-lg font-semibold text-gray-900">{{ booking.patient ? `${booking.patient.firstName} ${booking.patient.lastName}` : 'Unknown Patient' }}</h3>
@@ -273,7 +273,7 @@
                 </div>
                 
                 <div class="flex space-x-2">
-                  <button @click="viewBooking(booking.id)" class="px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 transition-colors">
+                  <button @click="viewBooking(booking.id)" class="px-4 py-2 bg-[#0034b3] text-white rounded-lg text-sm font-medium hover:brightness-90 transition-colors">
                     View Details
                   </button>
                   <button v-if="booking.status === 'PENDING'" @click="cancelBooking(booking.id)" class="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
@@ -299,7 +299,7 @@
                 <button v-for="page in visiblePages" :key="page" @click="currentPage = page" :class="[
                   'px-3 py-2 rounded-lg text-sm font-medium transition-colors',
                   currentPage === page 
-                    ? 'bg-green-600 text-white' 
+                    ? 'bg-[#0034b3] text-white' 
                     : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
                 ]">
                   {{ page }}

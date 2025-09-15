@@ -15,6 +15,9 @@ export default defineEventHandler(async (event) => {
             })
         }
 
+        // Initialize Prisma
+        const prisma = await getPrisma()
+
         // Get system statistics for session management
         const [
             totalUsers,
@@ -47,7 +50,6 @@ export default defineEventHandler(async (event) => {
         ])
 
         // Get recent activity
-        const prisma = await getPrisma()
         const recentActivity = await prisma.log.findMany({
             take: 10,
             orderBy: {

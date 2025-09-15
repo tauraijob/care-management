@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen">
     <!-- Hero Section -->
-    <section class="relative h-96 bg-gradient-to-r from-blue-900 to-green-800 flex items-center justify-center">
+    <section class="relative h-96 bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark flex items-center justify-center">
       <div class="absolute inset-0 bg-black/40"></div>
       <div class="relative z-10 text-center text-white px-4">
         <h1 class="text-5xl font-bold mb-4">Occupational Therapy</h1>
@@ -11,18 +11,22 @@
     </section>
 
     <!-- Content Section -->
-    <div class="max-w-4xl mx-auto px-4 py-16">
+    <div class="max-w-7xl mx-auto px-4 py-16">
       <!-- Service Overview -->
-      <div class="text-center mb-16">
-        <div class="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-8">
-          <Icon name="mdi:hand-front" class="text-4xl text-orange-600" />
+      <div class="mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <img src="/uploads/pic1.png" alt="Occupational Therapy" class="w-full h-80 object-cover rounded-xl shadow" />
+          <div>
+            <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6">
+              <Icon name="mdi:hand-front" class="text-3xl text-orange-600" />
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Occupational Therapy Services</h2>
+            <p class="text-xl text-gray-600">
+              Our Occupational Therapy services focus on helping individuals regain independence in daily activities. We work to
+              improve motor skills, cognitive function, and adaptive techniques to enhance quality of life and maintain independence.
+            </p>
+          </div>
         </div>
-        <h2 class="text-3xl font-bold text-gray-900 mb-6">Occupational Therapy Services</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Our Occupational Therapy services focus on helping individuals regain independence 
-          in daily activities. We work to improve motor skills, cognitive function, and 
-          adaptive techniques to enhance quality of life and maintain independence.
-        </p>
       </div>
 
       <!-- What We Offer -->

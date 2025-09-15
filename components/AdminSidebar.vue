@@ -4,15 +4,11 @@
     <div class="flex flex-col h-full">
       <!-- Sidebar Header -->
       <div class="p-6 border-b border-gray-100">
-        <div class="flex items-center space-x-3">
-          <div class="w-8 h-8 bg-lucerna-primary rounded-lg flex items-center justify-center">
-            <Icon name="mdi:lightning-bolt" class="text-white text-sm" />
-          </div>
-          <div>
-            <h2 class="text-lg font-semibold text-gray-900">Admin Portal</h2>
-            <p class="text-xs text-gray-500">{{ user?.firstName }} {{ user?.lastName }}</p>
-          </div>
-        </div>
+        <NuxtLink to="/admin/dashboard" class="flex items-center">
+          <span class="inline-flex items-center justify-center rounded-[10px] bg-lucerna-primary p-1">
+            <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-12 w-auto rounded-[8px]" />
+          </span>
+        </NuxtLink>
       </div>
 
       <!-- Navigation Menu -->
@@ -124,10 +120,11 @@
       <!-- Mobile Sidebar Content -->
       <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
         <div class="flex-shrink-0 flex items-center px-4">
-          <div class="w-8 h-8 bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg flex items-center justify-center">
-            <Icon name="mdi:lightning-bolt" class="text-white text-sm" />
-          </div>
-          <h2 class="ml-3 text-lg font-semibold text-gray-900">Admin Portal</h2>
+          <NuxtLink to="/admin/dashboard" class="flex items-center">
+            <span class="inline-flex items-center justify-center rounded-[10px] bg-lucerna-primary p-1">
+              <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-10 w-auto rounded-[6px]" />
+            </span>
+          </NuxtLink>
         </div>
         <nav class="mt-5 px-2 space-y-1">
           <NuxtLink 

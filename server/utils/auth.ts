@@ -41,12 +41,15 @@ export const extractTokenFromRequest = (event: any): string | null => {
 	// Try Authorization header first
 	const authHeader = getHeader(event, 'authorization')
 	if (authHeader && authHeader.startsWith('Bearer ')) {
-		return authHeader.substring(7)
+		const token = authHeader.substring(7).trim()
+		if (token && token !== 'undefined' && token !== 'null') {
+			return token
+		}
 	}
 
 	// Fall back to cookie
 	const cookieToken = getCookie(event, 'auth-token')
-	if (cookieToken) {
+	if (cookieToken && cookieToken !== 'undefined' && cookieToken !== 'null') {
 		return cookieToken
 	}
 

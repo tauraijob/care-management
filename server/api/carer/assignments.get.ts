@@ -164,12 +164,8 @@ export default defineEventHandler(async (event) => {
             take: 5,
             orderBy: { createdAt: 'desc' },
             include: {
-                client: {
-                    select: {
-                        firstName: true,
-                        lastName: true
-                    }
-                }
+                booking: true,
+                carer: true
             }
         })
 

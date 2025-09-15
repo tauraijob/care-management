@@ -28,7 +28,9 @@
           <!-- Logo -->
           <div class="flex items-center">
             <NuxtLink to="/" class="flex items-center">
-              <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-10 w-auto rounded-[10px]" />
+              <span class="inline-flex items-center justify-center rounded-[10px] bg-lucerna-primary p-1 mr-2">
+                <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-12 w-auto rounded-[8px]" />
+              </span>
             </NuxtLink>
           </div>
 
@@ -44,9 +46,9 @@
               </button>
               <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div class="py-2">
-                  <NuxtLink to="/about#story" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-background hover:text-lucerna-primary">Our Story</NuxtLink>
-                  <NuxtLink to="/about#team" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-background hover:text-lucerna-primary">Our Team</NuxtLink>
-                  <NuxtLink to="/about#why" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-background hover:text-lucerna-primary">Why Lucerna & Stern Health</NuxtLink>
+                  <NuxtLink to="/about#story" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-primary hover:text-white">Our Story</NuxtLink>
+                  <NuxtLink to="/about#team" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-primary hover:text-white">Our Team</NuxtLink>
+                  <NuxtLink to="/about#why" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-primary hover:text-white">Why Lucerna & Stern Health</NuxtLink>
                 </div>
               </div>
             </div>
@@ -57,11 +59,11 @@
                 Services
                 <Icon name="mdi:chevron-down" class="ml-1 text-sm" />
               </button>
-              <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div class="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div class="py-2">
-                  <NuxtLink to="/services#home-health" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-background hover:text-lucerna-primary">Home Health Aide Services</NuxtLink>
-                  <NuxtLink to="/services#concierge" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-background hover:text-lucerna-primary">Concierge Services</NuxtLink>
-                  <NuxtLink to="/services#chronic" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-background hover:text-lucerna-primary">Chronic Conditions</NuxtLink>
+                  <NuxtLink to="/services?tab=home-health" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-primary hover:text-white">Home Health Aide Services</NuxtLink>
+                  <NuxtLink to="/services?tab=concierge" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-primary hover:text-white">Concierge Nursing & Private Duty</NuxtLink>
+                  <NuxtLink to="/services?tab=chronic" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-primary hover:text-white">Chronic Conditions</NuxtLink>
                 </div>
               </div>
             </div>
@@ -105,9 +107,9 @@
             <div class="px-3 py-2">
               <div class="text-gray-600 font-medium mb-2">Services</div>
               <div class="pl-4 space-y-1">
-                <NuxtLink to="/services#home-health" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Home Health Aide Services</NuxtLink>
-                <NuxtLink to="/services#concierge" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Concierge Services</NuxtLink>
-                <NuxtLink to="/services#chronic" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Chronic Conditions</NuxtLink>
+                <NuxtLink to="/services?tab=home-health" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Home Health Aide Services</NuxtLink>
+                <NuxtLink to="/services?tab=concierge" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Concierge Nursing & Private Duty</NuxtLink>
+                <NuxtLink to="/services?tab=chronic" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Chronic Conditions</NuxtLink>
               </div>
             </div>
 

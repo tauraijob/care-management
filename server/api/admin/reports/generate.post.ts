@@ -7,19 +7,19 @@ export default defineEventHandler(async (event) => {
         if (!token) throw createError({ statusCode: 401, statusMessage: 'No token provided' })
         const user = await getUserFromToken(token)
         if (!user || user.role !== 'ADMIN') throw createError({ statusCode: 403, statusMessage: 'Admin access required' })
-        
+
         const body = await readBody(event)
         const { type, fromDate, toDate } = body
         if (!type || !fromDate || !toDate) throw createError({ statusCode: 400, statusMessage: 'Missing required fields' })
-        
+
         // Generate report content based on type
         let content = {}
         const fromDateTime = new Date(fromDate)
         const toDateTime = new Date(toDate)
-        
+        const prisma = await getPrisma()
+
         switch (type) {
             case 'booking-summary':
-        const prisma = await getPrisma()
                 const bookings = await prisma.booking.findMany({
                     where: {
                         startDate: {
@@ -46,7 +46,7 @@ export default defineEventHandler(async (event) => {
                     }))
                 }
                 break
-                
+
             case 'revenue-analysis':
                 const payments = await prisma.payment.findMany({
                     where: {
@@ -77,7 +77,7 @@ export default defineEventHandler(async (event) => {
                     }))
                 }
                 break
-                
+
             case 'carer-performance':
                 const carerLogs = await prisma.log.findMany({
                     where: {
@@ -107,11 +107,11 @@ export default defineEventHandler(async (event) => {
                     }))
                 }
                 break
-                
+
             default:
                 content = { message: 'Report type not implemented yet' }
         }
-        
+
         // Create report in database
         const report = await prisma.report.create({
             data: {
@@ -131,7 +131,7 @@ export default defineEventHandler(async (event) => {
                 }
             }
         })
-        
+
         return { data: { report } }
     } catch (e) {
         throw createError({ statusCode: 500, statusMessage: e.message })

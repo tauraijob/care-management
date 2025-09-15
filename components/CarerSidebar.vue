@@ -4,15 +4,11 @@
     <div class="flex flex-col h-full">
       <!-- Sidebar Header -->
       <div class="p-6 border-b border-gray-100">
-        <div class="flex items-center space-x-3">
-          <div class="w-8 h-8 bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg flex items-center justify-center">
-            <Icon name="mdi:medical-bag" class="text-white text-sm" />
-          </div>
-          <div>
-            <h2 class="text-lg font-semibold text-gray-900">Carer Portal</h2>
-            <p class="text-xs text-gray-500">{{ user?.firstName }} {{ user?.lastName }}</p>
-          </div>
-        </div>
+        <NuxtLink to="/carer/dashboard" class="flex items-center">
+          <span class="inline-flex items-center justify-center rounded-[10px] bg-lucerna-primary p-1">
+            <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-12 w-auto rounded-[8px]" />
+          </span>
+        </NuxtLink>
       </div>
 
       <!-- Navigation Menu -->
@@ -113,15 +109,11 @@
     <div class="flex flex-col h-full">
       <!-- Sidebar Header -->
       <div class="p-6 border-b border-gray-100">
-        <div class="flex items-center space-x-3">
-          <div class="w-8 h-8 bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg flex items-center justify-center">
-            <Icon name="mdi:medical-bag" class="text-white text-sm" />
-          </div>
-          <div>
-            <h2 class="text-lg font-semibold text-gray-900">Carer Portal</h2>
-            <p class="text-xs text-gray-500">{{ user?.firstName }} {{ user?.lastName }}</p>
-          </div>
-        </div>
+        <NuxtLink to="/carer/dashboard" class="flex items-center">
+          <span class="inline-flex items-center justify-center rounded-[10px] bg-lucerna-primary p-1">
+            <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-10 w-auto rounded-[6px]" />
+          </span>
+        </NuxtLink>
       </div>
 
       <!-- Navigation Menu -->

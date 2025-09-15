@@ -25,6 +25,9 @@ export default defineEventHandler(async (event) => {
         const startDate = query.startDate as string
         const endDate = query.endDate as string
 
+        // Initialize Prisma
+        const prismaClient = await getPrisma()
+
         // Set default date range (last 12 months)
         const end = endDate ? new Date(endDate) : new Date()
         const start = startDate ? new Date(startDate) : new Date(end.getTime() - 365 * 24 * 60 * 60 * 1000)
@@ -37,7 +40,7 @@ export default defineEventHandler(async (event) => {
             topRevenueCarers
         ] = await Promise.all([
             // Total revenue
-            prisma.payment.aggregate({
+            prismaClient.payment.aggregate({
                 where: {
                     status: 'COMPLETED',
                     createdAt: { gte: start, lte: end }
@@ -47,7 +50,7 @@ export default defineEventHandler(async (event) => {
             }),
 
             // Monthly revenue trend
-            prisma.payment.groupBy({
+            prismaClient.payment.groupBy({
                 by: ['createdAt'],
                 where: {
                     status: 'COMPLETED',
@@ -58,7 +61,7 @@ export default defineEventHandler(async (event) => {
             }),
 
             // Revenue by service type - get bookings with payments
-            prisma.booking.findMany({
+            prismaClient.booking.findMany({
                 where: {
                     payments: {
                         some: {
@@ -78,7 +81,7 @@ export default defineEventHandler(async (event) => {
             }),
 
             // Top revenue carers
-            prisma.user.findMany({
+            prismaClient.user.findMany({
                 where: {
                     role: 'CARER',
                     carerBookings: {
@@ -117,17 +120,17 @@ export default defineEventHandler(async (event) => {
         ])
 
         // Format monthly revenue data
-        const monthlyRevenueData = monthlyRevenue.map(item => ({
+        const monthlyRevenueData = monthlyRevenue.map((item: any) => ({
             month: item.createdAt,
             revenue: item._sum.amount || 0,
             bookings: item._count
         }))
 
         // Format top revenue services
-        const serviceRevenueMap = new Map()
-        topRevenueServices.forEach(booking => {
-            const careType = booking.careType
-            const totalAmount = booking.payments.reduce((sum, payment) => sum + payment.amount, 0)
+        const serviceRevenueMap = new Map<string, any>()
+        topRevenueServices.forEach((booking: any) => {
+            const careType = booking.careType as string
+            const totalAmount = booking.payments.reduce((sum: number, payment: any) => sum + payment.amount, 0)
 
             if (serviceRevenueMap.has(careType)) {
                 const existing = serviceRevenueMap.get(careType)
@@ -152,10 +155,10 @@ export default defineEventHandler(async (event) => {
         })
 
         // Format top revenue carers
-        const topCarers = topRevenueCarers.map(carer => {
-            const totalRevenue = carer.carerBookings.reduce((sum, booking) => {
+        const topCarers = topRevenueCarers.map((carer: any) => {
+            const totalRevenue = carer.carerBookings.reduce((sum: number, booking: any) => {
                 const bookingPayments = booking.payments || []
-                return sum + bookingPayments.reduce((paymentSum, payment) => paymentSum + (payment.amount || 0), 0)
+                return sum + bookingPayments.reduce((paymentSum: number, payment: any) => paymentSum + (payment.amount || 0), 0)
             }, 0)
             const totalBookings = carer.carerBookings.length
             return {
@@ -171,7 +174,7 @@ export default defineEventHandler(async (event) => {
         // Calculate growth rate (compare with previous period)
         const previousStart = new Date(start.getTime() - (end.getTime() - start.getTime()))
         const prisma = await getPrisma()
-        const previousRevenue = await prisma.payment.aggregate({
+        const previousRevenue = await prismaClient.payment.aggregate({
             where: {
                 status: 'COMPLETED',
                 createdAt: { gte: previousStart, lt: start }
@@ -193,8 +196,8 @@ export default defineEventHandler(async (event) => {
                     avgRevenuePerBooking: totalRevenue._count > 0 ? currentRevenue / totalRevenue._count : 0
                 },
                 monthlyTrend: monthlyRevenueData,
-                topServices: topServices.sort((a, b) => b.revenue - a.revenue).slice(0, 5),
-                topCarers: topCarers.sort((a, b) => b.revenue - a.revenue).slice(0, 5),
+                topServices: topServices.sort((a: any, b: any) => b.revenue - a.revenue).slice(0, 5),
+                topCarers: topCarers.sort((a: any, b: any) => b.revenue - a.revenue).slice(0, 5),
                 dateRange: {
                     start: start.toISOString(),
                     end: end.toISOString()

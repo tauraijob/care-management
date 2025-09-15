@@ -26,6 +26,9 @@ export default defineEventHandler(async (event) => {
             })
         }
 
+        // Initialize Prisma
+        const prisma = await getPrisma()
+
         // Get current date and month start
         const now = new Date()
         const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1)

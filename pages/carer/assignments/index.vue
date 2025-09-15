@@ -3,11 +3,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Header -->
       <div class="mb-8">
-        <div class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white shadow-xl">
+        <div class="bg-[#0034b3] rounded-2xl p-8 text-white shadow-xl">
           <div class="flex items-center justify-between">
             <div>
               <h1 class="text-3xl font-bold mb-2">My Assignments</h1>
-              <p class="text-green-100 text-lg">Manage your patient care assignments and schedules</p>
+              <p class="text-white/80 text-lg">Manage your patient care assignments and schedules</p>
               <div class="flex items-center mt-4 space-x-6">
                 <div class="flex items-center space-x-2">
                   <Icon name="mdi:account-group" class="text-lg" />
@@ -233,37 +233,37 @@
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <h2 class="text-xl font-bold text-gray-900 mb-6">Quick Actions</h2>
           <div class="space-y-4">
-            <button @click="startNextAssignment" class="w-full flex items-center justify-between p-4 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 transition-colors">
+            <button @click="startNextAssignment" class="w-full flex items-center justify-between p-4 bg-[#0034b3]/10 border border-[#0034b3]/20 rounded-lg hover:bg-[#0034b3]/15 transition-colors">
               <div class="flex items-center">
-                <Icon name="mdi:play-circle" class="text-green-600 text-xl mr-3" />
+                <Icon name="mdi:play-circle" class="text-[#0034b3] text-xl mr-3" />
                 <div>
-                  <p class="font-medium text-green-900">Start Next Assignment</p>
-                  <p class="text-sm text-green-600">Begin your next scheduled care session</p>
+                  <p class="font-medium text-brand">Start Next Assignment</p>
+                  <p class="text-sm text-[#0034b3]">Begin your next scheduled care session</p>
                 </div>
               </div>
-              <Icon name="mdi:chevron-right" class="text-green-600" />
+              <Icon name="mdi:chevron-right" class="text-[#0034b3]" />
             </button>
             
-            <button @click="viewSchedule" class="w-full flex items-center justify-between p-4 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors">
+            <button @click="viewSchedule" class="w-full flex items-center justify-between p-4 bg-[#0034b3]/10 border border-[#0034b3]/20 rounded-lg hover:bg-[#0034b3]/15 transition-colors">
               <div class="flex items-center">
-                <Icon name="mdi:calendar" class="text-blue-600 text-xl mr-3" />
+                <Icon name="mdi:calendar" class="text-[#0034b3] text-xl mr-3" />
                 <div>
-                  <p class="font-medium text-blue-900">View Schedule</p>
-                  <p class="text-sm text-blue-600">Check your upcoming assignments</p>
+                  <p class="font-medium text-brand">View Schedule</p>
+                  <p class="text-sm text-[#0034b3]">Check your upcoming assignments</p>
                 </div>
               </div>
-              <Icon name="mdi:chevron-right" class="text-blue-600" />
+              <Icon name="mdi:chevron-right" class="text-[#0034b3]" />
             </button>
             
-            <button @click="reportIssue" class="w-full flex items-center justify-between p-4 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-colors">
+            <button @click="reportIssue" class="w-full flex items-center justify-between p-4 bg-[#0034b3]/10 border border-[#0034b3]/20 rounded-lg hover:bg-[#0034b3]/15 transition-colors">
               <div class="flex items-center">
-                <Icon name="mdi:alert-circle" class="text-red-600 text-xl mr-3" />
+                <Icon name="mdi:alert-circle" class="text-[#0034b3] text-xl mr-3" />
                 <div>
-                  <p class="font-medium text-red-900">Report Issue</p>
-                  <p class="text-sm text-red-600">Report problems with assignments</p>
+                  <p class="font-medium text-brand">Report Issue</p>
+                  <p class="text-sm text-[#0034b3]">Report problems with assignments</p>
                 </div>
               </div>
-              <Icon name="mdi:chevron-right" class="text-red-600" />
+              <Icon name="mdi:chevron-right" class="text-[#0034b3]" />
             </button>
           </div>
         </div>
@@ -272,12 +272,12 @@
           <h2 class="text-xl font-bold text-gray-900 mb-6">Recent Activity</h2>
           <div class="space-y-4">
             <div v-for="activity in recentActivities" :key="activity.id" class="flex items-start space-x-3">
-              <div class="w-8 h-8 rounded-full flex items-center justify-center" :class="activity.color">
-                <Icon :name="activity.icon" class="text-white text-sm" />
+              <div class="w-8 h-8 rounded-full flex items-center justify-center bg-[#0034b3]">
+                <Icon :name="activity.icon" class="text-white text-sm" style="color:#ffffff !important" />
               </div>
               <div class="flex-1 min-w-0">
                 <p class="text-sm font-medium text-gray-900">{{ activity.title }}</p>
-                <p class="text-xs text-gray-500">{{ activity.time }}</p>
+                <p class="text-xs text-[#0034b3]">{{ activity.time }}</p>
               </div>
             </div>
           </div>

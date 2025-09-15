@@ -8,7 +8,7 @@
           <p class="text-sm text-gray-600 mt-1">Manage your assigned patients and their care plans</p>
         </div>
         <div class="flex items-center space-x-3">
-          <button @click="exportPatients" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+          <button @click="exportPatients" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors text-brand">
             <Icon name="mdi:download" class="mr-2 h-4 w-4" />
             Export List
           </button>
@@ -196,20 +196,20 @@
           
           <div class="mt-4 flex items-center justify-between">
             <div class="flex items-center space-x-2">
-                <button @click="viewPatient(patient)" class="text-green-600 hover:text-green-900 text-sm font-medium transition-colors">
+                <NuxtLink :to="`/carer/patients/${patient.id}`" class="text-green-600 hover:text-green-900 text-sm font-medium transition-colors">
                 View Details
-              </button>
-                <button @click="editPatient(patient)" class="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors">
+              </NuxtLink>
+                <button @click="openEditPatient(patient)" class="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors">
                 Edit
               </button>
             </div>
             <div class="flex items-center space-x-1">
-                <button @click="viewCarePlan(patient)" class="text-green-600 hover:text-green-900 transition-colors">
+                <NuxtLink :to="`/carer/patients/${patient.id}/care-plan`" class="text-green-600 hover:text-green-900 transition-colors">
                 <Icon name="mdi:clipboard-text" class="h-4 w-4" />
-              </button>
-                <button @click="viewHistory(patient)" class="text-blue-600 hover:text-blue-900 transition-colors">
+              </NuxtLink>
+                <NuxtLink :to="`/carer/patients/${patient.id}/history`" class="text-blue-600 hover:text-blue-900 transition-colors">
                 <Icon name="mdi:history" class="h-4 w-4" />
-              </button>
+              </NuxtLink>
                 <button @click="contactPatient(patient)" class="text-purple-600 hover:text-purple-900 transition-colors">
                 <Icon name="mdi:phone" class="h-4 w-4" />
               </button>
@@ -326,6 +326,44 @@
       </div>
     </div>
   </div>
+
+  <!-- Edit Patient Modal -->
+  <div v-if="showEditPatientModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+    <div class="relative top-20 mx-auto p-6 border w-96 shadow-xl rounded-lg bg-white">
+      <div class="mt-3">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-xl font-semibold text-gray-900">Edit Patient</h3>
+          <button @click="showEditPatientModal = false" class="text-gray-400 hover:text-gray-600 transition-colors">
+            <Icon name="mdi:close" class="h-6 w-6" />
+          </button>
+        </div>
+        <form @submit.prevent="saveEditPatient">
+          <div class="space-y-6">
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <label class="block text-sm font-semibold text-gray-800 mb-2">First Name *</label>
+              <input v-model="editForm.firstName" type="text" required class="block w-full px-3 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm bg-white text-gray-900 transition-colors" />
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <label class="block text-sm font-semibold text-gray-800 mb-2">Last Name *</label>
+              <input v-model="editForm.lastName" type="text" required class="block w-full px-3 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm bg-white text-gray-900 transition-colors" />
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <label class="block text-sm font-semibold text-gray-800 mb-2">Date of Birth *</label>
+              <input v-model="editForm.dateOfBirth" type="date" required class="block w-full px-3 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm bg-white text-gray-900 transition-colors" />
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <label class="block text-sm font-semibold text-gray-800 mb-2">Address</label>
+              <input v-model="editForm.address" type="text" class="block w-full px-3 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm bg-white text-gray-900 transition-colors" />
+            </div>
+          </div>
+          <div class="mt-8 flex justify-end space-x-3 pt-6 border-t border-gray-200">
+            <button type="button" @click="showEditPatientModal = false" class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">Cancel</button>
+            <button type="submit" class="px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -340,6 +378,8 @@ const searchQuery = ref('')
 const statusFilter = ref('')
 const careTypeFilter = ref('')
 const showAddPatientModal = ref(false)
+const showEditPatientModal = ref(false)
+const selectedPatient = ref(null)
 const currentPage = ref(1)
 const itemsPerPage = 9
 const loading = ref(true)
@@ -449,11 +489,11 @@ const calculateAge = (dateOfBirth) => {
 }
 
 const getPatientStatus = (patient) => {
-  // Determine status based on bookings
   if (patient.bookings && patient.bookings.length > 0) {
-    const latestBooking = patient.bookings[0]
-    if (latestBooking.status === 'COMPLETED') return 'active'
-    if (latestBooking.status === 'CANCELLED') return 'inactive'
+    const latest = patient.bookings[0]
+    if (latest.status === 'CANCELLED') return 'inactive'
+    if (latest.status === 'COMPLETED') return 'discharged'
+    if (latest.status === 'CONFIRMED' || latest.status === 'IN_PROGRESS' || latest.status === 'ASSIGNED') return 'active'
     return 'active'
   }
   return 'active'
@@ -467,8 +507,15 @@ const getLatestCareType = (patient) => {
 }
 
 const getVisitFrequency = (patient) => {
-  // This would need to be calculated based on booking patterns
-  return 'Weekly'
+  if (!patient.bookings || patient.bookings.length < 2) return 'Weekly'
+  const [b1, b2] = patient.bookings
+  const d1 = new Date(b1.startDate).getTime()
+  const d2 = new Date(b2.startDate).getTime()
+  const diffDays = Math.abs(d1 - d2) / (1000 * 60 * 60 * 24)
+  if (diffDays <= 2) return 'Daily'
+  if (diffDays <= 9) return 'Weekly'
+  if (diffDays <= 20) return 'Bi-weekly'
+  return 'Monthly'
 }
 
 const getLastVisit = (patient) => {
@@ -477,20 +524,17 @@ const getLastVisit = (patient) => {
     if (completedBookings.length > 0) {
       return completedBookings[0].startDate
     }
+    return patient.bookings[0].startDate
   }
-  return new Date()
+  return null
 }
 
 const getNextVisit = (patient) => {
   if (patient.bookings && patient.bookings.length > 0) {
-    const upcomingBookings = patient.bookings.filter(b => 
-      b.status === 'SCHEDULED' && new Date(b.startDate) > new Date()
-    )
-    if (upcomingBookings.length > 0) {
-      return upcomingBookings[0].startDate
-    }
+    const upcoming = patient.bookings.filter(b => (b.status === 'CONFIRMED' || b.status === 'ASSIGNED' || b.status === 'IN_PROGRESS') && new Date(b.startDate) > new Date())
+    if (upcoming.length > 0) return upcoming[0].startDate
   }
-  return new Date()
+  return null
 }
 
 // Methods
@@ -513,25 +557,7 @@ const formatDate = (dateString) => {
   })
 }
 
-const viewPatient = (patient) => {
-  // Implement patient details view
-  console.log('View patient:', patient)
-}
-
-const editPatient = (patient) => {
-  // Implement patient editing
-  console.log('Edit patient:', patient)
-}
-
-const viewCarePlan = (patient) => {
-  // Implement care plan view
-  console.log('View care plan:', patient)
-}
-
-const viewHistory = (patient) => {
-  // Implement patient history view
-  console.log('View history:', patient)
-}
+const viewPatient = (patient) => {}
 
 const contactPatient = (patient) => {
   // Implement patient contact
@@ -551,9 +577,58 @@ const addPatient = () => {
   }
 }
 
-const exportPatients = () => {
-  // Implement export functionality
-  console.log('Export patients')
+// Edit form state
+const editForm = ref({ firstName: '', lastName: '', dateOfBirth: '', address: '' })
+
+const openEditPatient = (patient) => {
+  selectedPatient.value = patient
+  editForm.value.firstName = patient.firstName || ''
+  editForm.value.lastName = patient.lastName || ''
+  editForm.value.dateOfBirth = patient.dateOfBirth ? new Date(patient.dateOfBirth).toISOString().slice(0,10) : ''
+  editForm.value.address = patient.address || ''
+  showEditPatientModal.value = true
+}
+
+const saveEditPatient = async () => {
+  if (!selectedPatient.value) return
+  try {
+    await $fetch(`/api/patients/${selectedPatient.value.id}`, {
+      method: 'PUT',
+      body: {
+        firstName: editForm.value.firstName,
+        lastName: editForm.value.lastName,
+        dateOfBirth: editForm.value.dateOfBirth,
+        address: editForm.value.address
+      },
+      headers: { 'Authorization': `Bearer ${useCookie('auth-token').value}` }
+    })
+    showEditPatientModal.value = false
+    await fetchPatients()
+  } catch (e) {
+    console.error('Failed to save patient:', e)
+  }
+}
+
+const exportPatients = async () => {
+  try {
+    const res = await $fetch('/api/carer/patients/export', {
+      method: 'POST',
+      body: { format: 'pdf' },
+      responseType: 'arrayBuffer',
+      credentials: 'include'
+    })
+    const blob = new Blob([res], { type: 'application/pdf' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `carer-patients-${new Date().toISOString().split('T')[0]}.pdf`
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+    window.URL.revokeObjectURL(url)
+  } catch (error) {
+    console.error('Failed to export patients:', error)
+  }
 }
 
 const previousPage = () => {

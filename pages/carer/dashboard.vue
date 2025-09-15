@@ -8,7 +8,7 @@
   <div v-else class="max-w-7xl mx-auto">
         <!-- Welcome Section -->
         <div class="mb-8">
-          <div class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white shadow-xl">
+          <div class="bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark rounded-2xl p-8 text-white shadow-xl">
             <div class="flex items-center justify-between">
               <div>
                 <h1 class="text-3xl font-bold mb-2">
@@ -17,11 +17,11 @@
                 <p class="text-green-100 text-lg">Here's your schedule and assignments for today</p>
                 <div class="flex items-center mt-4 space-x-4">
                   <div class="flex items-center space-x-2">
-                    <Icon name="mdi:calendar" class="text-lg" />
+                    <Icon name="mdi:calendar" class="text-lg" style="color:#ffffff !important" />
                     <span class="text-sm">{{ new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</span>
                   </div>
                   <div class="flex items-center space-x-2">
-                    <Icon name="mdi:clock" class="text-lg" />
+                    <Icon name="mdi:clock" class="text-lg" style="color:#ffffff !important" />
                     <span class="text-sm">{{ new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) }}</span>
                   </div>
                 </div>
@@ -40,12 +40,12 @@
           <NuxtLink to="/carer/schedule" class="group bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
             <div class="flex items-center">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Icon name="mdi:calendar" class="text-white text-xl" />
+                <div class="w-12 h-12 bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <Icon name="mdi:calendar" class="text-xl" style="color:#ffffff !important" />
                 </div>
               </div>
               <div class="ml-4">
-                <p class="text-sm font-semibold text-gray-900 group-hover:text-green-600 transition-colors">View Schedule</p>
+                <p class="text-sm font-semibold text-gray-900 group-hover:text-lucerna-primary transition-colors">View Schedule</p>
                 <p class="text-sm text-gray-500">Check your assignments</p>
               </div>
             </div>
@@ -54,12 +54,12 @@
           <NuxtLink to="/carer/assignments" class="group bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
             <div class="flex items-center">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Icon name="mdi:clipboard-text" class="text-white text-xl" />
+                <div class="w-12 h-12 bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <Icon name="mdi:clipboard-text" class="text-xl" style="color:#ffffff !important" />
                 </div>
               </div>
               <div class="ml-4">
-                <p class="text-sm font-semibold text-gray-900 group-hover:text-green-600 transition-colors">My Assignments</p>
+                <p class="text-sm font-semibold text-gray-900 group-hover:text-lucerna-primary transition-colors">My Assignments</p>
                 <p class="text-sm text-gray-500">Current patient care</p>
               </div>
             </div>
@@ -68,12 +68,12 @@
           <NuxtLink to="/carer/reports" class="group bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
             <div class="flex items-center">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Icon name="mdi:chart-line" class="text-white text-xl" />
+                <div class="w-12 h-12 bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <Icon name="mdi:chart-line" class="text-xl" style="color:#ffffff !important" />
                 </div>
               </div>
               <div class="ml-4">
-                <p class="text-sm font-semibold text-gray-900 group-hover:text-green-600 transition-colors">Submit Report</p>
+                <p class="text-sm font-semibold text-gray-900 group-hover:text-lucerna-primary transition-colors">Submit Report</p>
                 <p class="text-sm text-gray-500">Update patient status</p>
               </div>
             </div>

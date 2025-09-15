@@ -20,6 +20,8 @@ export default defineEventHandler(async (event) => {
             })
         }
 
+        const prisma = await getPrisma()
+
         // Get query parameters for filtering
         const query = getQuery(event)
         const status = query.status as string

@@ -465,19 +465,26 @@ const { data: paymentsData, error } = await useFetch('/api/admin/payments', {
 // Reactive payment data
 const payments = computed(() => {
   if (!paymentsData.value?.data?.payments) return []
-  return paymentsData.value.data.payments.map(payment => ({
-    id: payment.id,
-    customerName: payment.booking.patient.name,
-    description: `${payment.booking.careType} - ${payment.booking.patient.name}`,
-    amount: payment.amount,
-    method: payment.paymentMethod,
-    status: payment.status.toLowerCase(),
-    date: payment.createdAt
-  }))
+  const methodLabel = { STRIPE: 'Stripe', PAYPAL: 'PayPal', ECOCASH: 'EcoCash' }
+  return paymentsData.value.data.payments.map((payment) => {
+    const patientFirst = payment.booking?.patient?.firstName || ''
+    const patientLast = payment.booking?.patient?.lastName || ''
+    const patientName = `${patientFirst} ${patientLast}`.trim()
+    const careType = (payment.booking?.careType || '').replace(/_/g, ' ')
+    return {
+      id: payment.id,
+      customerName: patientName || 'Unknown',
+      description: `${careType}${patientName ? ' - ' + patientName : ''}`.trim(),
+      amount: payment.amount,
+      method: methodLabel[payment.paymentMethod] || payment.paymentMethod,
+      status: (payment.status || '').toLowerCase(),
+      date: payment.createdAt
+    }
+  })
 })
 
 const statistics = computed(() => paymentsData.value?.data?.statistics || {})
-const totalRevenue = computed(() => statistics.value.totalRevenue || 0)
+const totalRevenue = computed(() => paymentsData.value?.data?.totalRevenue || 0)
 
 const thisMonthRevenue = computed(() => {
   const now = new Date()
@@ -534,9 +541,11 @@ const visiblePages = computed(() => {
 // Methods
 const getPaymentIcon = (method) => {
   const icons = {
+    'Stripe': 'mdi:credit-card',
+    'PayPal': 'mdi:paypal',
+    'EcoCash': 'mdi:cellphone',
     'Credit Card': 'mdi:credit-card',
     'Bank Transfer': 'mdi:bank',
-    'PayPal': 'mdi:paypal',
     'Cash': 'mdi:cash'
   }
   return icons[method] || 'mdi:currency-usd'

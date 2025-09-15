@@ -20,6 +20,9 @@ export default defineEventHandler(async (event) => {
             })
         }
 
+        // Ensure Prisma is initialized
+        const prisma = await getPrisma()
+
         // Get query parameters for filtering
         const query = getQuery(event)
         const role = query.role as string
@@ -66,7 +69,7 @@ export default defineEventHandler(async (event) => {
                     // Include role-specific data
                     _count: {
                         select: {
-                            clientBookings: true,
+                            bookings: true,
                             carerBookings: true,
                             patients: true
                         }
@@ -99,7 +102,7 @@ export default defineEventHandler(async (event) => {
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
             stats: {
-                bookings: user.role === 'CLIENT' ? user._count.clientBookings : user._count.carerBookings,
+                bookings: user.role === 'CLIENT' ? user._count.bookings : user._count.carerBookings,
                 patients: user.role === 'CLIENT' ? user._count.patients : 0
             }
         }))

@@ -6,16 +6,16 @@
 :root {
     --lucerna-background: #F5F7F9;
     /* Light Grey / Off White */
-    --lucerna-primary: #0A2342;
-    /* Navy Blue */
-    --lucerna-primary-dark: #081A33;
-    /* Darker Navy for hover */
+    --lucerna-primary: #0034b3;
+    /* Primary from brand guide */
+    --lucerna-primary-dark: #00298f;
+    /* Derived darker shade for hover/focus */
     --lucerna-text: #0A2342;
     /* Ensure strong contrast */
-    --lucerna-secondary: #4A6470;
-    /* Cool Grey Blue */
-    --lucerna-accent: #FF6600;
-    /* Highlight Orange */
+    --lucerna-secondary: #00053a;
+    /* Secondary from brand guide */
+    --lucerna-accent: #00ffff;
+    /* Accent from brand guide */
 }
 
 /* Base Styles */
@@ -254,6 +254,29 @@
     .admin-theme a.bg-white :is(svg, .icon) {
         color: var(--lucerna-primary) !important;
         fill: currentColor !important;
+    }
+
+    /* Client/Carer: ensure white-background buttons/links use brand text for contrast */
+    .client-theme button.bg-white,
+    .client-theme a.bg-white,
+    .carer-theme button.bg-white,
+    .carer-theme a.bg-white {
+        color: var(--lucerna-primary) !important;
+        border-color: var(--lucerna-primary) !important;
+    }
+
+    .client-theme button.bg-white :is(svg, .icon),
+    .client-theme a.bg-white :is(svg, .icon),
+    .carer-theme button.bg-white :is(svg, .icon),
+    .carer-theme a.bg-white :is(svg, .icon) {
+        color: var(--lucerna-primary) !important;
+        fill: currentColor !important;
+    }
+
+    /* If white text appears on white surfaces, force brand color for visibility */
+    .client-theme .bg-white .text-white,
+    .carer-theme .bg-white .text-white {
+        color: var(--lucerna-primary) !important;
     }
 
     /* Admin: normalize form controls (avoid stark white fields) */
@@ -504,6 +527,13 @@
         color: #ffffff !important;
     }
 
+    /* Icons on brand surfaces must be white */
+    :is(.bg-lucerna-primary, .from-lucerna-primary, .from-lucerna-primary-dark,
+        .bg-gradient-to-r.from-lucerna-primary, .bg-gradient-to-br.from-lucerna-primary) :is(svg, .icon) {
+        color: #ffffff !important;
+        fill: currentColor !important;
+    }
+
     /* White text and icons on navy brand gradients remapped via legacy classes */
     :is(.from-green-600, .from-green-500, .to-emerald-600, .to-emerald-500) {
         color: #ffffff !important;
@@ -518,11 +548,12 @@
         fill: currentColor !important;
     }
 
-    /* Override nested text utility colors within navy brand surfaces */
-    :is(.bg-lucerna-primary, .bg-lucerna-primary-dark, .bg-lucerna-secondary,
-        .from-lucerna-primary, .from-lucerna-primary-dark,
-        .from-green-600, .from-green-500, .to-emerald-600, .to-emerald-500) :is(.text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600, .text-gray-500,
-        .text-lucerna-primary, .text-lucerna-secondary) {
+    /* Override nested text utilities on brand surfaces: force white */
+    .bg-lucerna-primary :is(*),
+    .from-lucerna-primary :is(*),
+    .from-lucerna-primary-dark :is(*),
+    .bg-gradient-to-r.from-lucerna-primary :is(*),
+    .bg-gradient-to-br.from-lucerna-primary :is(*) {
         color: #ffffff !important;
     }
 
@@ -687,6 +718,12 @@
     /* Force brand text color with higher priority */
     .text-brand {
         color: var(--lucerna-primary) !important;
+    }
+
+    /* Force white icons utility for brand surfaces */
+    .icon-on-brand {
+        color: #ffffff !important;
+        fill: currentColor !important;
     }
 
     .text-lucerna-text {

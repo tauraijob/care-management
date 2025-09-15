@@ -1,13 +1,7 @@
 <template>
   <nav class="bg-white/90 backdrop-blur-md border-b border-white/20 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16">
-        <!-- Logo and Brand -->
-        <div class="flex items-center">
-          <NuxtLink to="/client/dashboard" class="flex items-center">
-            <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-10 w-auto rounded-[10px]" />
-          </NuxtLink>
-        </div>
+      <div class="flex justify-end h-16">
         
         <!-- Right Side Actions -->
         <div class="flex items-center space-x-4">

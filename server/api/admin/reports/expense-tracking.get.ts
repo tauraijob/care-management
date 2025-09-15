@@ -15,6 +15,9 @@ export default defineEventHandler(async (event) => {
             })
         }
 
+        // Initialize Prisma
+        const prisma = await getPrisma()
+
         // Get current date and year start
         const now = new Date()
         const currentYearStart = new Date(now.getFullYear(), 0, 1)

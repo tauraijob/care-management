@@ -20,6 +20,9 @@ export default defineEventHandler(async (event) => {
             })
         }
 
+        // Initialize Prisma
+        const prisma = await getPrisma()
+
         // Get query parameters
         const query = getQuery(event)
         const startDate = query.startDate as string
@@ -154,27 +157,27 @@ export default defineEventHandler(async (event) => {
         ])
 
         // Format bookings by status
-        const statusData = bookingsByStatus.map(item => ({
+        const statusData = bookingsByStatus.map((item: any) => ({
             status: item.status,
             count: item._count.status,
             percentage: totalBookings > 0 ? Math.round((item._count.status / totalBookings) * 100) : 0
         }))
 
         // Format bookings by service
-        const serviceData = bookingsByService.map(item => ({
+        const serviceData = bookingsByService.map((item: any) => ({
             service: item.careType,
             count: item._count.careType,
             percentage: totalBookings > 0 ? Math.round((item._count.careType / totalBookings) * 100) : 0
         }))
 
         // Format monthly bookings
-        const monthlyData = bookingsByMonth.map(item => ({
+        const monthlyData = bookingsByMonth.map((item: any) => ({
             month: item.createdAt,
             bookings: item._count.createdAt
         }))
 
         // Format top clients
-        const topClientsData = topClients.map(client => ({
+        const topClientsData = topClients.map((client: any) => ({
             id: client.id,
             name: `${client.firstName} ${client.lastName}`,
             initials: `${client.firstName[0]}${client.lastName[0]}`,
@@ -183,7 +186,7 @@ export default defineEventHandler(async (event) => {
         }))
 
         // Format top carers
-        const topCarersData = topCarers.map(carer => ({
+        const topCarersData = topCarers.map((carer: any) => ({
             id: carer.id,
             name: `${carer.firstName} ${carer.lastName}`,
             initials: `${carer.firstName[0]}${carer.lastName[0]}`,
@@ -192,13 +195,13 @@ export default defineEventHandler(async (event) => {
         }))
 
         // Format booking trends
-        const trendData = bookingTrends.map(item => ({
+        const trendData = bookingTrends.map((item: any) => ({
             date: item.createdAt,
             bookings: item._count.createdAt
         }))
 
         // Calculate completion rate
-        const completedBookings = statusData.find(item => item.status === 'COMPLETED')?.count || 0
+        const completedBookings = statusData.find((item: any) => item.status === 'COMPLETED')?.count || 0
         const completionRate = totalBookings > 0 ? Math.round((completedBookings / totalBookings) * 100) : 0
 
         // Calculate average bookings per day
@@ -206,11 +209,11 @@ export default defineEventHandler(async (event) => {
         const avgBookingsPerDay = daysInRange > 0 ? Math.round(totalBookings / daysInRange * 100) / 100 : 0
 
         // Format bookings by city (placeholder since city field doesn't exist)
-        const cityDataWithPercent = []
+        const cityDataWithPercent: any[] = []
 
         // Peak hours: group bookings by hour
         const hourCounts = Array(24).fill(0)
-        bookingsByHour.forEach(b => {
+        bookingsByHour.forEach((b: any) => {
             const hour = new Date(b.createdAt).getHours()
             hourCounts[hour]++
         })
@@ -220,7 +223,7 @@ export default defineEventHandler(async (event) => {
             { label: '2:00 PM - 4:00 PM', hours: [14, 15, 16] },
             { label: '6:00 PM - 8:00 PM', hours: [18, 19, 20] },
         ]
-        const peakHourData = peakRanges.map(range => {
+        const peakHourData = peakRanges.map((range: { label: string; hours: number[] }) => {
             const count = range.hours.reduce((sum, h) => sum + hourCounts[h], 0)
             return { label: range.label, count }
         })
@@ -228,7 +231,7 @@ export default defineEventHandler(async (event) => {
         const peakHoursTotal = peakHourData.reduce((sum, p) => sum + p.count, 0)
         peakHourData.push({ label: 'Other Times', count: totalBookings - peakHoursTotal })
         // Add percentages and descriptions
-        const peakHourDataWithPercent = peakHourData.map(p => ({
+        const peakHourDataWithPercent = peakHourData.map((p: { label: string; count: number }) => ({
             ...p,
             percentage: totalBookings > 0 ? Math.round((p.count / totalBookings) * 100) : 0,
             description: p.label === '9:00 AM - 11:00 AM' ? 'Peak morning' :

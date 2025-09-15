@@ -30,6 +30,13 @@ export default defineNuxtConfig({
     }
   },
 
+  // Disable SSR for app sections that don't need it (avoids SSR renderer issues)
+  routeRules: {
+    '/admin/**': { ssr: false },
+    '/client/**': { ssr: false },
+    '/carer/**': { ssr: false }
+  },
+
   // App configuration
   app: {
     head: {

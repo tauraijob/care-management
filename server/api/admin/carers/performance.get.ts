@@ -58,6 +58,9 @@ export default defineEventHandler(async (event) => {
             ]
         }
 
+        // Initialize Prisma
+        const prisma = await getPrisma()
+
         // Calculate pagination
         const skip = (page - 1) * limit
 

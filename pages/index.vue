@@ -144,7 +144,7 @@ const slides = [
     description:
       'When care needs become more complex, we offer Concierge Services with enhanced privacy, flexibility, and clinical oversight.',
     image: '/uploads/pic2.png',
-    link: '/services/skilled-nursing'
+    link: '/services/concierge-services'
   },
   {
     id: 'chronic',
@@ -153,7 +153,7 @@ const slides = [
     description:
       "Living with a chronic condition can be overwhelming—but you don't have to face it alone. We provide personalised, research-backed home care that empowers you to manage your health with confidence.",
     image: '/uploads/pic3.png',
-    link: '/conditions'
+    link: '/services?tab=chronic'
   }
 ]
 

@@ -1,13 +1,7 @@
 <template>
   <nav class="bg-white/90 backdrop-blur-md border-b border-white/20 shadow-lg">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16">
-        <!-- Logo and Brand -->
-        <div class="flex items-center">
-          <NuxtLink to="/admin/dashboard" class="flex items-center">
-            <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-10 w-auto rounded-[10px]" />
-          </NuxtLink>
-        </div>
+      <div class="flex justify-end h-16">
         
         <!-- Right Side Actions -->
         <div class="flex items-center space-x-4">
@@ -47,15 +41,15 @@
             <!-- User dropdown -->
             <div v-if="userMenuOpen" class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 z-50 border border-gray-100">
               <div class="py-2">
-                <NuxtLink to="/admin/profile" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150">
+                <NuxtLink to="/admin/profile" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-lucerna-primary hover:text-white transition-colors duration-150">
                   <Icon name="mdi:account" class="mr-3" />
                   Profile Settings
                 </NuxtLink>
-                <NuxtLink to="/admin/settings" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150">
+                <NuxtLink to="/admin/settings" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-lucerna-primary hover:text-white transition-colors duration-150">
                   <Icon name="mdi:cog" class="mr-3" />
                   Settings
                 </NuxtLink>
-                <NuxtLink to="/admin/support" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150">
+                <NuxtLink to="/admin/support" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-lucerna-primary hover:text-white transition-colors duration-150">
                   <Icon name="mdi:chat" class="mr-3" />
                   Support
                 </NuxtLink>

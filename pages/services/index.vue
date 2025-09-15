@@ -2,7 +2,7 @@
   <div class="min-h-screen">
     <!-- Header -->
     <PublicHeader />
-    
+
     <!-- Hero Section -->
     <section class="relative h-96 flex items-center justify-center" style="background-image: url('/uploads/pic2.png'); background-size: cover; background-position: top center; background-repeat: no-repeat;">
       <div class="absolute inset-0 bg-black/50"></div>
@@ -16,20 +16,27 @@
     <!-- Service Category Tabs -->
     <section class="bg-white border-b border-gray-200">
       <div class="max-w-7xl mx-auto px-4">
-        <nav class="flex flex-wrap justify-center space-x-8 py-6">
-          <button 
-            v-for="tab in serviceTabs" 
+        <nav class="flex flex-wrap justify-center gap-6 py-6">
+          <NuxtLink
+            v-for="tab in serviceTabs"
             :key="tab.id"
-            @click="activeTab = tab.id"
+            :to="{ path: '/services', query: { tab: tab.id } }"
             :class="[
-              'px-4 py-2 text-lg font-medium transition-colors',
-              activeTab === tab.id 
-                ? 'text-blue-600 border-b-2 border-blue-600' 
-                : 'text-gray-600 hover:text-blue-600'
+              'px-1 py-2 text-lg font-medium transition-colors focus:outline-none',
+              activeTab === tab.id
+                ? 'text-lucerna-primary border-b-2 border-lucerna-primary'
+                : 'text-gray-700 hover:text-lucerna-primary focus:text-lucerna-primary',
             ]"
           >
-            {{ tab.title }}
-          </button>
+            <span
+              :class="[
+                'inline-block pb-1',
+                activeTab === tab.id ? 'border-b-2 border-lucerna-primary' : 'border-b-2 border-transparent hover:border-lucerna-primary/80 focus:border-lucerna-primary',
+              ]"
+            >
+              {{ tab.title }}
+            </span>
+          </NuxtLink>
         </nav>
       </div>
     </section>
@@ -46,65 +53,55 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <NuxtLink to="/services/personal-care" class="block h-full bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-lucerna-primary">
             <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
               <Icon name="mdi:account-heart" class="text-2xl text-blue-600" />
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Personal Care</h3>
             <p class="text-gray-600 mb-4">Dignified, hands-on support with bathing, grooming, toileting, and mobility to promote comfort and independence.</p>
-            <NuxtLink to="/services/personal-care" class="text-blue-600 font-medium hover:text-blue-700">
-              Learn More →
-            </NuxtLink>
-          </div>
+            <span class="text-lucerna-primary font-medium hover:text-lucerna-primary-dark mt-auto inline-block">Learn More →</span>
+          </NuxtLink>
 
-          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <NuxtLink to="/services/companion-care" class="block h-full bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-lucerna-primary">
             <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
               <Icon name="mdi:account-group" class="text-2xl text-green-600" />
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Companion Care</h3>
             <p class="text-gray-600 mb-4">A warm, reliable presence offering social connection, light housekeeping, errands, and support with daily routines.</p>
-            <NuxtLink to="/services/companion-care" class="text-green-600 font-medium hover:text-green-700">
-              Learn More →
-            </NuxtLink>
-          </div>
+            <span class="text-lucerna-primary font-medium hover:text-lucerna-primary-dark mt-auto inline-block">Learn More →</span>
+          </NuxtLink>
 
-          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <NuxtLink to="/services/respite-care" class="block h-full bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-lucerna-primary">
             <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
               <Icon name="mdi:heart-pulse" class="text-2xl text-purple-600" />
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Respite Care</h3>
             <p class="text-gray-600 mb-4">Short-term, compassionate care that gives long-distance families time to rest, travel, or manage life's demands.</p>
-            <NuxtLink to="/services/respite-care" class="text-purple-600 font-medium hover:text-purple-700">
-              Learn More →
-            </NuxtLink>
-          </div>
+            <span class="text-lucerna-primary font-medium hover:text-lucerna-primary-dark mt-auto inline-block">Learn More →</span>
+          </NuxtLink>
 
-          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <NuxtLink to="/services/complex-care" class="block h-full bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-lucerna-primary">
             <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
               <Icon name="mdi:clock" class="text-2xl text-orange-600" />
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">24/7 Complex Care</h3>
             <p class="text-gray-600 mb-4">Specialist, round-the-clock support for loved ones with serious illness or high-dependency needs.</p>
-            <NuxtLink to="/services/complex-care" class="text-orange-600 font-medium hover:text-orange-700">
-              Learn More →
-            </NuxtLink>
-          </div>
+            <span class="text-lucerna-primary font-medium hover:text-lucerna-primary-dark mt-auto inline-block">Learn More →</span>
+          </NuxtLink>
 
-          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <NuxtLink to="/services/live-in-care" class="block h-full bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-lucerna-primary">
             <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
               <Icon name="mdi:home-heart" class="text-2xl text-red-600" />
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Live-In Care</h3>
             <p class="text-gray-600 mb-4">Round-the-clock, in-home support for loved ones with complex or evolving needs.</p>
-            <NuxtLink to="/services/live-in-care" class="text-red-600 font-medium hover:text-red-700">
-              Learn More →
-            </NuxtLink>
-          </div>
+            <span class="text-lucerna-primary font-medium hover:text-lucerna-primary-dark mt-auto inline-block">Learn More →</span>
+          </NuxtLink>
         </div>
       </div>
 
       <!-- Concierge Services -->
-      <div v-if="activeTab === 'concierge'" class="space-y-12">
+      <div v-if="activeTab === 'concierge'" class="space-y-12 mt-12">
         <div class="text-center">
           <h2 class="text-4xl font-bold text-gray-900 mb-4">Concierge Nursing & Private Duty Services</h2>
           <p class="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -113,57 +110,57 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-full flex flex-col">
             <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
               <Icon name="mdi:medical-bag" class="text-2xl text-blue-600" />
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Skilled Nursing Care</h3>
             <p class="text-gray-600 mb-4">Advanced nursing care, delivered at home. Wound care, chronic condition support, palliative care & more led by licensed nurses.</p>
-            <NuxtLink to="/services/skilled-nursing" class="text-blue-600 font-medium hover:text-blue-700">
+            <NuxtLink to="/services/skilled-nursing" class="text-blue-600 font-medium hover:text-blue-700 mt-auto">
               Learn More →
             </NuxtLink>
           </div>
 
-          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-full flex flex-col">
             <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
               <Icon name="mdi:walk" class="text-2xl text-green-600" />
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Physiotherapy</h3>
             <p class="text-gray-600 mb-4">Regain strength, balance, and confidence at home. Therapy plans tailored to stroke recovery, surgery rehab, falls prevention & more.</p>
-            <NuxtLink to="/services/physiotherapy" class="text-green-600 font-medium hover:text-green-700">
+            <NuxtLink to="/services/physiotherapy" class="text-green-600 font-medium hover:text-green-700 mt-auto">
               Learn More →
             </NuxtLink>
           </div>
 
-          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-full flex flex-col">
             <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
               <Icon name="mdi:microphone" class="text-2xl text-purple-600" />
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Speech Therapy</h3>
             <p class="text-gray-600 mb-4">Rebuild confidence, speech, and connection at home. We support clients with stroke recovery, swallowing issues, and voice disorders.</p>
-            <NuxtLink to="/services/speech-therapy" class="text-purple-600 font-medium hover:text-purple-700">
+            <NuxtLink to="/services/speech-therapy" class="text-purple-600 font-medium hover:text-purple-700 mt-auto">
               Learn More →
             </NuxtLink>
           </div>
 
-          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-full flex flex-col">
             <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
               <Icon name="mdi:hand-front" class="text-2xl text-orange-600" />
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Occupational Therapy</h3>
             <p class="text-gray-600 mb-4">Regain confidence, independence, and control right at home. We help clients with daily tasks like bathing, dressing, and cooking.</p>
-            <NuxtLink to="/services/occupational-therapy" class="text-orange-600 font-medium hover:text-orange-700">
+            <NuxtLink to="/services/occupational-therapy" class="text-orange-600 font-medium hover:text-orange-700 mt-auto">
               Learn More →
             </NuxtLink>
           </div>
 
-          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-full flex flex-col">
             <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
               <Icon name="mdi:brain" class="text-2xl text-red-600" />
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Learning Disabilities & Autism Support</h3>
             <p class="text-gray-600 mb-4">Tailored, respectful care that honours individual needs, routines, and communication styles.</p>
-            <NuxtLink to="/services/learning-disabilities" class="text-red-600 font-medium hover:text-red-700">
+            <NuxtLink to="/services/learning-disabilities" class="text-red-600 font-medium hover:text-red-700 mt-auto">
               Learn More →
             </NuxtLink>
           </div>
@@ -171,10 +168,10 @@
       </div>
 
       <!-- Concierge Services -->
-      <div v-if="activeTab === 'concierge'" class="space-y-12">
+      <div v-if="activeTab === 'concierge'" class="space-y-12 mt-16 md:mt-24">
         <div class="text-center">
           <h2 class="text-4xl font-bold text-gray-900 mb-4">Concierge Services</h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto mt-6">
             Premium care coordination for discerning families who expect the highest standards of service and attention to detail.
           </p>
         </div>
@@ -257,7 +254,7 @@
           </p>
         </div>
 
-        <div class="bg-gray-50 rounded-xl p-8">
+        <div class="bg-gray-50 rounded-xl p-8 max-w-5xl mx-auto">
           <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Conditions We Support</h3>
           <p class="text-center text-gray-600 mb-8">Click below to learn more about how we care for specific chronic health conditions:</p>
           
@@ -295,10 +292,24 @@
 
 <script setup>
 // Service tabs data
-const activeTab = ref('home-health')
+const route = useRoute()
+const validTabs = ['home-health', 'concierge', 'chronic']
+const initialTab = Array.isArray(route.query.tab) ? route.query.tab[0] : route.query.tab
+const activeTab = ref(initialTab && validTabs.includes(initialTab) ? initialTab : 'home-health')
+
+// Keep URL and UI in sync
+watch(() => route.query.tab, (newVal) => {
+  const tab = Array.isArray(newVal) ? newVal[0] : newVal
+  if (tab && validTabs.includes(tab)) {
+    activeTab.value = tab
+  }
+})
+
 const serviceTabs = ref([
   { id: 'home-health', title: 'Home Health Aide Services' },
   { id: 'concierge', title: 'Concierge Services' },
   { id: 'chronic', title: 'Chronic Conditions' }
 ])
-</script> 
+</script>
+
+

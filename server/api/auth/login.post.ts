@@ -25,7 +25,17 @@ export default defineEventHandler(async (event) => {
         }
 
         // Find user by email
-        const prisma = await getPrisma()
+        let prisma
+        try {
+            prisma = await getPrisma()
+        } catch (e: any) {
+            // Prisma P1001: Can't reach database server
+            console.error('Prisma initialization error:', e)
+            throw createError({
+                statusCode: 503,
+                statusMessage: 'Service temporarily unavailable. Please try again shortly.'
+            })
+        }
         const user = await prisma.user.findUnique({
             where: { email },
             select: {
@@ -97,17 +107,19 @@ export default defineEventHandler(async (event) => {
             token
         }
 
-    } catch (error) {
+    } catch (error: any) {
         console.error('Login error:', error)
 
         if (error.statusCode) {
             throw error
         }
 
-        throw createError({
-            statusCode: 500,
-            statusMessage: 'Internal server error during login'
-        })
+        // Prisma connection error (P1001) -> 503
+        if (typeof error.message === 'string' && error.message.includes("Can't reach database server")) {
+            throw createError({ statusCode: 503, statusMessage: 'Database unavailable. Please try again shortly.' })
+        }
+
+        throw createError({ statusCode: 500, statusMessage: 'Internal server error during login' })
     }
 })
 

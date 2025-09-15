@@ -3,19 +3,19 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Header -->
       <div class="mb-8">
-        <div class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white shadow-xl">
+        <div class="bg-lucerna-primary rounded-2xl p-8 text-white shadow-xl">
           <div class="flex items-center justify-between">
             <div>
               <h1 class="text-3xl font-bold mb-2">Carer Reports</h1>
-              <p class="text-green-100 text-lg">Track your performance, hours, and patient care activities</p>
+              <p class="text-white text-lg">Track your performance, hours, and patient care activities</p>
               <div class="flex items-center mt-4 space-x-6">
                 <div class="flex items-center space-x-2">
-                  <Icon name="mdi:chart-line" class="text-lg" />
-                  <span class="text-sm">{{ totalHours }} hours this month</span>
+                  <Icon name="mdi:chart-line" class="text-lg text-white" />
+                  <span class="text-sm text-white">{{ totalHours }} hours this month</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                  <Icon name="mdi:account-group" class="text-lg" />
-                  <span class="text-sm">{{ totalPatients }} patients cared for</span>
+                  <Icon name="mdi:account-group" class="text-lg text-white" />
+                  <span class="text-sm text-white">{{ totalPatients }} patients cared for</span>
                 </div>
               </div>
             </div>
@@ -59,8 +59,8 @@
             </select>
           </div>
           <div class="flex items-end">
-            <button @click="generateReport" class="btn-primary">
-              <Icon name="mdi:download" class="mr-2" />
+            <button @click="generateReport" class="btn-primary text-white">
+              <Icon name="mdi:download" class="mr-2 text-white" />
               Generate Report
             </button>
           </div>
@@ -135,7 +135,7 @@
                 @click="selectedPeriod = period"
                 :class="[
                   selectedPeriod === period 
-                    ? 'bg-green-600 text-white' 
+                    ? 'bg-[#0034b3] text-white' 
                     : 'bg-gray-100 text-gray-600',
                   'px-3 py-1 rounded-lg text-sm font-medium transition-colors'
                 ]"
@@ -292,104 +292,17 @@ const selectedReportType = ref('overview')
 const exportFormat = ref('pdf')
 const selectedPeriod = ref('month')
 
-// Mock data
-const totalHours = ref(156)
-const totalPatients = ref(12)
-const activePatients = ref(8)
-const totalEarnings = ref('24,500')
-const averageRating = ref(4.8)
-const totalReviews = ref(47)
-
-const recentActivities = ref([
-  {
-    id: 1,
-    title: 'Completed care session with Sarah Johnson',
-    time: '2 hours ago',
-    icon: 'mdi:account-heart',
-    color: 'bg-green-500'
-  },
-  {
-    id: 2,
-    title: 'Updated medication log for Robert Smith',
-    time: '4 hours ago',
-    icon: 'mdi:pill',
-    color: 'bg-blue-500'
-  },
-  {
-    id: 3,
-    title: 'Submitted weekly report',
-    time: '1 day ago',
-    icon: 'mdi:file-document',
-    color: 'bg-purple-500'
-  },
-  {
-    id: 4,
-    title: 'Completed training module',
-    time: '2 days ago',
-    icon: 'mdi:school',
-    color: 'bg-orange-500'
-  }
-])
-
-const careLogs = ref([
-  {
-    id: 1,
-    patientName: 'Sarah Johnson',
-    patientInitials: 'SJ',
-    patientAge: 72,
-    date: '2024-01-15',
-    duration: '4 hours',
-    services: ['Personal Care', 'Medication'],
-    status: 'Completed'
-  },
-  {
-    id: 2,
-    patientName: 'Robert Smith',
-    patientInitials: 'RS',
-    patientAge: 68,
-    date: '2024-01-14',
-    duration: '6 hours',
-    services: ['Personal Care', 'Meal Prep', 'Exercise'],
-    status: 'Completed'
-  },
-  {
-    id: 3,
-    patientName: 'Mary Williams',
-    patientInitials: 'MW',
-    patientAge: 75,
-    date: '2024-01-13',
-    duration: '3 hours',
-    services: ['Personal Care'],
-    status: 'In Progress'
-  }
-])
-
-const performanceMetrics = ref([
-  {
-    name: 'Patient Satisfaction',
-    description: 'Average rating from patients',
-    value: '4.8/5',
-    trend: 5
-  },
-  {
-    name: 'On-time Arrival',
-    description: 'Percentage of on-time arrivals',
-    value: '98%',
-    trend: 2
-  },
-  {
-    name: 'Care Plan Adherence',
-    description: 'Following prescribed care plans',
-    value: '95%',
-    trend: 3
-  },
-  {
-    name: 'Documentation Quality',
-    description: 'Quality of care documentation',
-    value: '92%',
-    trend: -1
-  }
-])
+// Reactive API data containers
+const totalHours = ref(0)
+const totalPatients = ref(0)
+const activePatients = ref(0)
+const totalEarnings = ref(0)
+const averageRating = ref(0)
+const totalReviews = ref(0)
+const recentActivities = ref([])
+const careLogs = ref([])
+const performanceMetrics = ref([])
+const earningsBreakdown = ref([])
 
 // Utility functions
 const formatCurrency = (amount) => {
@@ -401,50 +314,49 @@ const formatCurrency = (amount) => {
   }).format(amount)
 }
 
-const earningsBreakdown = ref([
-  {
-    category: 'Personal Care',
-    amount: 12800,
-    percentage: 52,
-    color: '#10B981'
-  },
-  {
-    category: 'Medication Management',
-    amount: '6,200',
-    percentage: 25,
-    color: '#3B82F6'
-  },
-  {
-    category: 'Meal Preparation',
-    amount: '3,500',
-    percentage: 14,
-    color: '#8B5CF6'
-  },
-  {
-    category: 'Exercise Support',
-    amount: '2,000',
-    percentage: 9,
-    color: '#F59E0B'
-  }
-])
-
 // Methods
-const generateReport = () => {
-  // Implementation for generating reports
-  console.log('Generating report:', {
-    dateRange: selectedDateRange.value,
-    reportType: selectedReportType.value,
-    format: exportFormat.value
-  })
-  
-  // Show success message
-  alert(`Report generated successfully in ${exportFormat.value.toUpperCase()} format`)
+const generateReport = async () => {
+  try {
+    const res = await $fetch('/api/carer/reports/download', {
+      method: 'POST',
+      body: { days: selectedDateRange.value, format: exportFormat.value, scope: 'report' },
+      responseType: 'arrayBuffer',
+      credentials: 'include'
+    })
+    const blob = new Blob([res], { type: exportFormat.value === 'pdf' ? 'application/pdf' : 'text/csv;charset=utf-8' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = exportFormat.value === 'pdf' ? `carer-report-${new Date().toISOString().split('T')[0]}.pdf` : `carer-report-${new Date().toISOString().split('T')[0]}.csv`
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+    window.URL.revokeObjectURL(url)
+  } catch (error) {
+    console.error('Failed to download report:', error)
+  }
 }
 
-const exportCareLogs = () => {
-  // Implementation for exporting care logs
-  console.log('Exporting care logs')
-  alert('Care logs exported successfully')
+const exportCareLogs = async () => {
+  try {
+    const res = await $fetch('/api/carer/reports/download', {
+      method: 'POST',
+      body: { days: selectedDateRange.value, format: exportFormat.value, scope: 'logs' },
+      responseType: 'arrayBuffer',
+      credentials: 'include'
+    })
+    const blob = new Blob([res], { type: exportFormat.value === 'pdf' ? 'application/pdf' : 'text/csv;charset=utf-8' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = exportFormat.value === 'pdf' ? `carer-logs-${new Date().toISOString().split('T')[0]}.pdf` : `carer-logs-${new Date().toISOString().split('T')[0]}.csv`
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+    window.URL.revokeObjectURL(url)
+  } catch (error) {
+    console.error('Failed to export logs:', error)
+  }
 }
 
 const viewLogDetails = (logId) => {
@@ -460,17 +372,36 @@ const editLog = (logId) => {
 }
 
 // Fetch data on component mount
-onMounted(async () => {
-  // Fetch reports data from API
+const loadReports = async () => {
   try {
-    // const response = await $fetch('/api/carer/reports', {
-    //   headers: {
-    //     'Authorization': `Bearer ${useCookie('auth-token').value}`
-    //   }
-    // })
-    // Update reactive data with API response
+    const { data, error } = await useFetch('/api/carer/reports', {
+      query: { days: selectedDateRange.value },
+      credentials: 'include',
+      key: `carer-reports-${selectedDateRange.value}`
+    })
+    if (error.value) throw error.value
+    const d = data.value?.data
+    if (!d) return
+    totalHours.value = d.totalHours || 0
+    totalPatients.value = d.totalPatients || 0
+    activePatients.value = d.activePatients || 0
+    totalEarnings.value = d.totalEarnings || 0
+    averageRating.value = d.averageRating || 0
+    totalReviews.value = d.totalReviews || 0
+    recentActivities.value = d.recentActivities || []
+    careLogs.value = d.careLogs || []
+    performanceMetrics.value = d.performanceMetrics || []
+    earningsBreakdown.value = d.earningsBreakdown || []
   } catch (error) {
     console.error('Failed to fetch reports data:', error)
   }
+}
+
+watch(selectedDateRange, () => {
+  loadReports()
+})
+
+onMounted(async () => {
+  await loadReports()
 })
 </script> 
