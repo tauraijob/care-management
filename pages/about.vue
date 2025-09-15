@@ -169,28 +169,27 @@
             <p class="text-lg text-gray-700 leading-relaxed mb-6">
               At Lucerna & Stern Health, we believe that true peace of mind begins with knowing your loved one is receiving the same compassionate, attentive care you would provide yourself—no matter where you are in the world.
             </p>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-              We specialise in supporting families in the diaspora who carry the emotional weight of caring for aging parents or loved ones from afar. From the very first interaction, your journey begins with a consultation led by one of our experienced Registered Nurses. We take time to understand your loved one's current health, daily routines, and lifestyle preferences. Based on this, we craft a personalised plan of care and assemble a highly capable, multi-disciplinary team tailored to your family's specific goals.
-            </p>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-              Our caregivers and nurses are handpicked for their experience, empathy, and professionalism. Whether your loved one requires occasional companionship or complex, 24-hour clinical oversight, we're equipped to deliver a consistent standard of excellence. We are available 24/7, providing updates, reassurance, and a direct line of communication to ensure you're always informed and included.
-            </p>
-            <p class="text-lg text-gray-700 leading-relaxed mb-8">
-              Let us be your trusted hands on the ground—so your loved one can live with dignity and comfort, and you can rest easy, wherever you are.
-            </p>
+            <button @click="showSupportMore = !showSupportMore" class="inline-flex items-center text-brand font-semibold mb-4 focus:outline-none">
+              <span>{{ showSupportMore ? 'Show less' : 'Read more' }}</span>
+              <Icon name="mdi:chevron-down" :class="['ml-2 transition-transform', showSupportMore ? 'rotate-180' : '']" />
+            </button>
+            <div v-if="showSupportMore">
+              <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                We specialise in supporting families in the diaspora who carry the emotional weight of caring for aging parents or loved ones from afar. From the very first interaction, your journey begins with a consultation led by one of our experienced Registered Nurses. We take time to understand your loved one's current health, daily routines, and lifestyle preferences. Based on this, we craft a personalised plan of care and assemble a highly capable, multi-disciplinary team tailored to your family's specific goals.
+              </p>
+              <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                Our caregivers and nurses are handpicked for their experience, empathy, and professionalism. Whether your loved one requires occasional companionship or complex, 24-hour clinical oversight, we're equipped to deliver a consistent standard of excellence. We are available 24/7, providing updates, reassurance, and a direct line of communication to ensure you're always informed and included.
+              </p>
+              <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                Let us be your trusted hands on the ground—so your loved one can live with dignity and comfort, and you can rest easy, wherever you are.
+              </p>
+            </div>
             <button class="btn-primary text-lg px-8 py-4">
               Contact Us Today to begin the care journey with Lucerna & Stern Health.
             </button>
           </div>
           <div class="space-y-6">
             <img src="/uploads/pic4.png" alt="Team of Support" class="w-full h-80 object-cover rounded-xl shadow" />
-            <div class="bg-gray-100 rounded-xl p-8 flex items-center justify-center">
-              <div class="text-center text-gray-500">
-                <Icon name="mdi:account-group" class="text-6xl mb-4" />
-                <p class="text-lg">Professional Healthcare Team</p>
-                <p class="text-sm">Registered Nurses, Nursing Aides, Allied Health Professionals</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -420,4 +419,7 @@ const subTabs = ref([
   { id: 'values', title: 'Our Values' },
   { id: 'approach', title: 'Our Approach To Care' }
 ])
+
+// Toggle for A Whole Team of Support extra paragraphs
+const showSupportMore = ref(false)
 </script> 
