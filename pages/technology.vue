@@ -11,7 +11,7 @@
     </section>
 
     <!-- Content Section -->
-    <div class="max-w-4xl mx-auto px-4 py-16">
+    <div class="max-w-7xl mx-auto px-4 py-16">
       <div class="text-center">
         <div class="w-24 h-24 bg-lucerna-primary rounded-full flex items-center justify-center mx-auto mb-8">
           <Icon name="mdi:cellphone-cog" class="text-4xl text-white" />

@@ -15,7 +15,7 @@
           <!-- Company Info -->
           <div class="col-span-1 md:col-span-2">
             <div class="flex items-center space-x-2 mb-4">
-              <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-8 w-auto rounded-[10px]" />
+              <img src="/uploads/logo.png" alt="Lucerna & Stern Health" class="h-16 md:h-20 lg:h-24 w-auto rounded-[10px]" />
             </div>
             <p class="text-gray-300 mb-4">
               Professional care services with Zimbabwean heart. Bridging global standards with local delivery.
