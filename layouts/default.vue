@@ -60,8 +60,11 @@
           </div>
         </div>
 
-        <div class="border-t border-white/20 mt-8 pt-8 text-center text-white/80">
-          <p>&copy; 2024 Lucerna & Stern Health. All rights reserved.</p>
+        <div class="border-t border-white/20 mt-8 pt-8 text-white/80">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-center md:text-left">&copy; {{ currentYear }} Lucerna & Stern Health. All rights reserved.</p>
+            <p class="text-center md:text-right">Website and System by <a href="https://webdev.co.zw">WebDev</a></p>
+          </div>
         </div>
       </div>
     </footer>
@@ -69,6 +72,7 @@
 </template>
 
 <script setup>
+const currentYear = new Date().getFullYear()
 // Default layout for most pages
 // Uses the AppHeader component and includes footer
-</script> 
+</script>
