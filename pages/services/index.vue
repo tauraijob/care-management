@@ -4,7 +4,7 @@
     <PublicHeader />
 
     <!-- Hero Section -->
-    <section class="relative h-96 flex items-center justify-center" style="background-image: url('/uploads/pic2.png'); background-size: cover; background-position: top center; background-repeat: no-repeat;">
+    <section class="relative h-96 flex items-center justify-center" style="background-image: url('/uploads/our-services-page.jpg'); background-size: cover; background-position: top center; background-repeat: no-repeat;">
       <div class="absolute inset-0 bg-black/50"></div>
       <div class="relative z-10 text-center text-white px-4">
         <h1 class="text-5xl font-bold mb-4">Our Services</h1>
@@ -28,12 +28,7 @@
                 : 'text-gray-700 hover:text-lucerna-primary focus:text-lucerna-primary',
             ]"
           >
-            <span
-              :class="[
-                'inline-block pb-1',
-                activeTab === tab.id ? 'border-b-2 border-lucerna-primary' : 'border-b-2 border-transparent hover:border-lucerna-primary/80 focus:border-lucerna-primary',
-              ]"
-            >
+            <span class="inline-block pb-1">
               {{ tab.title }}
             </span>
           </NuxtLink>

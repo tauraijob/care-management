@@ -28,12 +28,7 @@
                 : 'text-gray-700 hover:text-lucerna-primary focus:text-lucerna-primary',
             ]"
           >
-            <span
-              :class="[
-                'inline-block pb-1',
-                activeMainTab === tab.id ? 'border-b-2 border-lucerna-primary' : 'border-b-2 border-transparent hover:border-lucerna-primary/80 focus:border-lucerna-primary',
-              ]"
-            >
+            <span class="inline-block pb-1">
               {{ tab.title }}
             </span>
           </NuxtLink>
@@ -51,7 +46,7 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <img src="/uploads/pic1.png" alt="Our Story" class="w-full h-80 object-cover rounded-xl shadow" />
+          <img src="/uploads/about-us.jpg" alt="Our Story" class="w-full h-80 object-cover rounded-xl shadow" />
           <div class="prose prose-lg max-w-none">
             <p class="text-lg text-gray-700 leading-relaxed mb-8">
               Lucerna & Stern Health was founded by a committed group of Zimbabweans, some based right here at home, and others living and working abroad. What binds us together is a shared purpose: to bring high-quality, compassionate care to families across Zimbabwe, inspired by the best practices we've witnessed around the world.
@@ -214,7 +209,7 @@
                   : 'text-gray-700 hover:text-lucerna-primary focus:text-lucerna-primary'
               ]"
             >
-              <span :class="['inline-block pb-1', activeSubTab === tab.id ? 'border-b-2 border-lucerna-primary' : 'border-b-2 border-transparent hover:border-lucerna-primary/80 focus:border-lucerna-primary']">{{ tab.title }}</span>
+              <span class="inline-block pb-1">{{ tab.title }}</span>
             </button>
           </nav>
         </div>

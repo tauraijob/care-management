@@ -15,7 +15,7 @@
       <!-- Service Overview -->
       <div class="mb-16">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <img src="/uploads/pic2.png" alt="Complex Care" class="w-full h-80 object-cover rounded-xl shadow" />
+          <img src="/uploads/complex-care.jpg" alt="Complex Care" class="w-full h-80 object-cover rounded-xl shadow" />
           <div>
             <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
               <Icon name="mdi:medical-bag" class="text-3xl text-blue-600" />

@@ -15,7 +15,7 @@
       <!-- Service Overview -->
       <div class="mb-16">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <img src="/uploads/pic3.png" alt="Respite Care" class="w-full h-80 object-cover rounded-xl shadow" />
+          <img src="/uploads/respite-care.jpg" alt="Respite Care" class="w-full h-80 object-cover rounded-xl shadow" />
           <div>
             <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
               <Icon name="mdi:heart-pulse" class="text-3xl text-purple-600" />
