@@ -22,12 +22,12 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <!-- Contact Information -->
         <div class="space-y-8">
-          <div class="bg-lucerna-background rounded-xl p-8 text-contrast">
+          <div class="bg-lucerna-primary rounded-xl p-8 text-contrast">
             <h3 class="text-2xl font-bold text-on-background mb-6">Contact Information</h3>
             
             <div class="space-y-6">
               <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-lucerna-primary">
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-white/20 border border-white/30">
                   <Icon name="mdi:email" class="text-2xl text-white" />
                 </div>
                 <div>
@@ -37,7 +37,7 @@
               </div>
 
               <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-lucerna-primary">
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-white/20 border border-white/30">
                   <Icon name="mdi:phone" class="text-2xl text-white" />
                 </div>
                 <div>
@@ -47,7 +47,7 @@
               </div>
 
               <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-lucerna-primary">
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-white/20 border border-white/30">
                   <Icon name="mdi:clock" class="text-2xl text-white" />
                 </div>
                 <div>
