@@ -13,18 +13,18 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
         <div class="mb-8">
-          <div class="bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl p-8 text-white shadow-xl">
+          <div class="bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark rounded-2xl p-8 text-white shadow-xl">
             <div class="flex items-center justify-between">
               <div>
                 <h1 class="text-3xl font-bold mb-2">Pending Bookings</h1>
-                <p class="text-yellow-100 text-lg">Review and approve healthcare service requests</p>
+                <p class="text-white/90 text-lg">Review and approve healthcare service requests</p>
                 <div class="flex items-center mt-4 space-x-6">
                   <div class="flex items-center space-x-2">
-                    <Icon name="mdi:clock-outline" class="text-lg text-yellow-200" />
+                    <Icon name="mdi:clock-outline" class="text-lg text-white/80" />
                     <span class="text-sm">{{ pendingBookings.length }} bookings awaiting approval</span>
                   </div>
                   <div class="flex items-center space-x-2">
-                    <Icon name="mdi:calendar" class="text-lg text-yellow-200" />
+                    <Icon name="mdi:calendar" class="text-lg text-white/80" />
                     <span class="text-sm">Last updated: {{ new Date().toLocaleTimeString() }}</span>
                   </div>
                 </div>
@@ -265,7 +265,7 @@ const filters = ref({
 })
 
 // Fetch real pending bookings data
-const { data: bookingsData, error } = await useFetch('/api/admin/bookings', {
+const { data: bookingsData, error, refresh: refreshBookings } = await useFetch('/api/bookings/list?limit=100', {
   headers: {
     'Authorization': `Bearer ${useCookie('auth-token').value}`
   },
@@ -274,17 +274,18 @@ const { data: bookingsData, error } = await useFetch('/api/admin/bookings', {
 
 // Reactive pending bookings data
 const pendingBookings = computed(() => {
-  if (!bookingsData.value?.data?.bookings) return []
+  const list = bookingsData.value?.bookings
+  if (!list) return []
   
-  return bookingsData.value.data.bookings
+  return list
     .filter(booking => booking.status.toLowerCase() === 'pending')
     .map(booking => ({
       id: booking.id,
-      patientName: booking.patient?.name || 'N/A',
-      clientName: booking.client?.name || 'N/A',
+      patientName: `${booking.patient?.firstName || ''} ${booking.patient?.lastName || ''}`.trim() || 'N/A',
+      clientName: `${booking.client?.firstName || ''} ${booking.client?.lastName || ''}`.trim() || 'N/A',
       careType: booking.careType,
       frequency: booking.frequency || 'One-time',
-      amount: booking.amount || 0,
+      amount: (booking.payments || []).reduce((s, p) => s + (p.amount || 0), 0),
       date: new Date(booking.startDate).toLocaleDateString('en-US', { 
         weekday: 'long', 
         month: 'short', 
@@ -295,7 +296,7 @@ const pendingBookings = computed(() => {
       startDate: booking.startDate,
       endDate: booking.endDate,
       preferredTime: booking.preferredTime || 'Flexible',
-      patientAge: booking.patient?.age || 'N/A',
+      patientAge: booking.patient?.age || 'N/A', // depends on schema
       medicalConditions: booking.patient?.medicalConditions || 'None specified',
       emergencyContact: booking.patient?.emergencyContact || 'N/A',
       notes: booking.notes || 'No additional notes',
@@ -371,24 +372,28 @@ const rejectSelected = () => {
   showRejectionModal.value = true
 }
 
-const approveBooking = (bookingId) => {
-  // Remove from pending list
-  pendingBookings.value = pendingBookings.value.filter(booking => booking.id !== bookingId)
-  
-  // Remove from selected
-  selectedBookings.value = selectedBookings.value.filter(id => id !== bookingId)
-  
-  console.log(`Booking ${bookingId} approved`)
+const approveBooking = async (bookingId) => {
+  try {
+    await $fetch(`/api/bookings/${bookingId}/accept`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${useCookie('auth-token').value}` }
+    })
+    await refreshBookings()
+  } catch (e) {
+    console.error(e)
+  }
 }
 
-const rejectBooking = (bookingId) => {
-  // Remove from pending list
-  pendingBookings.value = pendingBookings.value.filter(booking => booking.id !== bookingId)
-  
-  // Remove from selected
-  selectedBookings.value = selectedBookings.value.filter(id => id !== bookingId)
-  
-  console.log(`Booking ${bookingId} rejected`)
+const rejectBooking = async (bookingId) => {
+  try {
+    await $fetch(`/api/bookings/${bookingId}/cancel`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${useCookie('auth-token').value}` }
+    })
+    await refreshBookings()
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 const viewDetails = (booking) => {

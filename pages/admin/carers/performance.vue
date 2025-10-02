@@ -8,15 +8,12 @@
   
   <div v-else class="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-emerald-100">
 
-    <!-- Sidebar -->
-    <AdminSidebar ref="sidebarRef" />
-
     <!-- Main Content -->
-    <div class="lg:ml-64 transition-all duration-300">
+    <div class="transition-all duration-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
         <div class="mb-8">
-          <div class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white shadow-xl">
+          <div class="bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark rounded-2xl p-8 text-white shadow-xl">
             <div class="flex items-center justify-between">
               <div>
                 <h1 class="text-3xl font-bold mb-2">Carer Performance Analytics</h1>
@@ -378,13 +375,6 @@ definePageMeta({
 })
 
 const { user } = useAuth()
-const sidebarRef = ref(null)
-
-const toggleSidebar = () => {
-  if (sidebarRef.value) {
-    sidebarRef.value.openSidebar()
-  }
-}
 
 // State
 const sortBy = ref('rating')
@@ -492,6 +482,7 @@ const filteredCarers = computed(() => {
 
 const averageRating = computed(() => {
   const ratings = carers.value.map(carer => carer.rating)
+  if (ratings.length === 0) return '0.0'
   const average = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length
   return average.toFixed(1)
 })

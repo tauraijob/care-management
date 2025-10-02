@@ -14,7 +14,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
         <div class="mb-8">
-          <div class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white shadow-xl">
+          <div class="bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark rounded-2xl p-8 text-white shadow-xl">
             <div class="flex items-center justify-between">
               <div>
                 <h1 class="text-3xl font-bold mb-2">User Management</h1>
@@ -94,64 +94,7 @@
           </div>
         </div>
 
-        <!-- Filters and Actions -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 mb-8">
-          <div class="p-6 border-b border-gray-100">
-            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
-              <h2 class="text-lg font-semibold text-gray-900">Filters & Actions</h2>
-              <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
-                <button @click="showAddUserModal = true" class="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors">
-                  <span class="mr-2">➕</span>
-                  Add New User
-                </button>
-                <button @click="exportUsers" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
-                  <Icon name="mdi:chart-line" class="mr-2" />
-                  Export Data
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="p-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Search Users</label>
-                <input 
-                  v-model="filters.search" 
-                  type="text" 
-                  placeholder="Search by name or email..."
-                  class="w-full bg-white text-gray-900 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">User Role</label>
-                <select v-model="filters.role" class="w-full bg-white text-gray-900 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-                  <option value="">All Roles</option>
-                  <option value="CLIENT">Clients</option>
-                  <option value="CARER">Carers</option>
-                  <option value="ADMIN">Admins</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-                <select v-model="filters.status" class="w-full bg-white text-gray-900 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-                  <option value="">All Status</option>
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
-                  <option value="suspended">Suspended</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
-                <select v-model="sortBy" class="w-full bg-white text-gray-900 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-                  <option value="name">Name (A-Z)</option>
-                  <option value="date">Join Date</option>
-                  <option value="role">Role</option>
-                  <option value="status">Status</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- Users are displayed below; filters removed to show all -->
 
         <!-- Users List -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-100">
@@ -225,16 +168,10 @@
                         <span class="text-sm text-gray-500">{{ user.emailVerified ? 'Email verified' : 'Email not verified' }}</span>
                       </div>
                       <div class="flex space-x-3">
-                        <button @click="viewProfile(user)" class="px-4 py-2 text-blue-600 border border-blue-300 rounded-lg font-medium hover:bg-blue-50 transition-colors">
-                          View Profile
-                        </button>
-                        <button @click="editUser(user)" class="px-4 py-2 text-green-600 border border-green-300 rounded-lg font-medium hover:bg-green-50 transition-colors">
+                        <button @click="openEdit(user)" class="px-4 py-2 text-green-600 border border-green-300 rounded-lg font-medium hover:bg-green-50 transition-colors">
                           Edit
                         </button>
-                        <button @click="toggleUserStatus(user)" :class="getToggleButtonClass(user.status)" class="px-4 py-2 rounded-lg font-medium transition-colors">
-                          {{ user.status === 'active' ? 'Suspend' : 'Activate' }}
-                        </button>
-                        <button @click="deleteUser(user)" class="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
+                        <button @click="openDelete(user)" class="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
                           Delete
                         </button>
                       </div>
@@ -248,49 +185,40 @@
       </div>
     </div>
 
-    <!-- Add User Modal -->
-    <div v-if="showAddUserModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div class="bg-white rounded-xl p-8 max-w-md mx-4 w-full">
-        <div class="text-center mb-6">
-          <h3 class="text-xl font-semibold text-gray-900">Add New User</h3>
-          <p class="text-gray-600">Create a new user account</p>
-        </div>
-        
-        <form @submit.prevent="addUser" class="space-y-4">
+    <!-- Edit User Modal -->
+    <div v-if="showEditModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl p-6 w-full max-w-md">
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Edit User</h3>
+        <div class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-            <input v-model="newUser.name" type="text" required class="w-full bg-white text-gray-900 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+            <label class="block text-sm font-medium text-gray-700 mb-2">First name</label>
+            <input v-model="editForm.firstName" type="text" class="w-full bg-white text-gray-900 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
           </div>
-          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Last name</label>
+            <input v-model="editForm.lastName" type="text" class="w-full bg-white text-gray-900 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+          </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-            <input v-model="newUser.email" type="email" required class="w-full bg-white text-gray-900 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+            <input v-model="editForm.email" type="email" class="w-full bg-white text-gray-900 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
           </div>
-          
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Role</label>
-            <select v-model="newUser.role" required class="w-full bg-white text-gray-900 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-              <option value="">Select Role</option>
-              <option value="CLIENT">Client</option>
-              <option value="CARER">Carer</option>
-              <option value="ADMIN">Admin</option>
-            </select>
-          </div>
-          
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-            <input v-model="newUser.phone" type="tel" class="w-full bg-white text-gray-900 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
-          </div>
-          
-          <div class="flex space-x-3 pt-4">
-            <button type="button" @click="showAddUserModal = false" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
-              Cancel
-            </button>
-            <button type="submit" class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors">
-              Add User
-            </button>
-          </div>
-        </form>
+        </div>
+        <div class="flex justify-end space-x-3 mt-6">
+          <button @click="showEditModal = false" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">Cancel</button>
+          <button @click="saveEdit" class="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div v-if="showDeleteModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-xl p-6 w-full max-w-md">
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">Delete User</h3>
+        <p class="text-gray-600">Are you sure you want to delete <strong>{{ deletingUser?.name }}</strong>? This action cannot be undone.</p>
+        <div class="flex justify-end space-x-3 mt-6">
+          <button @click="showDeleteModal = false" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">Cancel</button>
+          <button @click="performDelete" class="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">Delete</button>
+        </div>
       </div>
     </div>
   </div>
@@ -316,23 +244,9 @@ const toggleSidebar = () => {
 const showAddUserModal = ref(false)
 const sortBy = ref('name')
 
-// Filters
-const filters = ref({
-  search: '',
-  role: '',
-  status: ''
-})
-
-// New user form
-const newUser = ref({
-  name: '',
-  email: '',
-  role: '',
-  phone: ''
-})
 
 // Fetch real users data
-const { data: usersData, error } = await useFetch('/api/admin/users', {
+const { data: usersData, error, refresh: refreshUsers } = await useFetch('/api/admin/users', {
   headers: {
     'Authorization': `Bearer ${useCookie('auth-token').value}`
   },
@@ -345,43 +259,28 @@ const users = computed(() => {
   
   return usersData.value.data.users.map(user => ({
     id: user.id,
-    name: user.name,
-    email: user.email,
+    name: (user.name || `${user.firstName || ''} ${user.lastName || ''}`.trim()) || 'Unknown',
+    email: user.email || '',
     role: user.role,
-    status: user.status.toLowerCase(),
-    phone: user.phone,
+    status: (user.status || 'ACTIVE').toLowerCase(),
+    phone: user.phone || '',
     whatsapp: true, // Default value
     location: 'South Africa', // Default value
-    joinDate: new Date(user.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long' }),
+    joinDate: user.createdAt ? new Date(user.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long' }) : '',
     lastActive: 'Recently', // Default value
     verified: true, // Default value
     emailVerified: true, // Default value
-    totalBookings: user.stats.bookings,
-    completedTasks: user.role === 'CARER' ? user.stats.bookings : null,
+    totalBookings: user.stats?.bookings ?? 0,
+    completedTasks: user.role === 'CARER' ? (user.stats?.bookings ?? 0) : null,
     rating: user.role === 'CARER' ? 4.5 : null // Default rating
   }))
 })
 
 // Computed properties
 const filteredUsers = computed(() => {
-  let filtered = [...users.value]
-  
-  if (filters.value.search) {
-    filtered = filtered.filter(user => 
-      user.name.toLowerCase().includes(filters.value.search.toLowerCase()) ||
-      user.email.toLowerCase().includes(filters.value.search.toLowerCase())
-    )
-  }
-  
-  if (filters.value.role) {
-    filtered = filtered.filter(user => user.role === filters.value.role)
-  }
-  
-  if (filters.value.status) {
-    filtered = filtered.filter(user => user.status === filters.value.status)
-  }
-  
-  // Sort
+  const filtered = [...users.value]
+
+  // Sort (default by name)
   filtered.sort((a, b) => {
     switch (sortBy.value) {
       case 'date':
@@ -448,59 +347,56 @@ const getToggleButtonClass = (status) => {
     : 'text-green-600 border border-green-300 hover:bg-green-50'
 }
 
-const viewProfile = (user) => {
-  console.log('View profile for:', user.name)
-  // Navigate to user profile
+// Edit modal state
+const showEditModal = ref(false)
+const editingUserId = ref('')
+const editForm = ref({ firstName: '', lastName: '', email: '' })
+
+const openEdit = (user) => {
+  editingUserId.value = user.id
+  const parts = (user.name || '').trim().split(' ')
+  editForm.value.firstName = parts.shift() || ''
+  editForm.value.lastName = parts.join(' ')
+  editForm.value.email = user.email || ''
+  showEditModal.value = true
 }
 
-const editUser = (user) => {
-  console.log('Edit user:', user.name)
-  // Open edit modal
-}
-
-const toggleUserStatus = (user) => {
-  user.status = user.status === 'active' ? 'suspended' : 'active'
-  console.log(`${user.name} status changed to ${user.status}`)
-}
-
-const deleteUser = (user) => {
-  if (confirm(`Are you sure you want to delete ${user.name}?`)) {
-    users.value = users.value.filter(u => u.id !== user.id)
-    console.log(`User ${user.name} deleted`)
+const saveEdit = async () => {
+  try {
+    await $fetch(`/api/admin/users/${editingUserId.value}`, {
+      method: 'PUT',
+      body: { ...editForm.value },
+      headers: { 'Authorization': `Bearer ${useCookie('auth-token').value}` }
+    })
+    await refreshUsers()
+    showEditModal.value = false
+  } catch (e) {
+    console.error(e)
+    alert('Failed to update user')
   }
 }
 
-const addUser = () => {
-  const user = {
-    id: Date.now(),
-    name: newUser.value.name,
-    email: newUser.value.email,
-    role: newUser.value.role,
-    status: 'active',
-    phone: newUser.value.phone,
-    whatsapp: false,
-    location: 'Not specified',
-    joinDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long' }),
-    lastActive: 'Just now',
-    verified: false,
-    emailVerified: false,
-    totalBookings: 0,
-    completedTasks: null,
-    rating: null
+// Delete modal state
+const showDeleteModal = ref(false)
+const deletingUser = ref(null)
+
+const openDelete = (user) => {
+  deletingUser.value = user
+  showDeleteModal.value = true
+}
+
+const performDelete = async () => {
+  try {
+    await $fetch(`/api/admin/users/${deletingUser.value.id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${useCookie('auth-token').value}` }
+    })
+    await refreshUsers()
+    showDeleteModal.value = false
+  } catch (e) {
+    console.error(e)
+    alert('Failed to delete user')
   }
-  
-  users.value.push(user)
-  showAddUserModal.value = false
-  
-  // Reset form
-  newUser.value = {
-    name: '',
-    email: '',
-    role: '',
-    phone: ''
-  }
-  
-  console.log('New user added:', user.name)
 }
 
 const exportUsers = () => {

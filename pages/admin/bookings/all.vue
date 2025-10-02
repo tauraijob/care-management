@@ -211,14 +211,14 @@
               </td>
               <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
                 <div class="flex items-center space-x-1">
-                  <button @click="viewBooking(booking)" class="p-1 text-green-600 hover:text-green-900 hover:bg-green-50 rounded" title="View">
+                  <button @click="openView(booking)" class="p-1 text-green-600 hover:text-green-900 hover:bg-green-50 rounded" title="View">
                     <Icon name="mdi:eye" class="h-4 w-4" />
                   </button>
-                  <button @click="editBooking(booking)" class="p-1 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded" title="Edit">
+                  <button @click="openEdit(booking)" class="p-1 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded" title="Edit">
                     <Icon name="mdi:pencil" class="h-4 w-4" />
                   </button>
-                  <button @click="deleteBooking(booking)" class="p-1 text-red-600 hover:text-red-900 hover:bg-red-50 rounded" title="Delete">
-                    <Icon name="mdi:delete" class="h-4 w-4" />
+                  <button @click="openCancel(booking)" class="p-1 text-red-600 hover:text-red-900 hover:bg-red-50 rounded" title="Cancel">
+                    <Icon name="mdi:cancel" class="h-4 w-4" />
                   </button>
                 </div>
               </td>
@@ -278,6 +278,110 @@
           </div>
         </div>
       </div>
+      <!-- View Modal -->
+      <div v-if="showView" class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="absolute inset-0 bg-black/40" @click="closeModals"></div>
+        <div class="relative bg-white rounded-lg shadow max-w-lg w-full p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold">Booking #{{ activeBooking?.id }}</h3>
+            <button @click="closeModals" class="text-gray-500 hover:text-gray-700">
+              <Icon name="mdi:close" class="h-5 w-5" />
+            </button>
+          </div>
+          <div class="grid grid-cols-2 gap-3 text-sm">
+            <div>
+              <div class="text-gray-500">Client</div>
+              <div class="font-medium">{{ activeBooking?.clientName }}</div>
+            </div>
+            <div>
+              <div class="text-gray-500">Carer</div>
+              <div class="font-medium">{{ activeBooking?.carerName }}</div>
+            </div>
+            <div>
+              <div class="text-gray-500">Patient</div>
+              <div class="font-medium">{{ activeBooking?.patientName || '—' }}</div>
+            </div>
+            <div>
+              <div class="text-gray-500">Service</div>
+              <div class="font-medium">{{ activeBooking?.service }}</div>
+            </div>
+            <div>
+              <div class="text-gray-500">Date</div>
+              <div class="font-medium">{{ formatDate(activeBooking?.date) }} {{ activeBooking?.time }}</div>
+            </div>
+            <div>
+              <div class="text-gray-500">Status</div>
+              <div class="font-medium capitalize">{{ activeBooking?.status }}</div>
+            </div>
+          </div>
+          <div class="mt-6 flex justify-end">
+            <button @click="closeModals" class="px-4 py-2 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Modal -->
+      <div v-if="showEdit" class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="absolute inset-0 bg-black/40" @click="closeModals"></div>
+        <div class="relative bg-white rounded-lg shadow max-w-lg w-full p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold">Edit Booking #{{ activeBooking?.id }}</h3>
+            <button @click="closeModals" class="text-gray-500 hover:text-gray-700">
+              <Icon name="mdi:close" class="h-5 w-5" />
+            </button>
+          </div>
+          <form @submit.prevent="submitEdit">
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                <select v-model="editStatus" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                  <option value="pending">Pending</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Assign Carer</label>
+                <select v-model="editCarerId" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                  <option :value="null">Unassigned</option>
+                  <option v-for="c in carers" :key="c.id" :value="c.id">{{ c.name }}</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+                <textarea v-model="editNotes" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Add admin notes..."></textarea>
+              </div>
+            </div>
+            <div class="mt-6 flex justify-end space-x-3">
+              <button type="button" @click="closeModals" class="px-4 py-2 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">Cancel</button>
+              <button type="submit" class="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Cancel Modal -->
+      <div v-if="showCancel" class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="absolute inset-0 bg-black/40" @click="closeModals"></div>
+        <div class="relative bg-white rounded-lg shadow max-w-md w-full p-6">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 mr-3">
+              <Icon name="mdi:alert" class="h-6 w-6 text-red-600" />
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900">Cancel booking?</h3>
+              <p class="mt-1 text-sm text-gray-600">This will set the booking status to Cancelled. You can change the status later if needed.</p>
+            </div>
+          </div>
+          <div class="mt-6 flex justify-end space-x-3">
+            <button @click="closeModals" class="px-4 py-2 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">No, keep</button>
+            <button @click="submitCancel" class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700">Yes, cancel</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -305,7 +409,7 @@ const currentPage = ref(1)
 const itemsPerPage = 10
 
 // Fetch real bookings data
-const { data: bookingsData, error } = await useFetch('/api/admin/bookings', {
+const { data: bookingsData, error, refresh: refreshBookings } = await useFetch('/api/admin/bookings?limit=200', {
   headers: {
     'Authorization': `Bearer ${useCookie('auth-token').value}`
   },
@@ -323,22 +427,35 @@ if (error.value) {
 
 // Reactive bookings data
 const bookings = computed(() => {
-  if (!bookingsData.value?.data?.bookings) return []
-  
-  return bookingsData.value.data.bookings.map(booking => ({
-    id: booking.id,
-    clientName: booking.client.name,
-    clientInitials: booking.client.name.split(' ').map(n => n[0]).join(''),
-    clientPhone: booking.client.phone,
-    carerName: booking.carer?.name || 'Unassigned',
-    carerInitials: booking.carer ? booking.carer.name.split(' ').map(n => n[0]).join('') : 'UN',
-    carerSpecialty: booking.carer?.specializations?.[0] || 'General Care',
-    service: booking.careType,
-    date: booking.startDate,
-    time: new Date(booking.startDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-    status: booking.status.toLowerCase(),
-    cost: booking.payment?.amount?.toFixed(2) || '0.00'
-  }))
+  const raw = bookingsData.value?.data
+  const list = Array.isArray(raw) ? raw : (raw?.bookings || [])
+  return list.map((booking) => {
+    const clientName = booking && booking.client
+      ? (booking.client.name || `${booking.client.firstName || ''} ${booking.client.lastName || ''}`.trim())
+      : 'N/A'
+    const carerName = booking && booking.carer
+      ? (booking.carer.name || `${booking.carer.firstName || ''} ${booking.carer.lastName || ''}`.trim())
+      : 'Unassigned'
+    const patientName = booking && booking.patient
+      ? (booking.patient.name || `${booking.patient.firstName || ''} ${booking.patient.lastName || ''}`.trim())
+      : ''
+    return {
+      id: booking.id,
+      carerId: booking.carer?.id || null,
+      clientName,
+      clientInitials: (clientName || 'NA').split(' ').map((n) => n[0]).join(''),
+      clientPhone: booking.client?.phone || '',
+      carerName,
+      carerInitials: (carerName || 'UN').split(' ').map((n) => n[0]).join(''),
+      carerSpecialty: 'General Care',
+      service: booking.careType,
+      date: booking.startDate,
+      time: new Date(booking.startDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+      status: String(booking.status || '').toLowerCase(),
+      cost: 0,
+      patientName
+    }
+  })
 })
 
 // Computed properties
@@ -385,23 +502,13 @@ const visiblePages = computed(() => {
 })
 
 // Statistics computed properties
-const totalBookings = computed(() => {
-  return bookingsData.value?.data?.pagination?.total || 0
-})
+const totalBookings = computed(() => bookings.value.length)
 
-const pendingBookings = computed(() => {
-  return bookingsData.value?.data?.statistics?.pending || 0
-})
+const pendingBookings = computed(() => bookings.value.filter(b => b.status === 'pending').length)
 
-const completedBookings = computed(() => {
-  // Check for both 'completed' and 'confirmed' statuses
-  return (bookingsData.value?.data?.statistics?.completed || 0) + 
-         (bookingsData.value?.data?.statistics?.confirmed || 0)
-})
+const completedBookings = computed(() => bookings.value.filter(b => b.status === 'completed' || b.status === 'confirmed').length)
 
-const cancelledBookings = computed(() => {
-  return bookingsData.value?.data?.statistics?.cancelled || 0
-})
+const cancelledBookings = computed(() => bookings.value.filter(b => b.status === 'cancelled').length)
 
 // Methods
 const getStatusClasses = (status) => {
@@ -463,18 +570,62 @@ const exportBookings = () => {
   console.log('Exporting bookings...')
 }
 
-const viewBooking = (booking) => {
-  console.log('View booking:', booking)
+// Modal state & helpers
+const showView = ref(false)
+const showEdit = ref(false)
+const showCancel = ref(false)
+const activeBooking = ref(null)
+
+const openView = (booking) => { activeBooking.value = booking; showView.value = true }
+const openEdit = (booking) => {
+  activeBooking.value = booking
+  editStatus.value = booking.status
+  editCarerId.value = booking.carerId || null
+  editNotes.value = ''
+  showEdit.value = true
+}
+const openCancel = (booking) => { activeBooking.value = booking; showCancel.value = true }
+const closeModals = () => { showView.value = false; showEdit.value = false; showCancel.value = false; activeBooking.value = null }
+
+// Carers for assignment
+const { data: carersData } = await useFetch('/api/admin/carers', {
+  headers: { 'Authorization': `Bearer ${useCookie('auth-token').value}` },
+  server: false
+})
+const carers = computed(() => (carersData.value?.data || carersData.value || []).map((c) => ({ id: c.id, name: c.fullName || `${c.firstName || ''} ${c.lastName || ''}`.trim() })))
+
+// Edit form state
+const editStatus = ref('pending')
+const editCarerId = ref(null)
+const editNotes = ref('')
+
+// API helpers
+async function submitEdit() {
+  try {
+    await $fetch(`/api/bookings/${activeBooking.value.id}`, {
+      method: 'PUT',
+      body: {
+        status: editStatus.value.toUpperCase().replace('-', '_'),
+        carerId: editCarerId.value || undefined,
+        notes: editNotes.value || undefined
+      },
+      headers: { 'Authorization': `Bearer ${useCookie('auth-token').value}` }
+    })
+    closeModals()
+    await refreshBookings()
+  } catch (e) { console.error('Update booking failed', e) }
 }
 
-const editBooking = (booking) => {
-  console.log('Edit booking:', booking)
-}
-
-const deleteBooking = (booking) => {
-  if (confirm(`Are you sure you want to delete booking ${booking.id}?`)) {
-    console.log('Delete booking:', booking)
-  }
+async function submitCancel() {
+  try {
+    await $fetch(`/api/bookings/${activeBooking.value.id}`, {
+      method: 'PUT',
+      body: { status: 'CANCELLED' },
+      headers: { 'Authorization': `Bearer ${useCookie('auth-token').value}` }
+    })
+    closeModals()
+    await refreshBookings()
+  } catch (e) { console.error('Cancel booking failed', e) }
 }
 
 // Set page title

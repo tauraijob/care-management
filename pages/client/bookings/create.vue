@@ -58,8 +58,11 @@
             </div>
 
             <!-- Patient Details Preview -->
-            <div v-if="selectedPatient" class="bg-green-50 rounded-xl p-4">
-              <h4 class="text-sm font-semibold text-gray-900 mb-3">Patient Information</h4>
+            <div v-if="selectedPatient" class="rounded-xl overflow-hidden">
+              <div class="px-4 py-2 bg-lucerna-primary text-white text-on-primary">
+                <h4 class="text-sm font-semibold">Patient Information</h4>
+              </div>
+              <div class="p-4 bg-white">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div>
                   <span class="text-gray-500">Name:</span>
@@ -81,6 +84,7 @@
                     {{ selectedPatient.emergencyContact ? `${selectedPatient.emergencyContact.name} - ${selectedPatient.emergencyContact.phone}` : 'Not specified' }}
                   </span>
                 </div>
+              </div>
               </div>
             </div>
           </div>
@@ -208,11 +212,11 @@
 
           <!-- Form Actions -->
           <div class="flex items-center justify-between pt-6 border-t border-gray-200">
-            <NuxtLink to="/client/bookings" class="btn-secondary">
+            <NuxtLink to="/client/bookings" class="inline-flex items-center px-4 py-2 bg-gray-700 text-white text-on-primary rounded-lg hover:bg-gray-800 transition-colors font-medium">
               Cancel
             </NuxtLink>
             
-            <button type="submit" :disabled="isSubmitting" class="btn-primary disabled:opacity-50 disabled:cursor-not-allowed">
+            <button type="submit" :disabled="isSubmitting" class="inline-flex items-center px-4 py-2 bg-[#0034b3] text-white text-on-primary rounded-lg hover:brightness-90 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed">
               <span v-if="isSubmitting" class="mr-2 animate-spin">
                 <Icon name="mdi:loading" />
               </span>

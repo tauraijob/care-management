@@ -273,9 +273,9 @@
         fill: currentColor !important;
     }
 
-    /* If white text appears on white surfaces, force brand color for visibility */
-    .client-theme .bg-white .text-white,
-    .carer-theme .bg-white .text-white {
+    /* If an element has BOTH white bg and white text, adjust for contrast */
+    .client-theme .text-white.bg-white,
+    .carer-theme .text-white.bg-white {
         color: var(--lucerna-primary) !important;
     }
 
@@ -486,7 +486,7 @@
         --tw-gradient-to: #081A33 var(--tw-gradient-to-position);
     }
 
-    /* Contrast-safe defaults on brand surfaces */
+    /* Contrast-safe defaults on brand surfaces - ensure nested text stays white */
     .bg-lucerna-primary,
     .from-lucerna-primary,
     .from-blue-600,
@@ -494,6 +494,10 @@
     .bg-gradient-to-br.from-lucerna-primary,
     .bg-lucerna-secondary,
     .from-lucerna-primary-dark {
+        color: #ffffff !important;
+    }
+
+    .bg-lucerna-primary :is(button, a, span, strong, .btn-primary, .btn-secondary, .btn-outline) {
         color: #ffffff !important;
     }
 
@@ -720,10 +724,14 @@
         color: var(--lucerna-primary) !important;
     }
 
-    /* Force white icons utility for brand surfaces */
+    /* Force white icons/text utility for brand surfaces */
     .icon-on-brand {
         color: #ffffff !important;
         fill: currentColor !important;
+    }
+
+    .text-on-primary {
+        color: #ffffff !important;
     }
 
     .text-lucerna-text {

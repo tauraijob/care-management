@@ -276,7 +276,7 @@ definePageMeta({
 const { user } = useAuth()
 
 // Fetch real booking data
-const { data: bookingsData, error } = await useFetch('/api/admin/bookings', {
+const { data: bookingsData, error } = await useFetch('/api/admin/bookings?limit=10', {
   headers: {
     'Authorization': `Bearer ${useCookie('auth-token').value}`
   },
@@ -285,41 +285,41 @@ const { data: bookingsData, error } = await useFetch('/api/admin/bookings', {
 
 // Reactive booking data
 const recentBookings = computed(() => {
-  if (!bookingsData.value?.data?.bookings) return []
-  
-  return bookingsData.value.data.bookings.slice(0, 5).map(booking => ({
+  const raw = bookingsData.value?.data
+  const list = Array.isArray(raw) ? raw : (raw?.bookings || [])
+  return list.slice(0, 5).map((booking) => ({
     id: booking.id,
-    clientName: booking.client.name,
-    clientInitials: booking.client.name.split(' ').map(n => n[0]).join(''),
-    clientPhone: booking.client.phone,
-    carerName: booking.carer?.name || 'Unassigned',
-    carerInitials: booking.carer ? booking.carer.name.split(' ').map(n => n[0]).join('') : 'UN',
-    carerSpecialty: booking.carer?.specializations?.[0] || 'General Care',
+    clientName: booking.client ? `${booking.client.firstName || ''} ${booking.client.lastName || ''}`.trim() : 'N/A',
+    clientInitials: (booking.client ? `${booking.client.firstName || ''} ${booking.client.lastName || ''}`.trim() : 'NA').split(' ').map((n) => n[0]).join(''),
+    clientPhone: booking.client?.phone || '',
+    carerName: booking.carer ? `${booking.carer.firstName || ''} ${booking.carer.lastName || ''}`.trim() : 'Unassigned',
+    carerInitials: (booking.carer ? `${booking.carer.firstName || ''} ${booking.carer.lastName || ''}`.trim() : 'UN').split(' ').map((n) => n[0]).join(''),
+    carerSpecialty: 'General Care',
     service: booking.careType,
     date: booking.startDate,
-    status: booking.status.toLowerCase()
+    status: String(booking.status || '').toLowerCase()
   }))
 })
 
 // Computed properties for stats
-const totalBookings = computed(() => {
-  if (!bookingsData.value?.data?.bookings) return 0
-  return bookingsData.value.data.bookings.length
-})
+const totalBookings = computed(() => bookingsData.value?.data?.bookings?.length || 0)
 
 const pendingBookings = computed(() => {
-  if (!bookingsData.value?.data?.bookings) return 0
-  return bookingsData.value.data.bookings.filter(b => b.status === 'pending').length
+  const list = (bookingsData.value && bookingsData.value.data && bookingsData.value.data.bookings) || []
+  return list.filter(b => ((b && b.status) ? String(b.status).toLowerCase() : '') === 'pending').length
 })
 
 const completedBookings = computed(() => {
-  if (!bookingsData.value?.data?.bookings) return 0
-  return bookingsData.value.data.bookings.filter(b => b.status === 'completed').length
+  const list = (bookingsData.value && bookingsData.value.data && bookingsData.value.data.bookings) || []
+  return list.filter(b => {
+    const s = ((b && b.status) ? String(b.status) : '').toLowerCase()
+    return s === 'completed' || s === 'confirmed'
+  }).length
 })
 
 const cancelledBookings = computed(() => {
-  if (!bookingsData.value?.data?.bookings) return 0
-  return bookingsData.value.data.bookings.filter(b => b.status === 'cancelled').length
+  const list = (bookingsData.value && bookingsData.value.data && bookingsData.value.data.bookings) || []
+  return list.filter(b => ((b && b.status) ? String(b.status).toLowerCase() : '') === 'cancelled').length
 })
 
 // Methods

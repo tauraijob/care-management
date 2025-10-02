@@ -35,7 +35,8 @@ export default defineEventHandler(async (event) => {
             lastYearBookings,
             allLogs,
             currentYearLogs,
-            lastYearLogs
+            lastYearLogs,
+            currentYearPaymentsList
         ] = await Promise.all([
             // Current year total payments (as proxy for expenses)
             prisma.payment.aggregate({
@@ -143,6 +144,23 @@ export default defineEventHandler(async (event) => {
                         lte: lastYearEnd
                     }
                 }
+            }),
+
+            // Current year payments list for detailed table (real data)
+            prisma.payment.findMany({
+                where: {
+                    createdAt: { gte: currentYearStart }
+                },
+                include: {
+                    booking: {
+                        include: {
+                            patient: { select: { firstName: true, lastName: true } },
+                            client: { select: { firstName: true, lastName: true } },
+                            carer: { select: { firstName: true, lastName: true } }
+                        }
+                    }
+                },
+                orderBy: { createdAt: 'desc' }
             })
         ])
 
@@ -166,57 +184,28 @@ export default defineEventHandler(async (event) => {
         const lastYearAdmin = lastYearTotal * 0.15
         const adminChange = lastYearAdmin > 0 ? ((currentYearAdmin - lastYearAdmin) / lastYearAdmin) * 100 : 0
 
-        // Generate expense details
-        const expenseDetails = [
-            {
-                id: 1,
-                category: 'Salaries',
-                description: 'Carer salary payments and compensation',
-                amount: Math.round(currentYearSalaries),
-                date: new Date(currentYearStart.getTime() + Math.random() * (now.getTime() - currentYearStart.getTime())),
-                status: 'Paid'
-            },
-            {
-                id: 2,
-                category: 'Supplies',
-                description: 'Medical supplies and equipment purchases',
-                amount: Math.round(currentYearSupplies),
-                date: new Date(currentYearStart.getTime() + Math.random() * (now.getTime() - currentYearStart.getTime())),
-                status: 'Paid'
-            },
-            {
-                id: 3,
-                category: 'Administrative',
-                description: 'Office supplies, utilities, and administrative costs',
-                amount: Math.round(currentYearAdmin),
-                date: new Date(currentYearStart.getTime() + Math.random() * (now.getTime() - currentYearStart.getTime())),
-                status: 'Paid'
-            },
-            {
-                id: 4,
-                category: 'Training',
-                description: 'Carer training and certification programs',
-                amount: Math.round(currentYearTotal * 0.05), // 5% of total expenses
-                date: new Date(currentYearStart.getTime() + Math.random() * (now.getTime() - currentYearStart.getTime())),
-                status: 'Paid'
-            },
-            {
-                id: 5,
-                category: 'Technology',
-                description: 'Software licenses and technology infrastructure',
-                amount: Math.round(currentYearTotal * 0.08), // 8% of total expenses
-                date: new Date(currentYearStart.getTime() + Math.random() * (now.getTime() - currentYearStart.getTime())),
-                status: 'Pending'
-            },
-            {
-                id: 6,
-                category: 'Insurance',
-                description: 'Professional liability and business insurance',
-                amount: Math.round(currentYearTotal * 0.07), // 7% of total expenses
-                date: new Date(currentYearStart.getTime() + Math.random() * (now.getTime() - currentYearStart.getTime())),
-                status: 'Paid'
+        // Generate expense details from REAL payments list
+        const expenseDetails = currentYearPaymentsList.map((p: any) => {
+            const patientName = `${p.booking?.patient?.firstName || ''} ${p.booking?.patient?.lastName || ''}`.trim()
+            const clientName = `${p.booking?.client?.firstName || ''} ${p.booking?.client?.lastName || ''}`.trim()
+            const carerAssigned = !!p.booking?.carer
+            const category = carerAssigned ? 'Salaries' : 'Administrative'
+            const statusMap: Record<string, string> = {
+                COMPLETED: 'Paid',
+                PENDING: 'Pending',
+                FAILED: 'Overdue',
+                REFUNDED: 'Paid'
             }
-        ]
+            const status = statusMap[p.status] || 'Paid'
+            return {
+                id: p.id,
+                category,
+                description: `${patientName || clientName || 'General expense'}`,
+                amount: p.amount,
+                date: p.createdAt,
+                status
+            }
+        })
 
         const stats = {
             totalExpenses: {

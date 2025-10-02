@@ -273,10 +273,10 @@
                 </div>
                 
                 <div class="flex space-x-2">
-                  <button @click="viewBooking(booking.id)" class="px-4 py-2 bg-[#0034b3] text-white rounded-lg text-sm font-medium hover:brightness-90 transition-colors">
+                  <button @click="viewBooking(booking.id)" class="px-4 py-2 bg-[#0034b3] text-white text-on-primary rounded-lg text-sm font-medium hover:brightness-90 transition-colors">
                     View Details
                   </button>
-                  <button v-if="booking.status === 'PENDING'" @click="cancelBooking(booking.id)" class="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
+                  <button v-if="booking.status === 'PENDING'" @click="cancelBooking(booking.id)" class="px-4 py-2 bg-red-600 text-white text-on-primary rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
                     Cancel
                   </button>
                 </div>

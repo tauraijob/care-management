@@ -65,7 +65,7 @@ export default defineEventHandler(async (event) => {
         const skip = (page - 1) * limit
 
         // Fetch carers with performance data
-        const [carers, totalCount, stats] = await Promise.all([
+        const [carers, totalCount] = await Promise.all([
             prisma.user.findMany({
                 where,
                 include: {
@@ -102,14 +102,7 @@ export default defineEventHandler(async (event) => {
                 take: limit
             }),
 
-            prisma.user.count({ where }),
-
-            // Get carer statistics
-            prisma.user.groupBy({
-                by: ['status'],
-                where: { role: 'CARER' },
-                _count: { status: true }
-            })
+            prisma.user.count({ where })
         ])
 
         // Calculate performance metrics for each carer

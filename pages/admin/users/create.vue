@@ -188,21 +188,22 @@
              />
            </div>
            
-           <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-             <label for="country" class="block text-sm font-semibold text-gray-800 mb-2">Country</label>
-             <select
-               id="country"
-               v-model="form.country"
-               class="block w-full px-3 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white text-gray-900"
-             >
-               <option value="">Select country</option>
-               <option value="ZA">South Africa</option>
-               <option value="US">United States</option>
-               <option value="GB">United Kingdom</option>
-               <option value="CA">Canada</option>
-               <option value="AU">Australia</option>
-             </select>
-           </div>
+          <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <label for="countrySearch" class="block text-sm font-semibold text-gray-800 mb-2">Country</label>
+            <input
+              id="countrySearch"
+              v-model="countrySearch"
+              @change="onCountryInputChange"
+              list="countryOptions"
+              type="text"
+              class="block w-full px-3 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white text-gray-900"
+              placeholder="Type to search country"
+            />
+            <datalist id="countryOptions">
+              <option v-for="c in countries" :key="c.code" :value="c.name" :label="c.code"></option>
+            </datalist>
+            <p v-if="form.country" class="mt-2 text-xs text-gray-600">Selected: {{ selectedCountryLabel }}</p>
+          </div>
          </div>
 
                  <!-- Role-Specific Fields -->
@@ -362,6 +363,12 @@ const router = useRouter()
 // Reactive data
 const loading = ref(false)
 const showPassword = ref(false)
+const countries = ref([])
+const countrySearch = ref('')
+const selectedCountryLabel = computed(() => {
+  const match = countries.value.find(c => c.code === form.value.country)
+  return match ? `${match.name} (${match.code})` : ''
+})
 
 // User roles configuration
 const userRoles = [
@@ -455,14 +462,12 @@ const createUser = async () => {
       userData.department = form.value.department
     }
 
-    // Here you would typically make an API call to create the user
-    console.log('Creating user:', userData)
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    // Show success message
-    alert('User created successfully!')
+    // Create via API
+    await $fetch('/api/admin/users', {
+      method: 'POST',
+      body: userData,
+      headers: { 'Authorization': `Bearer ${useCookie('auth-token').value}` }
+    })
     
     // Redirect to users list
     await router.push('/admin/users')
@@ -556,6 +561,27 @@ const resetForm = () => {
     emailNotifications: true,
     smsNotifications: false,
     active: true
+  }
+}
+
+// Load country list from public JSON on mount
+onMounted(async () => {
+  try {
+    const res = await fetch('/countries.json')
+    if (res.ok) {
+      countries.value = await res.json()
+    }
+  } catch (e) {
+    console.error('Failed to load countries', e)
+  }
+})
+
+function onCountryInputChange() {
+  const found = countries.value.find(c => c.name.toLowerCase() === countrySearch.value.trim().toLowerCase())
+  if (found) {
+    form.value.country = found.code
+  } else {
+    form.value.country = ''
   }
 }
 </script> 

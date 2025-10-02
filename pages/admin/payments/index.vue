@@ -467,14 +467,20 @@ const payments = computed(() => {
   if (!paymentsData.value?.data?.payments) return []
   const methodLabel = { STRIPE: 'Stripe', PAYPAL: 'PayPal', ECOCASH: 'EcoCash' }
   return paymentsData.value.data.payments.map((payment) => {
-    const patientFirst = payment.booking?.patient?.firstName || ''
-    const patientLast = payment.booking?.patient?.lastName || ''
-    const patientName = `${patientFirst} ${patientLast}`.trim()
+    const patientName = (
+      payment.booking?.patient?.name ||
+      `${payment.booking?.patient?.firstName || ''} ${payment.booking?.patient?.lastName || ''}`
+    ).trim()
+    const clientName = (
+      payment.booking?.client?.name ||
+      `${payment.booking?.client?.firstName || ''} ${payment.booking?.client?.lastName || ''}`
+    ).trim()
+    const displayName = patientName || clientName || 'Unknown'
     const careType = (payment.booking?.careType || '').replace(/_/g, ' ')
     return {
       id: payment.id,
-      customerName: patientName || 'Unknown',
-      description: `${careType}${patientName ? ' - ' + patientName : ''}`.trim(),
+      customerName: displayName,
+      description: `${careType}${displayName ? ' - ' + displayName : ''}`.trim(),
       amount: payment.amount,
       method: methodLabel[payment.paymentMethod] || payment.paymentMethod,
       status: (payment.status || '').toLowerCase(),

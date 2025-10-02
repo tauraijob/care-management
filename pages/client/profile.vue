@@ -209,7 +209,7 @@ definePageMeta({
   layout: 'client'
 })
 
-const { user } = useAuth()
+const { user, refreshUser } = useAuth()
 const router = useRouter()
 
 const loading = ref(false)
@@ -234,29 +234,34 @@ const form = ref({
 const updateProfile = async () => {
   loading.value = true
   try {
-    // Validate password change
     if (form.value.newPassword && form.value.newPassword !== form.value.confirmPassword) {
       alert('New passwords do not match')
       return
     }
-    
-    // Here you would typically make an API call to update the profile
-    console.log('Updating profile:', form.value)
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    // Show success message
+
+    const payload = {
+      firstName: form.value.firstName,
+      lastName: form.value.lastName,
+      phone: form.value.phone,
+      whatsapp: false
+    }
+
+    await $fetch('/api/auth/profile', {
+      method: 'PUT',
+      body: payload,
+      headers: { 'Authorization': `Bearer ${useCookie('auth-token').value}` }
+    })
+
     alert('Profile updated successfully')
-    
-    // Clear password fields
+    await refreshUser()
+
+    // Clear password fields locally
     form.value.currentPassword = ''
     form.value.newPassword = ''
     form.value.confirmPassword = ''
-    
   } catch (error) {
     console.error('Error updating profile:', error)
-    alert('Error updating profile. Please try again.')
+    alert(error && error.statusMessage ? error.statusMessage : 'Error updating profile. Please try again.')
   } finally {
     loading.value = false
   }

@@ -139,14 +139,14 @@
             <div class="p-4 bg-white">
               <div class="flex items-center justify-between">
                 <div class="flex space-x-2">
-                  <NuxtLink :to="`/client/patients/${patient.id}`" class="px-3 py-2 text-sm text-green-600 hover:text-green-700 font-medium hover:bg-green-50 rounded-lg transition-colors duration-200">
+                  <NuxtLink :to="`/client/patients/${patient.id}`" class="px-3 py-2 bg-[#0034b3] text-white text-on-primary text-sm font-medium rounded-lg hover:brightness-90 transition-colors duration-200">
                     View Details
                   </NuxtLink>
-                  <NuxtLink :to="`/client/patients/${patient.id}/edit`" class="px-3 py-2 text-sm text-gray-600 hover:text-gray-700 font-medium hover:bg-gray-50 rounded-lg transition-colors duration-200">
+                  <NuxtLink :to="`/client/patients/${patient.id}/edit`" class="px-3 py-2 bg-gray-700 text-white text-on-primary text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors duration-200">
                     Edit
                   </NuxtLink>
                 </div>
-                <NuxtLink :to="`/client/bookings/create?patient=${patient.id}`" class="px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white text-sm font-medium rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-sm hover:shadow-md">
+                <NuxtLink :to="`/client/bookings/create?patient=${patient.id}`" class="px-4 py-2 bg-green-600 text-white text-on-primary text-sm font-medium rounded-lg hover:bg-green-700 transition-all duration-200 shadow-sm hover:shadow-md">
                   Book Care
                 </NuxtLink>
               </div>

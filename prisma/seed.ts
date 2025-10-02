@@ -493,7 +493,7 @@ async function main() {
                     { id: 'BK004', client: 'Michael Smith', carer: 'Unassigned', patient: 'Robert Smith', status: 'PENDING', startDate: '2024-02-01', careType: 'DISABILITY_CARE' }
                 ]
             },
-            generatedBy: admin.vvid,
+            generatedBy: admin.id,
             status: ReportStatus.COMPLETED
         },
         {
