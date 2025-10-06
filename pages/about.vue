@@ -110,6 +110,78 @@
           <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Team</h2>
         </div>
 
+        <!-- Leadership Team -->
+        <div class="space-y-10">
+          <div class="text-center max-w-5xl mx-auto">
+            <h3 class="text-3xl font-bold text-gray-900 mb-4">Meet Our Leadership Team</h3>
+            <p class="text-lg text-gray-700">
+              At the helm of our boutique domiciliary care agency is a dynamic leadership team united by a shared vision — to redefine compassionate care in Zimbabwe and beyond. With a deep understanding of local needs and an appreciation for the expectations of the Zimbabwean diaspora, our leaders bring together a wealth of experience, empathy, and innovation. Their combined expertise ensures that our services not only uphold the highest standards of professionalism and integrity but also provide the reassurance and dignity every family deserves — whether caring for loved ones at home or from afar.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+            <!-- Blessing Gwindi -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm flex flex-col">
+              <div class="mb-4">
+                <h4 class="text-xl font-bold text-gray-900">Blessing Gwindi</h4>
+                <p class="text-gray-600">Managing Director</p>
+                <a href="mailto:blessing@lucernahealth.co.zw" class="text-blue-600 hover:text-blue-700 mt-2 inline-block">blessing@lucernahealth.co.zw</a>
+              </div>
+              <button @click="openProfile('blessing')" class="btn-primary self-start">View Profile</button>
+            </div>
+
+            <!-- Farirayi Nyawasha -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm flex flex-col">
+              <div class="mb-4">
+                <h4 class="text-xl font-bold text-gray-900">Farirayi Nyawasha</h4>
+                <p class="text-gray-600">Operations Director</p>
+                <span class="text-gray-600 mt-2 inline-block">Email: XXXX</span>
+              </div>
+              <button @click="openProfile('fari')" class="btn-primary self-start">View Profile</button>
+            </div>
+          </div>
+          
+          <!-- Profile Modal -->
+          <div v-if="isProfileModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div class="absolute inset-0 bg-black/50" @click="closeProfile"></div>
+            <div class="relative bg-white rounded-2xl shadow-xl max-w-3xl w-full p-6 md:p-8 overflow-y-auto max-h-[85vh]">
+              <button @click="closeProfile" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700" aria-label="Close">
+                <Icon name="mdi:close" class="text-2xl" />
+              </button>
+              <div v-if="selectedProfile === 'blessing'" class="space-y-4 text-gray-700 leading-relaxed">
+                <h4 class="text-2xl font-bold text-gray-900">Blessing Gwindi — Managing Director & Founder</h4>
+                <p>
+                  Blessing is the Managing Director and Founder of Lucerna & Stern Health. A Registered Children’s Nurse with a Diploma in Higher Education, she brings extensive clinical and leadership experience from her work within the UK’s National Health Service (NHS) and related organisations, including NHS 111 and the Care Quality Commission (CQC).
+                </p>
+                <p>
+                  Throughout her career, Blessing has served in a variety of roles spanning School Nursing, Health Visiting, Safeguarding, and Learning Disability Services, as well as holding successive leadership positions across the NHS. Blessing also holds a Specialist BSc in Health Visiting from Brunel University. Her key strengths include health and social care regulation, safeguarding, service improvement, and organisational alignment with regulatory standards.
+                </p>
+                <p>
+                  At Lucerna & Stern Health, Blessing combines her professional rigor with a compassionate vision — leading the agency to provide exceptional, person-centred domiciliary care for families in Zimbabwe and for members of the diaspora seeking trusted care for their loved ones back home.
+                </p>
+              </div>
+              <div v-else-if="selectedProfile === 'fari'" class="space-y-4 text-gray-700 leading-relaxed">
+                <h4 class="text-2xl font-bold text-gray-900">Farirayi Nyawasha — Operations Director</h4>
+                <p>
+                  As a Partner and Operations Director at Lucerna & Stern Health, Fari brings a steadfast commitment to compassionate, efficient, and high-quality care. With a strong clinical foundation as a Nurse Aide, she has developed extensive hands-on experience across both hospital and home-based care environments, providing expert support to patients with complex medical and rehabilitation needs, including stroke recovery.
+                </p>
+                <p>
+                  Dedicated and results-oriented, Fari has demonstrated consistent leadership in coordinating home care routines, upholding rigorous infection control standards, and ensuring seamless collaboration among families, therapists, and nursing teams. Fari combines clinical competence with a calm and empathetic presence, ensuring that every client receives care that preserves dignity, promotes independence, and enhances overall well-being.
+                </p>
+                <p>
+                  Before joining Lucerna & Stern Health, Fari worked at First Mutual Hospital in Southerton, Harare, and in private domiciliary settings, where she earned recognition for reliability, initiative, and excellence in patient care. Her proven ability to manage multiple priorities while maintaining safety, comfort, and trust has made her a valued leader in operational delivery and service improvement.
+                </p>
+                <p>
+                  Fari holds a Nurse Aide Certificate, Advanced First Aid Certificate, and Community-Based Health Care Certificate from the Zimbabwe Red Cross Society, as well as a Diploma in Systemic Therapy from the Zimbabwe Institute of Systemic Therapy. These qualifications reflect her holistic approach to care, blending clinical skill with therapeutic understanding and community insight.
+                </p>
+                <p>
+                  At Lucerna & Stern Health, Fari plays a pivotal role in ensuring the seamless coordination of services, operational excellence, and the consistent delivery of compassionate, client-centred care, both for the local population and the Zimbabwean diaspora entrusting the agency with the wellbeing of their loved ones back home.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Hiring Section -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div class="lg:order-1">
@@ -417,4 +489,18 @@ const subTabs = ref([
 
 // Toggle for A Whole Team of Support extra paragraphs
 const showSupportMore = ref(false)
+
+// Profile modal state
+const isProfileModalOpen = ref(false)
+const selectedProfile = ref(null)
+
+const openProfile = (profile) => {
+  selectedProfile.value = profile
+  isProfileModalOpen.value = true
+}
+
+const closeProfile = () => {
+  isProfileModalOpen.value = false
+  selectedProfile.value = null
+}
 </script> 

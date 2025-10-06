@@ -43,7 +43,7 @@
 
           <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
             <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-              <Icon name="mdi:hand-front" class="text-2xl text-green-600" />
+              <Icon name="mdi:arm-flex" class="text-2xl text-green-600" />
             </div>
             <h4 class="text-xl font-bold text-gray-900 mb-3">Physical Therapy</h4>
             <p class="text-gray-600">Strengthening exercises and physical rehabilitation to improve function.</p>

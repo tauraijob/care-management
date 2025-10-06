@@ -1,12 +1,14 @@
 <template>
   <div class="min-h-screen">
     <!-- Hero Section -->
-    <section class="relative h-96 bg-gradient-to-r from-blue-900 to-green-800 flex items-center justify-center">
+    <section class="relative h-96 flex items-center justify-center" style="background-image: url('/uploads/pic6.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
       <div class="absolute inset-0 bg-black/40"></div>
-      <div class="relative z-10 text-center text-white px-4">
-        <h1 class="text-5xl font-bold mb-4">Skilled Nursing</h1>
-        <p class="text-2xl text-blue-100">Professional Medical Care</p>
-        <p class="text-lg text-blue-200">Licensed nursing care in the comfort of your home</p>
+      <div class="relative z-10 px-4">
+        <div class="max-w-3xl mx-auto bg-white/95 rounded-2xl shadow-lg p-6 md:p-8 text-center">
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">Skilled Nursing</h1>
+          <p class="text-xl text-gray-700">Professional Medical Care</p>
+          <p class="text-base md:text-lg text-gray-600">Licensed nursing care in the comfort of your home</p>
+        </div>
       </div>
     </section>
 
@@ -18,7 +20,7 @@
           <img src="/uploads/pic6.png" alt="Skilled Nursing" class="w-full h-80 object-cover rounded-xl shadow" />
           <div>
             <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-              <Icon name="mdi:nurse" class="text-3xl text-blue-600" />
+              <Icon name="mdi:stethoscope" class="text-3xl text-blue-600" />
             </div>
             <h2 class="text-3xl font-bold text-gray-900 mb-4">Skilled Nursing Services</h2>
             <p class="text-xl text-gray-600">

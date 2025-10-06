@@ -18,7 +18,7 @@
           <img src="/uploads/pic1.png" alt="Occupational Therapy" class="w-full h-80 object-cover rounded-xl shadow" />
           <div>
             <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6">
-              <Icon name="mdi:hand-front" class="text-3xl text-orange-600" />
+              <Icon name="mdi:arm-flex" class="text-3xl text-orange-600" />
             </div>
             <h2 class="text-3xl font-bold text-gray-900 mb-4">Occupational Therapy Services</h2>
             <p class="text-xl text-gray-600">

@@ -54,7 +54,7 @@
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Personal Care</h3>
             <p class="text-gray-600 mb-4">Dignified, hands-on support with bathing, grooming, toileting, and mobility to promote comfort and independence.</p>
-            <span class="text-lucerna-primary font-medium hover:text-lucerna-primary-dark mt-auto inline-block">Learn More →</span>
+            <span class="text-blue-600 font-medium hover:text-blue-700 mt-auto inline-block">Learn More →</span>
           </NuxtLink>
 
           <NuxtLink to="/services/companion-care" class="block h-full bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-lucerna-primary">
@@ -63,7 +63,7 @@
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Companion Care</h3>
             <p class="text-gray-600 mb-4">A warm, reliable presence offering social connection, light housekeeping, errands, and support with daily routines.</p>
-            <span class="text-lucerna-primary font-medium hover:text-lucerna-primary-dark mt-auto inline-block">Learn More →</span>
+            <span class="text-blue-600 font-medium hover:text-blue-700 mt-auto inline-block">Learn More →</span>
           </NuxtLink>
 
           <NuxtLink to="/services/respite-care" class="block h-full bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-lucerna-primary">
@@ -72,7 +72,7 @@
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Respite Care</h3>
             <p class="text-gray-600 mb-4">Short-term, compassionate care that gives long-distance families time to rest, travel, or manage life's demands.</p>
-            <span class="text-lucerna-primary font-medium hover:text-lucerna-primary-dark mt-auto inline-block">Learn More →</span>
+            <span class="text-blue-600 font-medium hover:text-blue-700 mt-auto inline-block">Learn More →</span>
           </NuxtLink>
 
           <NuxtLink to="/services/complex-care" class="block h-full bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-lucerna-primary">
@@ -81,7 +81,7 @@
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">24/7 Complex Care</h3>
             <p class="text-gray-600 mb-4">Specialist, round-the-clock support for loved ones with serious illness or high-dependency needs.</p>
-            <span class="text-lucerna-primary font-medium hover:text-lucerna-primary-dark mt-auto inline-block">Learn More →</span>
+            <span class="text-blue-600 font-medium hover:text-blue-700 mt-auto inline-block">Learn More →</span>
           </NuxtLink>
 
           <NuxtLink to="/services/live-in-care" class="block h-full bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-lucerna-primary">
@@ -90,7 +90,7 @@
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Live-In Care</h3>
             <p class="text-gray-600 mb-4">Round-the-clock, in-home support for loved ones with complex or evolving needs.</p>
-            <span class="text-lucerna-primary font-medium hover:text-lucerna-primary-dark mt-auto inline-block">Learn More →</span>
+            <span class="text-blue-600 font-medium hover:text-blue-700 mt-auto inline-block">Learn More →</span>
           </NuxtLink>
         </div>
       </div>
@@ -122,7 +122,7 @@
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Physiotherapy</h3>
             <p class="text-gray-600 mb-4">Regain strength, balance, and confidence at home. Therapy plans tailored to stroke recovery, surgery rehab, falls prevention & more.</p>
-            <NuxtLink to="/services/physiotherapy" class="text-green-600 font-medium hover:text-green-700 mt-auto">
+            <NuxtLink to="/services/physiotherapy" class="text-blue-600 font-medium hover:text-blue-700 mt-auto">
               Learn More →
             </NuxtLink>
           </div>
@@ -133,18 +133,18 @@
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Speech Therapy</h3>
             <p class="text-gray-600 mb-4">Rebuild confidence, speech, and connection at home. We support clients with stroke recovery, swallowing issues, and voice disorders.</p>
-            <NuxtLink to="/services/speech-therapy" class="text-purple-600 font-medium hover:text-purple-700 mt-auto">
+            <NuxtLink to="/services/speech-therapy" class="text-blue-600 font-medium hover:text-blue-700 mt-auto">
               Learn More →
             </NuxtLink>
           </div>
 
           <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-full flex flex-col">
             <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
-              <Icon name="mdi:hand-front" class="text-2xl text-orange-600" />
+              <Icon name="mdi:arm-flex" class="text-2xl text-orange-600" />
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Occupational Therapy</h3>
             <p class="text-gray-600 mb-4">Regain confidence, independence, and control right at home. We help clients with daily tasks like bathing, dressing, and cooking.</p>
-            <NuxtLink to="/services/occupational-therapy" class="text-orange-600 font-medium hover:text-orange-700 mt-auto">
+            <NuxtLink to="/services/occupational-therapy" class="text-blue-600 font-medium hover:text-blue-700 mt-auto">
               Learn More →
             </NuxtLink>
           </div>
@@ -155,7 +155,7 @@
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Learning Disabilities & Autism Support</h3>
             <p class="text-gray-600 mb-4">Tailored, respectful care that honours individual needs, routines, and communication styles.</p>
-            <NuxtLink to="/services/learning-disabilities" class="text-red-600 font-medium hover:text-red-700 mt-auto">
+            <NuxtLink to="/services/learning-disabilities" class="text-blue-600 font-medium hover:text-blue-700 mt-auto">
               Learn More →
             </NuxtLink>
           </div>
@@ -189,7 +189,7 @@
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">24/7 Availability</h3>
             <p class="text-gray-600 mb-4">Round-the-clock access to your care team for urgent needs, questions, or simply peace of mind.</p>
-            <NuxtLink to="/services/concierge-services" class="text-green-600 font-medium hover:text-green-700">
+            <NuxtLink to="/services/concierge-services" class="text-blue-600 font-medium hover:text-blue-700">
               Learn More →
             </NuxtLink>
           </div>
@@ -200,7 +200,7 @@
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Medical Coordination</h3>
             <p class="text-gray-600 mb-4">Seamless coordination with healthcare providers, medication management, and appointment scheduling.</p>
-            <NuxtLink to="/services/concierge-services" class="text-purple-600 font-medium hover:text-purple-700">
+            <NuxtLink to="/services/concierge-services" class="text-blue-600 font-medium hover:text-blue-700">
               Learn More →
             </NuxtLink>
           </div>
@@ -211,7 +211,7 @@
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Diaspora Support</h3>
             <p class="text-gray-600 mb-4">Specialized support for families living abroad, including regular updates, video calls, and travel coordination.</p>
-            <NuxtLink to="/services/concierge-services" class="text-orange-600 font-medium hover:text-orange-700">
+            <NuxtLink to="/services/concierge-services" class="text-blue-600 font-medium hover:text-blue-700">
               Learn More →
             </NuxtLink>
           </div>
@@ -222,7 +222,7 @@
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Quality Assurance</h3>
             <p class="text-gray-600 mb-4">Regular quality checks, performance monitoring, and continuous improvement of care standards.</p>
-            <NuxtLink to="/services/concierge-services" class="text-red-600 font-medium hover:text-red-700">
+            <NuxtLink to="/services/concierge-services" class="text-blue-600 font-medium hover:text-blue-700">
               Learn More →
             </NuxtLink>
           </div>
@@ -233,7 +233,7 @@
             </div>
             <h3 class="text-xl font-bold text-gray-900 mb-3">Family Liaison</h3>
             <p class="text-gray-600 mb-4">Regular communication with family members, detailed reports, and proactive updates on care progress.</p>
-            <NuxtLink to="/services/concierge-services" class="text-indigo-600 font-medium hover:text-indigo-700">
+            <NuxtLink to="/services/concierge-services" class="text-blue-600 font-medium hover:text-blue-700">
               Learn More →
             </NuxtLink>
           </div>
