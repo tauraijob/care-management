@@ -255,6 +255,101 @@
       </div>
     </div>
 
+    <!-- Event Details Modal -->
+    <div v-if="showEventModal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+      <div class="relative bg-white rounded-xl shadow-xl max-w-md w-full p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-semibold text-lucerna-primary">{{ activeEvent?.title }}</h3>
+          <button @click="closeEventModal" class="text-gray-500 hover:text-gray-700">
+            <Icon name="mdi:close" class="h-5 w-5" />
+          </button>
+        </div>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-start">
+            <Icon name="mdi:calendar" class="h-4 w-4 text-lucerna-primary mt-0.5 mr-2" />
+            <div>
+              <div class="text-gray-500">Date</div>
+              <div class="font-medium text-gray-900">{{ formatEventDate(activeEvent) }}</div>
+            </div>
+          </div>
+          <div class="flex items-start">
+            <Icon name="mdi:clock" class="h-4 w-4 text-lucerna-primary mt-0.5 mr-2" />
+            <div>
+              <div class="text-gray-500">Time</div>
+              <div class="font-medium text-gray-900">{{ activeEvent?.startTime }} - {{ activeEvent?.endTime }}</div>
+            </div>
+          </div>
+          <div v-if="activeEvent?.location" class="flex items-start">
+            <Icon name="mdi:map-marker" class="h-4 w-4 text-lucerna-primary mt-0.5 mr-2" />
+            <div>
+              <div class="text-gray-500">Location</div>
+              <div class="font-medium text-gray-900">{{ activeEvent.location }}</div>
+            </div>
+          </div>
+          <div class="flex items-start">
+            <Icon name="mdi:label" class="h-4 w-4 text-lucerna-primary mt-0.5 mr-2" />
+            <div>
+              <div class="text-gray-500">Type</div>
+              <div class="font-medium text-gray-900 capitalize">{{ activeEvent?.type }}</div>
+            </div>
+          </div>
+          <div v-if="activeEvent?.description" class="flex items-start">
+            <Icon name="mdi:text" class="h-4 w-4 text-lucerna-primary mt-0.5 mr-2" />
+            <div>
+              <div class="text-gray-500">Description</div>
+              <div class="text-gray-900">{{ activeEvent.description }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 flex justify-end space-x-3">
+          <button @click="closeEventModal" class="px-4 py-2 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">Close</button>
+          <button @click="openEditEvent()" class="px-4 py-2 rounded bg-lucerna-primary text-white hover:bg-lucerna-primary-dark">Edit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Event Modal -->
+    <div v-if="showEditModal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+      <div class="relative bg-white rounded-xl shadow-xl max-w-md w-full p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-semibold">Edit Event</h3>
+          <button @click="closeEditModal" class="text-gray-500 hover:text-gray-700">
+            <Icon name="mdi:close" class="h-5 w-5" />
+          </button>
+        </div>
+        <form @submit.prevent="saveEvent">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+              <input v-model="editForm.date" type="date" class="w-full rounded-md border-gray-300 focus:ring-lucerna-primary focus:border-lucerna-primary" required />
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Start Time</label>
+                <input v-model="editForm.startTime" type="time" class="w-full rounded-md border-gray-300 focus:ring-lucerna-primary focus:border-lucerna-primary" required />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">End Time</label>
+                <input v-model="editForm.endTime" type="time" class="w-full rounded-md border-gray-300 focus:ring-lucerna-primary focus:border-lucerna-primary" required />
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+              <input v-model="editForm.location" type="text" class="w-full rounded-md border-gray-300 focus:ring-lucerna-primary focus:border-lucerna-primary" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+              <textarea v-model="editForm.description" rows="3" class="w-full rounded-md border-gray-300 focus:ring-lucerna-primary focus:border-lucerna-primary"></textarea>
+            </div>
+          </div>
+          <div class="mt-6 flex justify-end space-x-3">
+            <button type="button" @click="closeEditModal" class="px-4 py-2 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">Cancel</button>
+            <button type="submit" class="px-4 py-2 rounded bg-lucerna-primary text-white hover:bg-lucerna-primary-dark" :disabled="saving">{{ saving ? 'Saving...' : 'Save' }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- Debug Section (remove in production) -->
     <div v-if="isDev" class="mt-8 bg-gray-100 p-4 rounded-lg">
       <h3 class="text-lg font-medium text-gray-900 mb-4">Debug Info</h3>
@@ -292,6 +387,10 @@ const isDev = process.dev
 const viewMode = ref('week')
 const currentDate = ref(new Date())
 const showAddEventModal = ref(false)
+
+// Event details modal
+const showEventModal = ref(false)
+const activeEvent = ref(null)
 
 // Fetch real events for the carer
 const events = ref([])
@@ -453,6 +552,12 @@ const formatEventTime = (event) => {
   return `${event.startTime} - ${event.endTime}`
 }
 
+const formatEventDate = (event) => {
+  if (!event) return ''
+  const d = new Date(event.date)
+  return d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+}
+
 const getEventsForHour = (hour) => {
   const dateString = formatDateForComparison(currentDate.value)
   return events.value.filter(event => {
@@ -532,11 +637,23 @@ const goToToday = () => {
 }
 
 const viewEvent = (event) => {
-  console.log('View event:', event)
+  activeEvent.value = event
+  showEventModal.value = true
 }
 
-const editEvent = (event) => {
-  console.log('Edit event:', event)
+const closeEventModal = () => {
+  showEventModal.value = false
+  activeEvent.value = null
+}
+
+// Edit modal state
+const showEditModal = ref(false)
+const editForm = ref({ id: '', title: '', type: '', date: '', startTime: '', endTime: '', location: '', description: '' })
+
+function openEditEvent() {
+  if (!activeEvent.value) return
+  editForm.value = { ...activeEvent.value }
+  showEditModal.value = true
 }
 
 const addEvent = async () => {
@@ -578,6 +695,31 @@ const addEvent = async () => {
     }
     
     alert(errorMessage)
+  }
+}
+
+function closeEditModal() {
+  showEditModal.value = false
+}
+
+const saving = ref(false)
+async function saveEvent() {
+  if (!editForm.value.id) return
+  saving.value = true
+  try {
+    await $fetch('/api/carer/events', {
+      method: 'PUT',
+      headers: { 'Authorization': `Bearer ${useCookie('auth-token').value}` },
+      body: { ...editForm.value }
+    })
+    closeEditModal()
+    showEventModal.value = false
+    await fetchEvents()
+  } catch (e) {
+    console.error('Save event failed', e)
+    alert(e?.data?.statusMessage || 'Failed to save event')
+  } finally {
+    saving.value = false
   }
 }
 

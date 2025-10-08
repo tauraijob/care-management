@@ -88,48 +88,7 @@
                     </div>
                   </div>
                   
-                  <div class="p-4 border border-gray-200 rounded-lg">
-                    <h4 class="font-medium text-gray-900 mb-2">Service Areas</h4>
-                    <p class="text-sm text-gray-600 mb-4">Select areas where you're willing to work</p>
-                    <div class="space-y-3">
-                      <div class="flex items-center">
-                        <input
-                          v-model="settings.serviceAreas"
-                          value="north"
-                          type="checkbox"
-                          class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
-                        />
-                        <label class="ml-2 block text-sm text-gray-900">North Area</label>
-                      </div>
-                      <div class="flex items-center">
-                        <input
-                          v-model="settings.serviceAreas"
-                          value="south"
-                          type="checkbox"
-                          class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
-                        />
-                        <label class="ml-2 block text-sm text-gray-900">South Area</label>
-                      </div>
-                      <div class="flex items-center">
-                        <input
-                          v-model="settings.serviceAreas"
-                          value="east"
-                          type="checkbox"
-                          class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
-                        />
-                        <label class="ml-2 block text-sm text-gray-900">East Area</label>
-                      </div>
-                      <div class="flex items-center">
-                        <input
-                          v-model="settings.serviceAreas"
-                          value="west"
-                          type="checkbox"
-                          class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
-                        />
-                        <label class="ml-2 block text-sm text-gray-900">West Area</label>
-                      </div>
-                    </div>
-                  </div>
+                  <!-- Service Areas removed per request -->
                 </div>
               </div>
             </div>
@@ -396,7 +355,7 @@ const settings = ref({
   emergencyOnCall: false,
   startTime: '08:00',
   endTime: '17:00',
-  serviceAreas: ['north', 'south'],
+  
   assignmentAlerts: true,
   scheduleUpdates: true,
   emergencyCalls: true,
@@ -440,7 +399,7 @@ const resetSettings = () => {
     emergencyOnCall: false,
     startTime: '08:00',
     endTime: '17:00',
-    serviceAreas: ['north', 'south'],
+    
     assignmentAlerts: true,
     scheduleUpdates: true,
     emergencyCalls: true,

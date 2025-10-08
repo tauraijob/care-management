@@ -1,35 +1,14 @@
-import jwt from 'jsonwebtoken'
 import { getPrisma } from '../../utils/prisma'
+import { extractTokenFromRequest, getUserFromToken } from '~/server/utils/auth'
 
 export default defineEventHandler(async (event) => {
     try {
-        // Verify authentication
-        const token = getHeader(event, 'authorization')?.replace('Bearer ', '')
-        if (!token) {
-            throw createError({
-                statusCode: 401,
-                statusMessage: 'Authentication required'
-            })
-        }
-
-        // Verify JWT token
-        let decoded
-        try {
-            decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key')
-        } catch (error) {
-            throw createError({
-                statusCode: 401,
-                statusMessage: 'Invalid or expired token'
-            })
-        }
-
-        // Ensure user is a client
-        if (decoded.role !== 'CLIENT') {
-            throw createError({
-                statusCode: 403,
-                statusMessage: 'Only clients can create bookings'
-            })
-        }
+        // Verify authentication (support Authorization header or cookie)
+        const token = extractTokenFromRequest(event)
+        if (!token) throw createError({ statusCode: 401, statusMessage: 'Authentication required' })
+        const me = await getUserFromToken(token)
+        if (!me) throw createError({ statusCode: 401, statusMessage: 'Invalid or expired token' })
+        if (me.role !== 'CLIENT') throw createError({ statusCode: 403, statusMessage: 'Only clients can create bookings' })
 
         const body = await readBody(event)
         const {
@@ -94,7 +73,7 @@ export default defineEventHandler(async (event) => {
         const patient = await prisma.patient.findFirst({
             where: {
                 id: patientId,
-                clientId: decoded.userId
+                clientId: me.id
             }
         })
 
@@ -130,7 +109,7 @@ export default defineEventHandler(async (event) => {
         // Create booking
         const booking = await prisma.booking.create({
             data: {
-                clientId: decoded.userId,
+                clientId: me.id,
                 carerId: assignedCarer.id,
                 patientId,
                 careType,
@@ -177,7 +156,7 @@ export default defineEventHandler(async (event) => {
         // Create notification for client
         await prisma.notification.create({
             data: {
-                userId: decoded.userId,
+                userId: me.id,
                 type: 'EMAIL',
                 title: 'Booking Confirmed',
                 message: `Your booking for ${patient.firstName} ${patient.lastName} has been confirmed. Carer: ${assignedCarer.firstName} ${assignedCarer.lastName}`
@@ -185,7 +164,7 @@ export default defineEventHandler(async (event) => {
         })
 
         // Log booking creation
-        console.log(`Booking created: ${booking.id} by client ${decoded.userId} for patient ${patientId}`)
+        console.log(`Booking created: ${booking.id} by client ${me.id} for patient ${patientId}`)
 
         return {
             success: true,
@@ -203,11 +182,11 @@ export default defineEventHandler(async (event) => {
             }
         }
 
-    } catch (error) {
-        console.error('Booking creation error:', error)
+    } catch (e: any) {
+        console.error('Booking creation error:', e)
 
-        if (error.statusCode) {
-            throw error
+        if (e && e.statusCode) {
+            throw e
         }
 
         throw createError({

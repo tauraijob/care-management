@@ -64,13 +64,7 @@
               </div>
               <Icon name="mdi:chevron-right" class="h-4 w-4 text-gray-400" />
             </NuxtLink>
-            <NuxtLink to="/admin/users/import" class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <div class="flex items-center space-x-3">
-                <Icon name="mdi:upload" class="h-5 w-5 text-green-600" />
-                <span class="text-sm font-medium text-gray-900">Bulk Import</span>
-              </div>
-              <Icon name="mdi:chevron-right" class="h-4 w-4 text-gray-400" />
-            </NuxtLink>
+            
           </div>
         </div>
 
@@ -112,13 +106,7 @@
             <p class="text-sm text-gray-500 mt-1">Manage permissions and roles</p>
           </div>
           <div class="p-6 space-y-4">
-            <NuxtLink to="/admin/users/roles" class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <div class="flex items-center space-x-3">
-                <Icon name="mdi:shield-account" class="h-5 w-5 text-green-600" />
-                <span class="text-sm font-medium text-gray-900">Roles & Permissions</span>
-              </div>
-              <Icon name="mdi:chevron-right" class="h-4 w-4 text-gray-400" />
-            </NuxtLink>
+            
             <NuxtLink to="/admin/users/audit" class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
               <div class="flex items-center space-x-3">
                 <Icon name="mdi:clipboard-text" class="h-5 w-5 text-green-600" />

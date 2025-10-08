@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "1759929411117-lw519m",
+    "timestamp": "2025-10-08T13:16:51.117Z",
+    "actorId": "cmg94fzzr000068d06oll98lk",
+    "actorEmail": "admin@lucerna.com",
+    "actorRole": "ADMIN",
+    "ip": "::1",
+    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "action": "USER_CREATED",
+    "targetType": "user",
+    "targetId": "cmgi0j4ly000068aw1g57ikns",
+    "details": {
+      "email": "employee@company.com",
+      "role": "CARER"
+    }
+  }
+]

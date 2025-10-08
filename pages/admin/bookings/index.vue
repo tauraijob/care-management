@@ -249,13 +249,13 @@
                 </td>
                 <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
                   <div class="flex items-center space-x-1">
-                    <button @click="viewBooking(booking)" class="p-1 text-indigo-600 hover:text-indigo-900 hover:bg-indigo-50 rounded" title="View">
+                    <button @click="openView(booking)" class="p-1 text-lucerna-primary hover:text-lucerna-primary-dark hover:bg-blue-50 rounded" title="View">
                       <Icon name="mdi:eye" class="h-4 w-4" />
                     </button>
-                    <button @click="editBooking(booking)" class="p-1 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded" title="Edit">
+                    <button @click="openEdit(booking)" class="p-1 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded" title="Edit">
                       <Icon name="mdi:pencil" class="h-4 w-4" />
                     </button>
-                    <button @click="assignCarer(booking)" v-if="booking.status === 'pending'" class="p-1 text-green-600 hover:text-green-900 hover:bg-green-50 rounded" title="Assign Carer">
+                    <button @click="openAssign(booking)" v-if="booking.status === 'pending'" class="p-1 text-green-600 hover:text-green-900 hover:bg-green-50 rounded" title="Assign Carer">
                       <Icon name="mdi:account-switch" class="h-4 w-4" />
                     </button>
                   </div>
@@ -263,6 +263,110 @@
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Modal -->
+    <div v-if="showView" class="fixed inset-0 z-50 flex items-center justify-center">
+      <div class="absolute inset-0 bg-black/40" @click="closeModals"></div>
+      <div class="relative bg-white rounded-lg shadow max-w-lg w-full p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-lucerna-primary">Booking #{{ activeBooking?.id }}</h3>
+          <button @click="closeModals" class="text-gray-500 hover:text-gray-700">
+            <Icon name="mdi:close" class="h-5 w-5" />
+          </button>
+        </div>
+        <div class="grid grid-cols-2 gap-3 text-sm text-lucerna-primary">
+          <div>
+            <div class="text-lucerna-primary">Client</div>
+            <div class="font-medium text-lucerna-primary">{{ activeBooking?.clientName }}</div>
+          </div>
+          <div>
+            <div class="text-lucerna-primary">Carer</div>
+            <div class="font-medium text-lucerna-primary">{{ activeBooking?.carerName }}</div>
+          </div>
+          <div>
+            <div class="text-lucerna-primary">Service</div>
+            <div class="font-medium text-lucerna-primary">{{ activeBooking?.service }}</div>
+          </div>
+          <div>
+            <div class="text-lucerna-primary">Date</div>
+            <div class="font-medium text-lucerna-primary">{{ formatDate(activeBooking?.date) }}</div>
+          </div>
+          <div>
+            <div class="text-lucerna-primary">Status</div>
+            <div class="font-medium capitalize text-lucerna-primary">{{ activeBooking?.status }}</div>
+          </div>
+        </div>
+        <div class="mt-6 flex justify-end">
+          <button @click="closeModals" class="px-4 py-2 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div v-if="showEdit" class="fixed inset-0 z-50 flex items-center justify-center">
+      <div class="absolute inset-0 bg-black/40" @click="closeModals"></div>
+      <div class="relative bg-white rounded-lg shadow max-w-lg w-full p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold">Edit Booking #{{ activeBooking?.id }}</h3>
+          <button @click="closeModals" class="text-gray-500 hover:text-gray-700">
+            <Icon name="mdi:close" class="h-5 w-5" />
+          </button>
+        </div>
+        <form @submit.prevent="submitEdit">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+              <select v-model="editStatus" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="in-progress">In Progress</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Assign Carer</label>
+              <select v-model="editCarerId" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                <option :value="null">Unassigned</option>
+                <option v-for="c in carers" :key="c.id" :value="c.id">{{ c.name }}</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+              <textarea v-model="editNotes" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Add admin notes..."></textarea>
+            </div>
+          </div>
+          <div class="mt-6 flex justify-end space-x-3">
+            <button type="button" @click="closeModals" class="px-4 py-2 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">Cancel</button>
+            <button type="submit" class="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Assign Modal (quick assign) -->
+    <div v-if="showAssign" class="fixed inset-0 z-50 flex items-center justify-center">
+      <div class="absolute inset-0 bg-black/40" @click="closeModals"></div>
+      <div class="relative bg-white rounded-lg shadow max-w-md w-full p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold">Assign Carer to #{{ activeBooking?.id }}</h3>
+          <button @click="closeModals" class="text-gray-500 hover:text-gray-700">
+            <Icon name="mdi:close" class="h-5 w-5" />
+          </button>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Carer</label>
+          <select v-model="assignCarerId" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+            <option :value="null">Unassigned</option>
+            <option v-for="c in carers" :key="c.id" :value="c.id">{{ c.name }}</option>
+          </select>
+        </div>
+        <div class="mt-6 flex justify-end space-x-3">
+          <button @click="closeModals" class="px-4 py-2 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">Cancel</button>
+          <button @click="submitAssign" class="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700">Assign</button>
         </div>
       </div>
     </div>
@@ -282,6 +386,18 @@ const { data: bookingsData, error } = await useFetch('/api/admin/bookings?limit=
   },
   server: false
 })
+
+// Fetch all carers for assignment dropdowns
+const { data: carersData } = await useFetch('/api/admin/carers', {
+  headers: {
+    'Authorization': `Bearer ${useCookie('auth-token').value}`
+  },
+  server: false
+})
+const carers = computed(() => (carersData.value?.data || carersData.value || []).map((c) => ({
+  id: c.id,
+  name: c.fullName || `${c.firstName || ''} ${c.lastName || ''}`.trim()
+})))
 
 // Reactive booking data
 const recentBookings = computed(() => {
@@ -348,18 +464,71 @@ const exportBookings = () => {
   console.log('Export bookings')
 }
 
-const viewBooking = (booking) => {
-  // Implement booking view functionality
-  console.log('View booking:', booking)
+// Modal state & helpers
+const showView = ref(false)
+const showEdit = ref(false)
+const showAssign = ref(false)
+const activeBooking = ref(null)
+const editStatus = ref('pending')
+const editCarerId = ref(null)
+const editNotes = ref('')
+const assignCarerId = ref(null)
+
+function openView(booking) {
+  activeBooking.value = booking
+  showView.value = true
+}
+function openEdit(booking) {
+  activeBooking.value = booking
+  editStatus.value = booking.status
+  editCarerId.value = booking.carerId || null
+  editNotes.value = ''
+  showEdit.value = true
+}
+function openAssign(booking) {
+  activeBooking.value = booking
+  assignCarerId.value = booking.carerId || null
+  showAssign.value = true
+}
+function closeModals() {
+  showView.value = false
+  showEdit.value = false
+  showAssign.value = false
+  activeBooking.value = null
 }
 
-const editBooking = (booking) => {
-  // Implement booking edit functionality
-  console.log('Edit booking:', booking)
+async function submitEdit() {
+  try {
+    await $fetch(`/api/bookings/${activeBooking.value.id}`, {
+      method: 'PUT',
+      body: {
+        status: editStatus.value.toUpperCase().replace('-', '_'),
+        carerId: editCarerId.value || undefined,
+        notes: editNotes.value || undefined
+      },
+      headers: { 'Authorization': `Bearer ${useCookie('auth-token').value}` }
+    })
+    closeModals()
+    // Refresh recent bookings list
+    if (bookingsData && bookingsData.refresh) {
+      await bookingsData.refresh()
+    }
+  } catch (e) { console.error('Update booking failed', e) }
 }
 
-const assignCarer = (booking) => {
-  // Implement carer assignment functionality
-  console.log('Assign carer to booking:', booking)
+async function submitAssign() {
+  try {
+    await $fetch(`/api/bookings/${activeBooking.value.id}`, {
+      method: 'PUT',
+      body: {
+        carerId: assignCarerId.value || null
+      },
+      headers: { 'Authorization': `Bearer ${useCookie('auth-token').value}` }
+    })
+    closeModals()
+    if (bookingsData && bookingsData.refresh) {
+      await bookingsData.refresh()
+    }
+  } catch (e) { console.error('Assign carer failed', e) }
 }
 </script> 

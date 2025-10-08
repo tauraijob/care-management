@@ -18,14 +18,6 @@ export default defineEventHandler(async (event) => {
             phone,
             password,
             role,
-            address,
-            city,
-            state,
-            zipCode,
-            country,
-            emailNotifications,
-            smsNotifications,
-            active
         } = body
 
         if (!firstName || !lastName || !email || !password || !role) {
@@ -36,23 +28,28 @@ export default defineEventHandler(async (event) => {
 
         const passwordHash = await hash(password, 10)
 
+        // Normalize and validate role
+        const normalizedRole = String(role).toUpperCase()
+        const allowedRoles = ['ADMIN', 'CLIENT', 'CARER']
+        if (!allowedRoles.includes(normalizedRole)) {
+            throw createError({ statusCode: 400, statusMessage: 'Invalid role' })
+        }
+
+        // Only include fields that exist in the Prisma User model
+        const data: any = {
+            firstName,
+            lastName,
+            email: String(email).toLowerCase(),
+            phone,
+            password: passwordHash,
+            role: normalizedRole,
+        }
+        if (typeof body.whatsapp !== 'undefined') {
+            data.whatsapp = !!body.whatsapp
+        }
+
         const created = await prisma.user.create({
-            data: {
-                firstName,
-                lastName,
-                email,
-                phone,
-                password: passwordHash,
-                role,
-                address,
-                city,
-                state,
-                zipCode,
-                country,
-                emailNotifications: !!emailNotifications,
-                smsNotifications: !!smsNotifications,
-                status: active ? 'ACTIVE' : 'INACTIVE'
-            },
+            data,
             select: { id: true }
         })
 

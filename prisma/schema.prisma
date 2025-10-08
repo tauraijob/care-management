@@ -24,14 +24,15 @@ model User {
 
     // Relations
     patients         Patient[]
-    bookings         Booking[]      @relation("ClientBookings")
-    carerBookings    Booking[]      @relation("CarerBookings")
+    bookings         Booking[]       @relation("ClientBookings")
+    carerBookings    Booking[]       @relation("CarerBookings")
     notifications    Notification[]
     documents        Document[]
     logs             Log[]
-    sentMessages     Message[]      @relation("SentMessages")
-    receivedMessages Message[]      @relation("ReceivedMessages")
+    sentMessages     Message[]       @relation("SentMessages")
+    receivedMessages Message[]       @relation("ReceivedMessages")
     reports          Report[]
+    certifications   Certification[]
 
     @@map("users")
 }
@@ -182,6 +183,23 @@ model Report {
     generator User @relation(fields: [generatedBy], references: [id], onDelete: Cascade)
 
     @@map("reports")
+}
+
+model Certification {
+    id        String    @id @default(cuid())
+    carerId   String
+    title     String
+    fileName  String
+    fileUrl   String
+    fileType  String
+    issuedAt  DateTime?
+    expiresAt DateTime?
+    createdAt DateTime  @default(now())
+
+    // Relations
+    carer User @relation(fields: [carerId], references: [id], onDelete: Cascade)
+
+    @@map("certifications")
 }
 
 // Enums

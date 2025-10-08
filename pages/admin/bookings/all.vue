@@ -283,35 +283,35 @@
         <div class="absolute inset-0 bg-black/40" @click="closeModals"></div>
         <div class="relative bg-white rounded-lg shadow max-w-lg w-full p-6">
           <div class="flex justify-between items-center mb-4">
-            <h3 class="text-lg font-semibold">Booking #{{ activeBooking?.id }}</h3>
+            <h3 class="text-lg font-semibold text-lucerna-primary">Booking #{{ activeBooking?.id }}</h3>
             <button @click="closeModals" class="text-gray-500 hover:text-gray-700">
               <Icon name="mdi:close" class="h-5 w-5" />
             </button>
           </div>
-          <div class="grid grid-cols-2 gap-3 text-sm">
+          <div class="grid grid-cols-2 gap-3 text-sm text-lucerna-primary">
             <div>
-              <div class="text-gray-500">Client</div>
-              <div class="font-medium">{{ activeBooking?.clientName }}</div>
+              <div class="text-lucerna-primary">Client</div>
+              <div class="font-medium text-lucerna-primary">{{ activeBooking?.clientName }}</div>
             </div>
             <div>
-              <div class="text-gray-500">Carer</div>
-              <div class="font-medium">{{ activeBooking?.carerName }}</div>
+              <div class="text-lucerna-primary">Carer</div>
+              <div class="font-medium text-lucerna-primary">{{ activeBooking?.carerName }}</div>
             </div>
             <div>
-              <div class="text-gray-500">Patient</div>
-              <div class="font-medium">{{ activeBooking?.patientName || '—' }}</div>
+              <div class="text-lucerna-primary">Patient</div>
+              <div class="font-medium text-lucerna-primary">{{ activeBooking?.patientName || '—' }}</div>
             </div>
             <div>
-              <div class="text-gray-500">Service</div>
-              <div class="font-medium">{{ activeBooking?.service }}</div>
+              <div class="text-lucerna-primary">Service</div>
+              <div class="font-medium text-lucerna-primary">{{ activeBooking?.service }}</div>
             </div>
             <div>
-              <div class="text-gray-500">Date</div>
-              <div class="font-medium">{{ formatDate(activeBooking?.date) }} {{ activeBooking?.time }}</div>
+              <div class="text-lucerna-primary">Date</div>
+              <div class="font-medium text-lucerna-primary">{{ formatDate(activeBooking?.date) }} {{ activeBooking?.time }}</div>
             </div>
             <div>
-              <div class="text-gray-500">Status</div>
-              <div class="font-medium capitalize">{{ activeBooking?.status }}</div>
+              <div class="text-lucerna-primary">Status</div>
+              <div class="font-medium capitalize text-lucerna-primary">{{ activeBooking?.status }}</div>
             </div>
           </div>
           <div class="mt-6 flex justify-end">
