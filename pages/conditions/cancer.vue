@@ -15,7 +15,7 @@
       <!-- Service Overview -->
       <div class="mb-16">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <img src="/uploads/pic5.png" alt="Cancer Care" class="w-full h-80 object-cover rounded-xl shadow" />
+          <img src="/uploads/woman-doctor-or-consulting-with-patient-for-healt-2025-04-05-17-20-26-utc-min.jpg" alt="Cancer Care" class="w-full h-80 object-cover rounded-xl shadow" />
           <div>
             <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mb-6">
               <Icon name="mdi:heart" class="text-3xl text-pink-600" />

@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen">
     <!-- Hero Banner -->
-    <section class="relative flex items-center justify-center py-[1em]" style="background-image: url('/uploads/hero.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <section class="relative flex items-center justify-center py-[1em]" style="background-image: url('/uploads/hero.svg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
       <div class="absolute inset-0 bg-black/60"></div>
       <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
         <div class="mb-[5em]"></div>

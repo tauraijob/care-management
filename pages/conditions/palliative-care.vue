@@ -15,7 +15,7 @@
       <!-- Service Overview -->
       <div class="mb-16">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <img src="/uploads/pic1.png" alt="Palliative Care" class="w-full h-80 object-cover rounded-xl shadow" />
+          <img src="/uploads/mid-section-of-young-african-american-female-docto-2025-04-05-02-36-47-utc-min.jpg" alt="Palliative Care" class="w-full h-80 object-cover rounded-xl shadow" />
           <div>
             <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
               <Icon name="mdi:heart" class="text-3xl text-purple-600" />

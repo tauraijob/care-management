@@ -15,7 +15,7 @@
       <!-- Service Overview -->
       <div class="mb-16">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <img src="/uploads/pic3.png" alt="Post-Stroke Care" class="w-full h-80 object-cover rounded-xl shadow" />
+          <img src="/uploads/senior-woman-person-with-disability-and-retiremen-2025-04-06-09-29-41-utc-min.jpg" alt="Post-Stroke Care" class="w-full h-80 object-cover rounded-xl shadow" />
           <div>
             <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
               <Icon name="mdi:heart-pulse" class="text-3xl text-red-600" />

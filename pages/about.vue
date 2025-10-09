@@ -55,18 +55,35 @@
             <p class="text-lg text-gray-700 leading-relaxed mb-8">
               We've experienced first-hand the challenges of caring for loved ones in today's changing world. Many of us have parents, grandparents, and relatives who once relied on the strong, extended family networks that defined Zimbabwean life. But with mass migration, smaller households, and growing health needs, the traditional ways of caring are no longer always possible.
             </p>
+          </div>
+        </div>
 
-            <p class="text-lg text-gray-700 leading-relaxed mb-8">
-              At Lucerna & Stern Health, we are more than care providers. We are sons, daughters, nieces, and nephews who have walked this journey ourselves. We understand what it means to want the best for someone you love, even when you're far away. That's why we've created a service that feels close, personal, and deeply respectful.
-            </p>
+        <!-- Additional Story (toggles under the image/text) -->
+        <div class="mt-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-xl border border-gray-200 p-6">
+              <button @click="showStoryMore1 = !showStoryMore1" class="w-full flex items-center justify-between text-left font-semibold text-gray-900">
+                <span>More about who we are</span>
+                <Icon name="mdi:chevron-down" :class="['transition-transform', showStoryMore1 ? 'rotate-180' : '']" />
+              </button>
+              <div v-if="showStoryMore1" class="mt-4 text-lg text-gray-700 leading-relaxed">
+                <p>
+                  At Lucerna & Stern Health, we are more than care providers. We are sons, daughters, nieces, and nephews who have walked this journey ourselves. We understand what it means to want the best for someone you love, even when you're far away. That's why we've created a service that feels close, personal, and deeply respectful.
+                </p>
+              </div>
+            </div>
 
-            <p class="text-lg text-gray-700 leading-relaxed mb-8">
-              Educated and trained in Zimbabwe, the UK, and other global health systems, our founders bring decades of combined clinical experience, cultural awareness, and a commitment to quality. Some continue to serve in the NHS and other international care settings, ensuring we stay connected to the highest standards of professional care. But we don't just follow global practices; we adapt them to fit Zimbabwe's context with warmth, practicality, and dignity. Our care is proudly local, yet globally informed.
-            </p>
-
-            <p class="text-lg text-gray-700 leading-relaxed mb-8">
-              We are also proud to be an accredited provider of Nursing Aide training. This means we're not only delivering care, we're developing a generation of care professionals who are trained to meet international benchmarks while honouring the values and realities of Zimbabwean families.
-            </p>
+            <div class="bg-white rounded-xl border border-gray-200 p-6">
+              <button @click="showStoryMore2 = !showStoryMore2" class="w-full flex items-center justify-between text-left font-semibold text-gray-900">
+                <span>Our experience and standards</span>
+                <Icon name="mdi:chevron-down" :class="['transition-transform', showStoryMore2 ? 'rotate-180' : '']" />
+              </button>
+              <div v-if="showStoryMore2" class="mt-4 text-lg text-gray-700 leading-relaxed">
+                <p>
+                  Educated and trained in Zimbabwe, the UK, and other global health systems, our founders bring decades of combined clinical experience, cultural awareness, and a commitment to quality. Some continue to serve in the NHS and other international care settings, ensuring we stay connected to the highest standards of professional care. But we don't just follow global practices; we adapt them to fit Zimbabwe's context with warmth, practicality, and dignity. Our care is proudly local, yet globally informed.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -489,6 +506,10 @@ const subTabs = ref([
 
 // Toggle for A Whole Team of Support extra paragraphs
 const showSupportMore = ref(false)
+
+// Toggles for additional story paragraphs
+const showStoryMore1 = ref(false)
+const showStoryMore2 = ref(false)
 
 // Profile modal state
 const isProfileModalOpen = ref(false)

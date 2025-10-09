@@ -15,7 +15,7 @@
       <!-- Service Overview -->
       <div class="mb-16">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <img src="/uploads/pic2.png" alt="Parkinson's Care" class="w-full h-80 object-cover rounded-xl shadow" />
+          <img src="/uploads/old-man-at-home-sick-female-doctor-at-home-watches-2025-02-21-13-01-05-utc-min.jpg" alt="Parkinson's Care" class="w-full h-80 object-cover rounded-xl shadow" />
           <div>
             <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
               <Icon name="mdi:brain" class="text-3xl text-blue-600" />

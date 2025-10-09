@@ -15,7 +15,7 @@
       <!-- Service Overview -->
       <div class="mb-16">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <img src="/uploads/pic4.png" alt="Fall Prevention" class="w-full h-80 object-cover rounded-xl shadow" />
+          <img src="/uploads/doctor-assisting-senior-patient-with-walker-in-hos-2025-01-10-11-30-10-utc-min.jpg" alt="Fall Prevention" class="w-full h-80 object-cover rounded-xl shadow" />
           <div>
             <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
               <Icon name="mdi:shield-check" class="text-3xl text-green-600" />

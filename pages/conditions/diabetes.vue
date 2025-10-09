@@ -15,7 +15,7 @@
       <!-- Service Overview -->
       <div class="mb-16">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <img src="/uploads/pic6.png" alt="Diabetes Care" class="w-full h-80 object-cover rounded-xl shadow" />
+          <img src="/uploads/diabetes-finger-and-woman-with-nurse-in-nursing-h-2025-04-06-08-53-29-utc-min.jpg" alt="Diabetes Care" class="w-full h-80 object-cover rounded-xl shadow" />
           <div>
             <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-6">
               <Icon name="mdi:needle" class="text-3xl text-yellow-600" />

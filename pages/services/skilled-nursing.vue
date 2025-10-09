@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen">
     <!-- Hero Section -->
-    <section class="relative h-96 flex items-center justify-center" style="background-image: url('/uploads/pic6.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <section class="relative h-96 flex items-center justify-center" style="background-image: url('/uploads/nurse-senior-man-and-tablet-for-telehealth-daily-2025-04-05-19-09-26-utc.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
       <div class="absolute inset-0 bg-black/40"></div>
       <div class="relative z-10 px-4">
         <div class="max-w-3xl mx-auto bg-white/95 rounded-2xl shadow-lg p-6 md:p-8 text-center">
@@ -17,7 +17,7 @@
       <!-- Service Overview -->
       <div class="mb-16">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <img src="/uploads/pic6.png" alt="Skilled Nursing" class="w-full h-80 object-cover rounded-xl shadow" />
+          <img src="/uploads/skilled-nursing.jpg" alt="Skilled Nursing" class="w-full h-80 object-cover rounded-xl shadow" />
           <div>
             <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
               <Icon name="mdi:stethoscope" class="text-3xl text-blue-600" />
