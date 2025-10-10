@@ -40,49 +40,37 @@
     <section class="py-16 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="relative rounded-xl overflow-hidden shadow-lg group h-80">
-            <img src="/uploads/care-rooted-in-family.jpg" alt="Family care" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-            <div class="relative z-10 h-full p-8 flex flex-col items-center justify-end text-center text-white">
-              <div class="w-16 h-16 bg-white/20 border border-white/30 rounded-full flex items-center justify-center mb-4">
-                <Icon name="mdi:home" class="text-3xl text-white" />
-              </div>
-              <h3 class="text-2xl font-bold mb-3">Care Rooted in Family</h3>
-              <p class="text-white/90">
-                Inspired by Zimbabwean family values and diaspora commitment, we deliver home-based 
-                support with the same warmth and respect you would offer a parent or grandparent.
-              </p>
+          <div class="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
+            <div class="w-16 h-16 bg-lucerna-primary/10 border border-lucerna-primary/20 rounded-full flex items-center justify-center mb-6 mx-auto">
+              <Icon name="mdi:home" class="text-3xl text-lucerna-primary" />
             </div>
+            <h3 class="text-2xl font-bold mb-4 text-gray-900">Care Rooted in Family</h3>
+            <p class="text-gray-700 leading-relaxed">
+              Inspired by Zimbabwean family values and diaspora commitment, we deliver home-based 
+              support with the same warmth and respect you would offer a parent or grandparent.
+            </p>
           </div>
 
-          <div class="relative rounded-xl overflow-hidden shadow-lg group h-80">
-            <img src="/uploads/global-standards.jpg" alt="Global standards" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-            <div class="relative z-10 h-full p-8 flex flex-col items-center justify-end text-center text-white">
-              <div class="w-16 h-16 bg-white/20 border border-white/30 rounded-full flex items-center justify-center mb-4">
-                <Icon name="mdi:earth" class="text-3xl text-white" />
-              </div>
-              <h3 class="text-2xl font-bold mb-3">Global Standards, Local Delivery</h3>
-              <p class="text-white/90">
-                Our team blends UK, US, and Zimbabwean training to offer clinical precision, safety, 
-                and cultural fluency, without losing the human touch.
-              </p>
+          <div class="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
+            <div class="w-16 h-16 bg-lucerna-primary/10 border border-lucerna-primary/20 rounded-full flex items-center justify-center mb-6 mx-auto">
+              <Icon name="mdi:earth" class="text-3xl text-lucerna-primary" />
             </div>
+            <h3 class="text-2xl font-bold mb-4 text-gray-900">Global Standards, Local Delivery</h3>
+            <p class="text-gray-700 leading-relaxed">
+              Our team blends UK, US, and Zimbabwean training to offer clinical precision, safety, 
+              and cultural fluency, without losing the human touch.
+            </p>
           </div>
 
-          <div class="relative rounded-xl overflow-hidden shadow-lg group h-80">
-            <img src="/uploads/partnerships.jpg" alt="Trustworthy partnerships" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-            <div class="relative z-10 h-full p-8 flex flex-col items-center justify-end text-center text-white">
-              <div class="w-16 h-16 bg-white/20 border border-white/30 rounded-full flex items-center justify-center mb-4">
-                <Icon name="mdi:handshake" class="text-3xl text-white" />
-              </div>
-              <h3 class="text-2xl font-bold mb-3">Trustworthy Partnerships</h3>
-              <p class="text-white/90">
-                We are your bridge between worlds. Whether you're arranging care from Harare or 
-                Hertfordshire, we keep you involved, informed, and at peace.
-              </p>
+          <div class="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
+            <div class="w-16 h-16 bg-lucerna-primary/10 border border-lucerna-primary/20 rounded-full flex items-center justify-center mb-6 mx-auto">
+              <Icon name="mdi:handshake" class="text-3xl text-lucerna-primary" />
             </div>
+            <h3 class="text-2xl font-bold mb-4 text-gray-900">Trustworthy Partnerships</h3>
+            <p class="text-gray-700 leading-relaxed">
+              We are your bridge between worlds. Whether you're arranging care from Harare or 
+              Hertfordshire, we keep you involved, informed, and at peace.
+            </p>
           </div>
         </div>
       </div>
