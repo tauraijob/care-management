@@ -11,18 +11,23 @@
     </section>
 
     <!-- Content Section -->
-    <div class="max-w-4xl mx-auto px-4 py-16">
+    <div class="max-w-7xl mx-auto px-4 py-16">
       <!-- Service Overview -->
-      <div class="text-center mb-16">
-        <div class="w-24 h-24 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-8">
-          <Icon name="mdi:lightbulb" class="text-4xl text-indigo-600" />
+      <div class="mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <img src="/uploads/top-view-of-autism-puzzle-lettering-and-special-ki-2024-11-10-17-13-58-utc-min_11zon.jpg" alt="Learning Disabilities Care" class="w-full h-80 object-cover rounded-xl shadow" />
+          <div>
+            <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
+              <Icon name="mdi:lightbulb" class="text-3xl text-indigo-600" />
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Learning Disabilities Care Services</h2>
+            <p class="text-xl text-gray-600">
+              Our Learning Disabilities Care services provide specialized support for individuals 
+              with learning disabilities. We focus on promoting independence, building life skills, 
+              and creating meaningful opportunities for personal growth and development.
+            </p>
+          </div>
         </div>
-        <h2 class="text-3xl font-bold text-gray-900 mb-6">Learning Disabilities Care Services</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Our Learning Disabilities Care services provide specialized support for individuals 
-          with learning disabilities. We focus on promoting independence, building life skills, 
-          and creating meaningful opportunities for personal growth and development.
-        </p>
       </div>
 
       <!-- What We Offer -->

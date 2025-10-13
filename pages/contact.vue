@@ -48,6 +48,16 @@
 
               <div class="flex items-start space-x-4">
                 <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-white/20 border border-white/30">
+                  <Icon name="mdi:map-marker" class="text-2xl text-white" />
+                </div>
+                <div>
+                  <h4 class="font-semibold text-on-background mb-1">Head Office (By Appointment Only)</h4>
+                  <p class="opacity-80 text-on-background">6 Chelmsford Road,<br>Belgravia, Harare<br>Zimbabwe</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 bg-white/20 border border-white/30">
                   <Icon name="mdi:clock" class="text-2xl text-white" />
                 </div>
                 <div>

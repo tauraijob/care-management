@@ -56,6 +56,15 @@
                 <Icon name="mdi:email" class="mr-2" />
                 info@lucernaandsternhealth.co.zw
               </p>
+              <div class="flex items-start">
+                <Icon name="mdi:map-marker" class="mr-2 mt-1 flex-shrink-0" />
+                <div>
+                  <p class="font-medium">Head Office (By Appointment Only)</p>
+                  <p>6 Chelmsford Road,</p>
+                  <p>Belgravia, Harare</p>
+                  <p>Zimbabwe</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

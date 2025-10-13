@@ -1,14 +1,12 @@
 <template>
   <div class="min-h-screen">
     <!-- Hero Section -->
-    <section class="relative h-96 flex items-center justify-center" style="background-image: url('/uploads/nurse-senior-man-and-tablet-for-telehealth-daily-2025-04-05-19-09-26-utc.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <section class="relative h-96 bg-gradient-to-r from-lucerna-primary to-lucerna-primary-dark flex items-center justify-center">
       <div class="absolute inset-0 bg-black/40"></div>
-      <div class="relative z-10 px-4">
-        <div class="max-w-3xl mx-auto bg-white/95 rounded-2xl shadow-lg p-6 md:p-8 text-center">
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">Skilled Nursing</h1>
-          <p class="text-xl text-gray-700">Professional Medical Care</p>
-          <p class="text-base md:text-lg text-gray-600">Licensed nursing care in the comfort of your home</p>
-        </div>
+      <div class="relative z-10 text-center text-white px-4">
+        <h1 class="text-5xl font-bold mb-4">Skilled Nursing</h1>
+        <p class="text-2xl text-blue-100">Professional Medical Care</p>
+        <p class="text-lg text-blue-200">Licensed nursing care in the comfort of your home</p>
       </div>
     </section>
 

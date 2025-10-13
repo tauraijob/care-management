@@ -15,7 +15,7 @@
       <!-- Service Overview -->
       <div class="mb-16">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <img src="/uploads/pic4.png" alt="Speech Therapy" class="w-full h-80 object-cover rounded-xl shadow" />
+          <img src="/uploads/mature-deaf-woman-using-sign-language-on-black-bac-2024-07-10-04-19-57-utc-min.JPG" alt="Speech Therapy" class="w-full h-80 object-cover rounded-xl shadow" />
           <div>
             <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
               <Icon name="mdi:account-voice" class="text-3xl text-purple-600" />

@@ -74,15 +74,17 @@ export default defineNuxtConfig({
             '@type': 'MedicalOrganization',
             name: 'Lucerna & Stern Health',
             description: 'Premium healthcare booking platform for diaspora clients',
-            url: 'https://lucernahealth.com',
-            telephone: '+27611234567',
+            url: 'https://lucernaandsternhealth.co.zw',
+            telephone: '+263 710708027',
             address: {
               '@type': 'PostalAddress',
-              addressCountry: 'ZW',
-              addressRegion: 'Zimbabwe'
+              streetAddress: '6 Chelmsford Road',
+              addressLocality: 'Belgravia',
+              addressRegion: 'Harare',
+              addressCountry: 'ZW'
             },
             sameAs: [
-              'https://wa.me/27611234567'
+              'https://wa.me/263710708027'
             ]
           })
         }

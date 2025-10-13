@@ -11,18 +11,23 @@
     </section>
 
     <!-- Content Section -->
-    <div class="max-w-4xl mx-auto px-4 py-16">
+    <div class="max-w-7xl mx-auto px-4 py-16">
       <!-- Service Overview -->
-      <div class="text-center mb-16">
-        <div class="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-8">
-          <Icon name="mdi:brain" class="text-4xl text-blue-600" />
+      <div class="mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <img src="/uploads/dont-wanna-fight-dont-wanna-pray-2025-04-06-07-29-04-utc-min.jpg" alt="Alzheimer's & Dementia Care" class="w-full h-80 object-cover rounded-xl shadow" />
+          <div>
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+              <Icon name="mdi:brain" class="text-3xl text-blue-600" />
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Alzheimer's & Dementia Care</h2>
+            <p class="text-xl text-gray-600">
+              Our specialized Alzheimer's and Dementia care services provide compassionate, 
+              evidence-based support for individuals living with memory-related conditions. 
+              We focus on maintaining dignity, safety, and quality of life.
+            </p>
+          </div>
         </div>
-        <h2 class="text-3xl font-bold text-gray-900 mb-6">Alzheimer's & Dementia Care</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Our specialized Alzheimer's and Dementia care services provide compassionate, 
-          evidence-based support for individuals living with memory-related conditions. 
-          We focus on maintaining dignity, safety, and quality of life.
-        </p>
       </div>
 
       <!-- What We Offer -->

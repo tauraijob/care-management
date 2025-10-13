@@ -15,7 +15,7 @@
       <!-- Service Overview -->
       <div class="mb-16">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <img src="/uploads/pic2.png" alt="Physiotherapy" class="w-full h-80 object-cover rounded-xl shadow" />
+          <img src="/uploads/physiotherapy-stretching-leg-and-black-woman-with-2025-04-06-11-10-10-utc.jpg" alt="Physiotherapy" class="w-full h-80 object-cover rounded-xl shadow" />
           <div>
             <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
               <Icon name="mdi:human-handsup" class="text-3xl text-green-600" />

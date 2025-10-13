@@ -4,7 +4,7 @@
     <PublicHeader />
     
     <!-- Hero Section -->
-    <section class="relative h-96 flex items-center justify-center" style="background-image: url('/uploads/pic1.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <section class="relative h-96 flex items-center justify-center" style="background-image: url('/uploads/nurse-face-or-arms-crossed-in-busy-hospital-for-a-2025-04-06-10-45-01-utc-min.jpg'); background-size: cover; background-position: top-center; background-repeat: no-repeat;">
       <div class="absolute inset-0 bg-black/50"></div>
       <div class="relative z-10 text-center text-white px-4">
         <h1 class="text-5xl font-bold mb-4">About Us</h1>
