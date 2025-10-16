@@ -11,16 +11,18 @@ datasource db {
 }
 
 model User {
-    id        String   @id @default(cuid())
-    email     String   @unique
-    password  String
-    role      UserRole @default(CLIENT)
-    firstName String
-    lastName  String
-    phone     String?
-    whatsapp  Boolean  @default(false)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id               String    @id @default(cuid())
+    email            String    @unique
+    password         String
+    role             UserRole  @default(CLIENT)
+    firstName        String
+    lastName         String
+    phone            String?
+    whatsapp         Boolean   @default(false)
+    resetToken       String?
+    resetTokenExpiry DateTime?
+    createdAt        DateTime  @default(now())
+    updatedAt        DateTime  @updatedAt
 
     // Relations
     patients         Patient[]

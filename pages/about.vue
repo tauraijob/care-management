@@ -136,25 +136,15 @@
             </p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+          <div class="flex justify-center">
             <!-- Blessing Gwindi -->
-            <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm flex flex-col">
+            <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm flex flex-col" style="width: 70%;">
               <div class="mb-4">
                 <h4 class="text-xl font-bold text-gray-900">Blessing Gwindi</h4>
                 <p class="text-gray-600">Managing Director</p>
                 <a href="mailto:blessing@lucernahealth.co.zw" class="text-blue-600 hover:text-blue-700 mt-2 inline-block">blessing@lucernahealth.co.zw</a>
               </div>
               <button @click="openProfile('blessing')" class="btn-primary self-start">View Profile</button>
-            </div>
-
-            <!-- Farirayi Nyawasha -->
-            <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm flex flex-col">
-              <div class="mb-4">
-                <h4 class="text-xl font-bold text-gray-900">Farirayi Nyawasha</h4>
-                <p class="text-gray-600">Operations Director</p>
-                <span class="text-gray-600 mt-2 inline-block">Email: XXXX</span>
-              </div>
-              <button @click="openProfile('fari')" class="btn-primary self-start">View Profile</button>
             </div>
           </div>
           
@@ -175,24 +165,6 @@
                 </p>
                 <p>
                   At Lucerna & Stern Health, Blessing combines her professional rigor with a compassionate vision — leading the agency to provide exceptional, person-centred domiciliary care for families in Zimbabwe and for members of the diaspora seeking trusted care for their loved ones back home.
-                </p>
-              </div>
-              <div v-else-if="selectedProfile === 'fari'" class="space-y-4 text-gray-700 leading-relaxed">
-                <h4 class="text-2xl font-bold text-gray-900">Farirayi Nyawasha — Operations Director</h4>
-                <p>
-                  As a Partner and Operations Director at Lucerna & Stern Health, Fari brings a steadfast commitment to compassionate, efficient, and high-quality care. With a strong clinical foundation as a Nurse Aide, she has developed extensive hands-on experience across both hospital and home-based care environments, providing expert support to patients with complex medical and rehabilitation needs, including stroke recovery.
-                </p>
-                <p>
-                  Dedicated and results-oriented, Fari has demonstrated consistent leadership in coordinating home care routines, upholding rigorous infection control standards, and ensuring seamless collaboration among families, therapists, and nursing teams. Fari combines clinical competence with a calm and empathetic presence, ensuring that every client receives care that preserves dignity, promotes independence, and enhances overall well-being.
-                </p>
-                <p>
-                  Before joining Lucerna & Stern Health, Fari worked at First Mutual Hospital in Southerton, Harare, and in private domiciliary settings, where she earned recognition for reliability, initiative, and excellence in patient care. Her proven ability to manage multiple priorities while maintaining safety, comfort, and trust has made her a valued leader in operational delivery and service improvement.
-                </p>
-                <p>
-                  Fari holds a Nurse Aide Certificate, Advanced First Aid Certificate, and Community-Based Health Care Certificate from the Zimbabwe Red Cross Society, as well as a Diploma in Systemic Therapy from the Zimbabwe Institute of Systemic Therapy. These qualifications reflect her holistic approach to care, blending clinical skill with therapeutic understanding and community insight.
-                </p>
-                <p>
-                  At Lucerna & Stern Health, Fari plays a pivotal role in ensuring the seamless coordination of services, operational excellence, and the consistent delivery of compassionate, client-centred care, both for the local population and the Zimbabwean diaspora entrusting the agency with the wellbeing of their loved ones back home.
                 </p>
               </div>
             </div>
@@ -477,8 +449,6 @@
       </div>
     </div>
 
-    <!-- Footer -->
-    <PublicFooter />
   </div>
 </template>
 

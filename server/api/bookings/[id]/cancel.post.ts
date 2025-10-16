@@ -2,6 +2,7 @@ import { defineEventHandler, createError } from 'h3'
 import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
 import { getPrisma } from '~/server/utils/prisma'
 import { getRouterParam } from 'h3'
+import { emailService } from '~/server/utils/emailService'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -85,15 +86,31 @@ export default defineEventHandler(async (event) => {
             }
         })
 
-        // TODO: Send notification to carer about booking cancellation
-        // if (updatedBooking.carer) {
-        //   await sendNotification({
-        //     userId: updatedBooking.carer.id,
-        //     title: 'Booking Cancelled',
-        //     message: `Booking for ${updatedBooking.patient.firstName} ${updatedBooking.patient.lastName} has been cancelled by the client`,
-        //     type: 'BOOKING_CANCELLED'
-        //   })
-        // }
+        // Send email notification to carer about booking cancellation
+        if (updatedBooking.carer) {
+            try {
+                await emailService.sendBookingCancelledEmail(
+                    updatedBooking.carer.email,
+                    `${updatedBooking.carer.firstName} ${updatedBooking.carer.lastName}`,
+                    `${updatedBooking.carer.firstName} ${updatedBooking.carer.lastName}`,
+                    updatedBooking.careType.toLowerCase().replace('_', ' '),
+                    updatedBooking.startDate.toLocaleDateString()
+                )
+            } catch (emailError) {
+                console.error('Booking cancellation email failed:', emailError)
+                // Don't fail booking cancellation if email fails
+            }
+
+            // Create notification for carer
+            await prisma.notification.create({
+                data: {
+                    userId: updatedBooking.carer.id,
+                    type: 'EMAIL',
+                    title: 'Booking Cancelled',
+                    message: `Booking for ${updatedBooking.patient.firstName} ${updatedBooking.patient.lastName} has been cancelled by the client`
+                }
+            })
+        }
 
         return {
             success: true,

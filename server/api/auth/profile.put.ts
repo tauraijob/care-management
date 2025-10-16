@@ -1,6 +1,7 @@
 import { hash } from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { getPrisma } from '../../utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
+import { emailService } from '~/server/utils/emailService'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -69,6 +70,18 @@ export default defineEventHandler(async (event) => {
                 updatedAt: true
             }
         })
+
+        // Send profile update notification email
+        try {
+            await emailService.sendProfileUpdateEmail(
+                updatedUser.email,
+                updatedUser.firstName,
+                updatedUser.role
+            )
+        } catch (emailError) {
+            console.error('Profile update email failed:', emailError)
+            // Don't fail profile update if email fails
+        }
 
         // Log profile update
         console.log(`Profile updated for user: ${updatedUser.email}`)

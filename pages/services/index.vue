@@ -280,8 +280,6 @@
       </div>
     </div>
 
-    <!-- Footer -->
-    <PublicFooter />
   </div>
 </template>
 

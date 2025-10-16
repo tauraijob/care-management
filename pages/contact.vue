@@ -184,11 +184,12 @@
             </div>
 
             <div>
-              <label for="message" class="form-label">Message</label>
+              <label for="message" class="form-label">Message <span class="text-gray-500 text-sm">(minimum 5 characters)</span></label>
               <textarea
                 id="message"
                 v-model="form.message"
                 rows="4"
+                minlength="5"
                 class="input-field focus:ring-2 focus:ring-lucerna-primary focus:border-transparent"
                 placeholder="Tell us about your care needs and how we can help..."
                 required
@@ -221,25 +222,41 @@ const form = ref({
 // Submit form
 const submitForm = async () => {
   try {
-    // Here you would typically send the form data to your backend
-    console.log('Form submitted:', form.value)
+    // Send form data to API endpoint
+    const response = await $fetch('/api/contact', {
+      method: 'POST',
+      body: form.value
+    })
     
-    // Show success message
-    alert('Thank you for your message! We will get back to you soon.')
-    
-    // Reset form
-    form.value = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      location: '',
-      serviceInterest: '',
-      message: ''
+    if (response.success) {
+      // Show success message
+      alert('Thank you for your message! We will get back to you within 24 hours. You should also receive a confirmation email shortly.')
+      
+      // Reset form
+      form.value = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        location: '',
+        serviceInterest: '',
+        message: ''
+      }
+    } else {
+      throw new Error('Failed to send message')
     }
   } catch (error) {
     console.error('Error submitting form:', error)
-    alert('There was an error sending your message. Please try again.')
+    
+    // Handle validation errors
+    if (error.data && error.data.length > 0) {
+      const errorMessages = error.data.map(err => err.message).join(', ')
+      alert(`Please fix the following errors:\n\n${errorMessages}`)
+    } else if (error.statusMessage) {
+      alert(`Error: ${error.statusMessage}`)
+    } else {
+      alert('There was an error sending your message. Please try again or contact us directly at +263 710708027.')
+    }
   }
 }
 
@@ -249,6 +266,11 @@ useHead({ title: 'Contact Us - Lucerna & Stern Health' })
 <style scoped>
 .input-field {
   @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lucerna-primary focus:border-transparent transition-colors bg-white text-gray-900 placeholder-gray-500;
+  color: #1f2937 !important;
+}
+
+.input-field::placeholder {
+  color: #6b7280 !important;
 }
 
 .btn-primary {
@@ -263,10 +285,20 @@ useHead({ title: 'Contact Us - Lucerna & Stern Health' })
 input::placeholder,
 textarea::placeholder {
   @apply text-gray-500;
+  color: #6b7280 !important;
 }
 
 select,
 option {
   @apply text-gray-900;
+  color: #1f2937 !important;
+}
+
+textarea {
+  color: #1f2937 !important;
+}
+
+select.input-field {
+  color: #1f2937 !important;
 }
 </style>

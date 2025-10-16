@@ -2,6 +2,7 @@ import { getUserFromToken, extractTokenFromRequest } from '~/server/utils/auth'
 import { getPrisma } from '~/server/utils/prisma'
 import { createError } from 'h3'
 import { getRouterParam } from 'h3'
+import { emailService } from '~/server/utils/emailService'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -97,13 +98,29 @@ export default defineEventHandler(async (event) => {
             }
         })
 
-        // TODO: Send notification to client about booking acceptance
-        // await sendNotification({
-        //     userId: existingBooking.client.id,
-        //     title: 'Booking Accepted',
-        //     message: `Your booking for ${existingBooking.patient.firstName} ${existingBooking.patient.lastName} has been accepted by ${user.firstName} ${user.lastName}`,
-        //     type: 'BOOKING_ACCEPTED'
-        // })
+        // Send email notification to client about booking acceptance
+        try {
+            await emailService.sendBookingAcceptedEmail(
+                updatedBooking.client.email,
+                `${updatedBooking.client.firstName} ${updatedBooking.client.lastName}`,
+                `${updatedBooking.carer.firstName} ${updatedBooking.carer.lastName}`,
+                updatedBooking.careType.toLowerCase().replace('_', ' '),
+                updatedBooking.startDate.toLocaleDateString()
+            )
+        } catch (emailError) {
+            console.error('Booking acceptance email failed:', emailError)
+            // Don't fail booking acceptance if email fails
+        }
+
+        // Create notification for client
+        await prisma.notification.create({
+            data: {
+                userId: updatedBooking.client.id,
+                type: 'EMAIL',
+                title: 'Booking Accepted',
+                message: `Your booking for ${updatedBooking.patient.firstName} ${updatedBooking.patient.lastName} has been accepted by ${updatedBooking.carer.firstName} ${updatedBooking.carer.lastName}`
+            }
+        })
 
         return {
             success: true,

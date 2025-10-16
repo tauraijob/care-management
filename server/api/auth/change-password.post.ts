@@ -1,6 +1,7 @@
 import { hash, compare } from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { getPrisma } from '../../utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
+import { emailService } from '~/server/utils/emailService'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -58,6 +59,8 @@ export default defineEventHandler(async (event) => {
             select: {
                 id: true,
                 email: true,
+                firstName: true,
+                lastName: true,
                 password: true
             }
         })
@@ -89,6 +92,17 @@ export default defineEventHandler(async (event) => {
                 updatedAt: new Date()
             }
         })
+
+        // Send password changed confirmation email
+        try {
+            await emailService.sendPasswordChangedEmail(
+                user.email,
+                user.firstName
+            )
+        } catch (emailError) {
+            console.error('Password changed email failed:', emailError)
+            // Don't fail password change if email fails
+        }
 
         // Log password change
         console.log(`Password changed for user: ${user.email}`)

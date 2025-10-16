@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
-import { getPrisma } from '../../utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
+import { emailService } from '~/server/utils/emailService'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -168,6 +169,19 @@ export default defineEventHandler(async (event) => {
 
         // Create notification for successful payment
         if (paymentStatus === 'COMPLETED') {
+            // Send payment confirmation email
+            try {
+                await emailService.sendPaymentReceivedEmail(
+                    payment.booking.client.email,
+                    `${payment.booking.client.firstName} ${payment.booking.client.lastName}`,
+                    `${currency} ${amount}`,
+                    payment.booking.patient.firstName + ' ' + payment.booking.patient.lastName
+                )
+            } catch (emailError) {
+                console.error('Payment confirmation email failed:', emailError)
+                // Don't fail payment if email fails
+            }
+
             await prisma.notification.create({
                 data: {
                     userId: decoded.userId,

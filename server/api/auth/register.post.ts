@@ -1,6 +1,7 @@
 import { hash, compare } from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { getPrisma } from '../../utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
+import { emailService } from '~/server/utils/emailService'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -79,8 +80,26 @@ export default defineEventHandler(async (event) => {
             { expiresIn: '7d' }
         )
 
-        // Send welcome email (optional)
-        // await sendWelcomeEmail(user.email, user.firstName)
+        // Send welcome email to new user
+        try {
+            await emailService.sendWelcomeEmail(user.email, user.firstName, user.role)
+        } catch (emailError) {
+            console.error('Welcome email failed:', emailError)
+            // Don't fail registration if email fails
+        }
+
+        // Send notification to admin about new user registration
+        try {
+            await emailService.sendNewUserNotification(
+                'info@lucernaandsternhealth.co.zw',
+                user.role,
+                `${user.firstName} ${user.lastName}`,
+                user.email
+            )
+        } catch (emailError) {
+            console.error('Admin notification email failed:', emailError)
+            // Don't fail registration if email fails
+        }
 
         return {
             success: true,

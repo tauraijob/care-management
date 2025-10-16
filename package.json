@@ -30,6 +30,7 @@
     "deploy:production": "NODE_ENV=production nuxt build && nuxt generate"
   },
   "dependencies": {
+    "@getbrevo/brevo": "^3.0.1",
     "@headlessui/vue": "^1.7.19",
     "@heroicons/vue": "^2.1.1",
     "@nuxtjs/color-mode": "^3.3.2",

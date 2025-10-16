@@ -1,5 +1,6 @@
-import { getPrisma } from '../../utils/prisma'
+import { getPrisma } from '~/server/utils/prisma'
 import { extractTokenFromRequest, getUserFromToken } from '~/server/utils/auth'
+import { emailService } from '~/server/utils/emailService'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -142,6 +143,29 @@ export default defineEventHandler(async (event) => {
                 }
             }
         })
+
+        // Send email notifications
+        try {
+            // Send booking confirmation to client
+            await emailService.sendBookingCreatedEmail(
+                booking.client.email,
+                `${booking.client.firstName} ${booking.client.lastName}`,
+                `${assignedCarer.firstName} ${assignedCarer.lastName}`,
+                careType.toLowerCase().replace('_', ' '),
+                startDateTime.toLocaleDateString()
+            )
+
+            // Send assignment notification to carer
+            await emailService.sendGeneralNotification(
+                assignedCarer.email,
+                `${assignedCarer.firstName} ${assignedCarer.lastName}`,
+                'New Care Assignment',
+                `You have been assigned to provide ${careType.toLowerCase().replace('_', ' ')} for ${patient.firstName} ${patient.lastName} starting ${startDateTime.toLocaleDateString()}. Please contact the client to confirm details.`
+            )
+        } catch (emailError) {
+            console.error('Email notifications failed:', emailError)
+            // Don't fail booking creation if emails fail
+        }
 
         // Create notification for carer
         await prisma.notification.create({

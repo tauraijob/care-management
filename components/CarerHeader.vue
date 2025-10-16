@@ -1,7 +1,7 @@
 <template>
-  <nav class="bg-white/90 backdrop-blur-md border-b border-white/20 shadow-lg">
+  <nav class="bg-white/90 backdrop-blur-md border-b border-white/20 shadow-lg relative z-[100]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-end h-16">
+      <div class="flex justify-end h-16 relative">
         
         <!-- Right Side Actions -->
         <div class="flex items-center space-x-4">
@@ -14,7 +14,7 @@
           </button>
           
           <!-- Notifications -->
-          <div class="relative">
+          <div ref="notificationsRef" class="relative">
             <button 
               @click="toggleNotifications" 
               class="p-0 rounded-full focus:outline-none"
@@ -48,9 +48,9 @@
           </div>
           
           <!-- User Menu -->
-          <div class="relative">
+          <div ref="userMenuRef" class="relative">
             <button 
-              @click="userMenuOpen = !userMenuOpen" 
+              @click="userMenuOpen = !userMenuOpen; console.log('User menu toggled:', userMenuOpen)" 
               class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 transition-colors duration-200 p-2 rounded-lg hover:bg-gray-50"
             >
               <div class="w-10 h-10 bg-lucerna-primary rounded-full flex items-center justify-center font-semibold shadow-lg">
@@ -64,8 +64,9 @@
             </button>
             
             <!-- User dropdown -->
-            <div v-if="userMenuOpen" class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 z-50 border border-gray-100">
+            <div v-if="userMenuOpen" class="fixed top-16 right-4 w-56 bg-white rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 z-[99999] border border-gray-100" style="background-color: white !important; border: 2px solid red !important;">
               <div class="py-2">
+                <div class="px-4 py-2 text-xs text-red-600 bg-yellow-100">DEBUG: Menu is open!</div>
                 <NuxtLink to="/carer/profile" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150">
                   <Icon name="mdi:account" class="mr-3" />
                   Profile Settings
@@ -117,14 +118,27 @@ const handleLogout = async () => {
 }
 
 // Close dropdowns when clicking outside
+const userMenuRef = ref(null)
+const notificationsRef = ref(null)
+
+const handleClickOutside = (e) => {
+  // Close user menu if clicking outside
+  if (userMenuRef.value && !userMenuRef.value.contains(e.target)) {
+    userMenuOpen.value = false
+  }
+  // Close notifications if clicking outside
+  if (notificationsRef.value && !notificationsRef.value.contains(e.target)) {
+    notificationsOpen.value = false
+  }
+}
+
 onMounted(() => {
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.relative')) {
-      userMenuOpen.value = false
-      notificationsOpen.value = false
-    }
-  })
+  document.addEventListener('click', handleClickOutside)
   loadNotifications()
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside)
 })
 
 // Define emits

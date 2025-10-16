@@ -162,6 +162,7 @@ export default defineNuxtConfig({
     ecoCashApiKey: process.env.ECOCASH_API_KEY,
     emailServiceKey: process.env.EMAIL_SERVICE_KEY,
     smsServiceKey: process.env.SMS_SERVICE_KEY,
+    brevoApiKey: process.env.BREVO_API_KEY,
 
     // Public keys (exposed to client-side)
     public: {

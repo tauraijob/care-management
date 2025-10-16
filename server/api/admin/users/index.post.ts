@@ -2,6 +2,7 @@ import { getPrisma } from '~/server/utils/prisma'
 import { extractTokenFromRequest, getUserFromToken } from '~/server/utils/auth'
 import { recordAudit } from '~/server/utils/audit'
 import { hash } from 'bcrypt'
+import { emailService } from '~/server/utils/emailService'
 
 export default defineEventHandler(async (event) => {
     try {
@@ -50,8 +51,26 @@ export default defineEventHandler(async (event) => {
 
         const created = await prisma.user.create({
             data,
-            select: { id: true }
+            select: {
+                id: true,
+                email: true,
+                firstName: true,
+                lastName: true,
+                role: true
+            }
         })
+
+        // Send welcome email to new user
+        try {
+            await emailService.sendWelcomeEmail(
+                created.email,
+                created.firstName,
+                created.role
+            )
+        } catch (emailError) {
+            console.error('Welcome email failed:', emailError)
+            // Don't fail user creation if email fails
+        }
 
         await recordAudit(event, { action: 'USER_CREATED', targetType: 'user', targetId: created.id, details: { email, role } })
         return { success: true, data: { id: created.id } }

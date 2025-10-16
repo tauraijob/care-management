@@ -196,8 +196,6 @@
 
     </div>
 
-    <!-- Footer -->
-    <PublicFooter />
   </div>
 </template>
 
