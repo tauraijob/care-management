@@ -8,6 +8,8 @@ CREATE TABLE `users` (
     `lastName` VARCHAR(191) NOT NULL,
     `phone` VARCHAR(191) NULL,
     `whatsapp` BOOLEAN NOT NULL DEFAULT false,
+    `resetToken` VARCHAR(191) NULL,
+    `resetTokenExpiry` DATETIME(3) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -136,6 +138,39 @@ CREATE TABLE `reports` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `certifications` (
+    `id` VARCHAR(191) NOT NULL,
+    `carerId` VARCHAR(191) NOT NULL,
+    `title` VARCHAR(191) NOT NULL,
+    `fileName` VARCHAR(191) NOT NULL,
+    `fileUrl` VARCHAR(191) NOT NULL,
+    `fileType` VARCHAR(191) NOT NULL,
+    `issuedAt` DATETIME(3) NULL,
+    `expiresAt` DATETIME(3) NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `technical_issues` (
+    `id` VARCHAR(191) NOT NULL,
+    `subject` VARCHAR(191) NOT NULL,
+    `priority` ENUM('LOW', 'MEDIUM', 'HIGH', 'CRITICAL') NOT NULL,
+    `description` VARCHAR(191) NOT NULL,
+    `status` ENUM('OPEN', 'IN_PROGRESS', 'RESOLVED', 'CLOSED') NOT NULL DEFAULT 'OPEN',
+    `reportedBy` VARCHAR(191) NOT NULL,
+    `reportedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `resolvedAt` DATETIME(3) NULL,
+    `resolvedBy` VARCHAR(191) NULL,
+    `resolution` VARCHAR(191) NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `patients` ADD CONSTRAINT `patients_clientId_fkey` FOREIGN KEY (`clientId`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -177,3 +212,12 @@ ALTER TABLE `messages` ADD CONSTRAINT `messages_bookingId_fkey` FOREIGN KEY (`bo
 
 -- AddForeignKey
 ALTER TABLE `reports` ADD CONSTRAINT `reports_generatedBy_fkey` FOREIGN KEY (`generatedBy`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `certifications` ADD CONSTRAINT `certifications_carerId_fkey` FOREIGN KEY (`carerId`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `technical_issues` ADD CONSTRAINT `technical_issues_reportedBy_fkey` FOREIGN KEY (`reportedBy`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `technical_issues` ADD CONSTRAINT `technical_issues_resolvedBy_fkey` FOREIGN KEY (`resolvedBy`) REFERENCES `users`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
