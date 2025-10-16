@@ -60,48 +60,82 @@
       
       <!-- System Information -->
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">System Information</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold text-gray-900">System Information</h2>
+          <button 
+            @click="loadSystemData" 
+            :disabled="loading"
+            class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span v-if="loading">Refreshing...</span>
+            <span v-else>Refresh</span>
+          </button>
+        </div>
+        
+        <div v-if="loading && !systemData" class="text-center py-8">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 mx-auto"></div>
+          <p class="text-gray-600 mt-2">Loading system data...</p>
+        </div>
+        
+        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div class="p-4 border border-gray-200 rounded-lg">
             <h3 class="font-semibold text-gray-900 mb-2">Server Status</h3>
             <div class="flex items-center space-x-2">
-              <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span class="text-sm text-gray-600">Online</span>
+              <div class="w-3 h-3 rounded-full" :class="systemData?.server?.status === 'Online' ? 'bg-green-500' : 'bg-red-500'"></div>
+              <span class="text-sm text-gray-600">{{ systemData?.server?.status || 'Unknown' }}</span>
             </div>
-            <p class="text-xs text-gray-500 mt-1">Uptime: 99.9%</p>
+            <p class="text-xs text-gray-500 mt-1">Uptime: {{ systemData?.server?.uptime || 'N/A' }}%</p>
           </div>
           
           <div class="p-4 border border-gray-200 rounded-lg">
             <h3 class="font-semibold text-gray-900 mb-2">Database</h3>
             <div class="flex items-center space-x-2">
-              <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span class="text-sm text-gray-600">Connected</span>
+              <div class="w-3 h-3 rounded-full" :class="systemData?.database?.status === 'Connected' ? 'bg-green-500' : 'bg-red-500'"></div>
+              <span class="text-sm text-gray-600">{{ systemData?.database?.status || 'Unknown' }}</span>
             </div>
-            <p class="text-xs text-gray-500 mt-1">Size: 2.4 GB</p>
+            <p class="text-xs text-gray-500 mt-1">Size: {{ systemData?.database?.size || 'Unknown' }}</p>
+          </div>
+          
+          <div class="p-4 border border-gray-200 rounded-lg">
+            <h3 class="font-semibold text-gray-900 mb-2">Total Users</h3>
+            <div class="text-2xl font-bold text-indigo-600">{{ systemData?.users?.total || 0 }}</div>
+            <p class="text-xs text-gray-500">Registered users</p>
           </div>
           
           <div class="p-4 border border-gray-200 rounded-lg">
             <h3 class="font-semibold text-gray-900 mb-2">Active Users</h3>
-            <div class="text-2xl font-bold text-indigo-600">1,247</div>
+            <div class="text-2xl font-bold text-green-600">{{ systemData?.users?.active || 0 }}</div>
             <p class="text-xs text-gray-500">Last 24 hours</p>
           </div>
           
           <div class="p-4 border border-gray-200 rounded-lg">
+            <h3 class="font-semibold text-gray-900 mb-2">Total Bookings</h3>
+            <div class="text-2xl font-bold text-blue-600">{{ systemData?.bookings?.total || 0 }}</div>
+            <p class="text-xs text-gray-500">All time</p>
+          </div>
+          
+          <div class="p-4 border border-gray-200 rounded-lg">
+            <h3 class="font-semibold text-gray-900 mb-2">Active Bookings</h3>
+            <div class="text-2xl font-bold text-orange-600">{{ systemData?.bookings?.active || 0 }}</div>
+            <p class="text-xs text-gray-500">Currently active</p>
+          </div>
+          
+          <div class="p-4 border border-gray-200 rounded-lg">
             <h3 class="font-semibold text-gray-900 mb-2">Memory Usage</h3>
-            <div class="text-2xl font-bold text-blue-600">67%</div>
-            <p class="text-xs text-gray-500">2.1 GB / 3.2 GB</p>
+            <div class="text-2xl font-bold text-purple-600">{{ systemData?.server?.memoryUsage || 'N/A' }}</div>
+            <p class="text-xs text-gray-500">System memory</p>
           </div>
           
           <div class="p-4 border border-gray-200 rounded-lg">
             <h3 class="font-semibold text-gray-900 mb-2">CPU Usage</h3>
-            <div class="text-2xl font-bold text-orange-600">23%</div>
-            <p class="text-xs text-gray-500">Normal load</p>
+            <div class="text-2xl font-bold text-red-600">{{ systemData?.server?.cpuUsage || 'N/A' }}</div>
+            <p class="text-xs text-gray-500">System load</p>
           </div>
           
           <div class="p-4 border border-gray-200 rounded-lg">
-            <h3 class="font-semibold text-gray-900 mb-2">Disk Space</h3>
-            <div class="text-2xl font-bold text-purple-600">45%</div>
-            <p class="text-xs text-gray-500">45 GB / 100 GB</p>
+            <h3 class="font-semibold text-gray-900 mb-2">Last Updated</h3>
+            <div class="text-sm font-medium text-gray-600">{{ systemData?.lastChecked ? new Date(systemData.lastChecked).toLocaleString() : 'Never' }}</div>
+            <p class="text-xs text-gray-500">System data refresh</p>
           </div>
         </div>
       </div>
@@ -218,13 +252,15 @@
 <script setup>
 // Apply admin layout
 definePageMeta({ 
-  
   layout: 'admin'
 })
 
 const { user } = useAuth()
 
 const submitting = ref(false)
+const loading = ref(false)
+const systemData = ref(null)
+const maintenanceMode = ref(false)
 
 const issueForm = ref({
   subject: '',
@@ -232,30 +268,84 @@ const issueForm = ref({
   description: ''
 })
 
-const checkSystemStatus = () => {
-  alert('System Status: All systems operational\nUptime: 99.9%\nLast check: 2 minutes ago')
+// Load system data on component mount
+onMounted(async () => {
+  await loadSystemData()
+})
+
+const loadSystemData = async () => {
+  loading.value = true
+  try {
+    const response = await $fetch('/api/admin/support/system-status')
+    if (response.success) {
+      systemData.value = response.data
+    }
+  } catch (error) {
+    console.error('Failed to load system data:', error)
+  } finally {
+    loading.value = false
+  }
 }
 
-const createBackup = () => {
-  alert('Backup process initiated. This may take several minutes.')
+const checkSystemStatus = async () => {
+  await loadSystemData()
+  if (systemData.value) {
+    const data = systemData.value
+    alert(`System Status: ${data.server.status}\nUptime: ${data.server.uptime}%\nDatabase: ${data.database.status}\nActive Users: ${data.users.active}\nLast check: ${new Date(data.lastChecked).toLocaleString()}`)
+  }
 }
 
-const toggleMaintenance = () => {
-  const confirmed = confirm('Are you sure you want to toggle maintenance mode? This will affect all users.')
-  if (confirmed) {
-    alert('Maintenance mode toggled successfully.')
+const createBackup = async () => {
+  const confirmed = confirm('Are you sure you want to create a system backup? This may take several minutes.')
+  if (!confirmed) return
+
+  try {
+    const response = await $fetch('/api/admin/support/backup', {
+      method: 'POST',
+      body: { type: 'full' }
+    })
+    
+    if (response.success) {
+      alert(`Backup created successfully!\nBackup ID: ${response.data.backupId}\nSize: ${response.data.size}\nCreated: ${new Date(response.data.createdAt).toLocaleString()}`)
+    }
+  } catch (error) {
+    console.error('Backup creation failed:', error)
+    alert('Failed to create backup. Please try again.')
+  }
+}
+
+const toggleMaintenance = async () => {
+  const action = maintenanceMode.value ? 'disable' : 'enable'
+  const confirmed = confirm(`Are you sure you want to ${action} maintenance mode? This will affect all users.`)
+  if (!confirmed) return
+
+  try {
+    const response = await $fetch('/api/admin/support/maintenance', {
+      method: 'POST',
+      body: { 
+        action,
+        reason: prompt('Please provide a reason for this action:') || 'No reason provided'
+      }
+    })
+    
+    if (response.success) {
+      maintenanceMode.value = response.data.maintenanceMode
+      alert(`Maintenance mode ${action}d successfully.\nReason: ${response.data.reason}\nBy: ${response.data.enabledBy}`)
+    }
+  } catch (error) {
+    console.error('Maintenance mode toggle failed:', error)
+    alert('Failed to toggle maintenance mode. Please try again.')
   }
 }
 
 const viewErrorLogs = () => {
-  alert('Error logs feature coming soon!')
+  alert('Error logs feature coming soon! This will show recent system errors and warnings.')
 }
-
-
 
 const clearCache = () => {
   const confirmed = confirm('Are you sure you want to clear system cache?')
   if (confirmed) {
+    // In a real system, you'd call an API endpoint to clear cache
     alert('Cache cleared successfully.')
   }
 }
@@ -263,33 +353,52 @@ const clearCache = () => {
 const optimizeDatabase = () => {
   const confirmed = confirm('Are you sure you want to optimize the database? This may take several minutes.')
   if (confirmed) {
+    // In a real system, you'd call an API endpoint to optimize database
     alert('Database optimization started.')
   }
 }
 
-const runSystemCheck = () => {
-  alert('System check completed:\n- All services running\n- Database connections: OK\n- File permissions: OK\n- Security checks: Passed')
+const runSystemCheck = async () => {
+  try {
+    const response = await $fetch('/api/admin/support/system-check', {
+      method: 'POST'
+    })
+    
+    if (response.success) {
+      const checks = response.data.checks
+      const status = response.data.overallStatus
+      let message = `System check completed with status: ${status}\n\n`
+      
+      Object.entries(checks).forEach(([key, check]) => {
+        message += `- ${key.charAt(0).toUpperCase() + key.slice(1)}: ${check.status} - ${check.message}\n`
+      })
+      
+      alert(message)
+    }
+  } catch (error) {
+    console.error('System check failed:', error)
+    alert('Failed to perform system check. Please try again.')
+  }
 }
 
 const submitTechnicalIssue = async () => {
   submitting.value = true
   try {
-    // Here you would typically make an API call to submit the issue
-    console.log('Submitting technical issue:', issueForm.value)
+    const response = await $fetch('/api/admin/support/technical-issue', {
+      method: 'POST',
+      body: issueForm.value
+    })
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    // Show success message
-    alert('Technical issue submitted successfully! Our team will respond within 2 hours.')
-    
-    // Reset form
-    issueForm.value = {
-      subject: '',
-      priority: 'medium',
-      description: ''
+    if (response.success) {
+      alert(`Technical issue submitted successfully!\nIssue ID: #${response.data.issueId}\nPriority: ${response.data.priority}\nOur team will respond within 2 hours.`)
+      
+      // Reset form
+      issueForm.value = {
+        subject: '',
+        priority: 'medium',
+        description: ''
+      }
     }
-    
   } catch (error) {
     console.error('Error submitting issue:', error)
     alert('Error submitting issue. Please try again.')

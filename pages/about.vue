@@ -136,15 +136,25 @@
             </p>
           </div>
 
-          <div class="flex justify-center">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <!-- Blessing Gwindi -->
-            <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm flex flex-col" style="width: 70%;">
+            <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm flex flex-col">
               <div class="mb-4">
                 <h4 class="text-xl font-bold text-gray-900">Blessing Gwindi</h4>
                 <p class="text-gray-600">Managing Director</p>
                 <a href="mailto:blessing@lucernahealth.co.zw" class="text-blue-600 hover:text-blue-700 mt-2 inline-block">blessing@lucernahealth.co.zw</a>
               </div>
               <button @click="openProfile('blessing')" class="btn-primary self-start">View Profile</button>
+            </div>
+            
+            <!-- Farirayi Nyawasha -->
+            <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm flex flex-col">
+              <div class="mb-4">
+                <h4 class="text-xl font-bold text-gray-900">Farirayi Nyawasha</h4>
+                <p class="text-gray-600">Operations Director</p>
+                <a href="mailto:farirayi@lucernahealth.co.zw" class="text-blue-600 hover:text-blue-700 mt-2 inline-block">farirayi@lucernahealth.co.zw</a>
+              </div>
+              <button @click="openProfile('farirayi')" class="btn-primary self-start">View Profile</button>
             </div>
           </div>
           
@@ -158,13 +168,26 @@
               <div v-if="selectedProfile === 'blessing'" class="space-y-4 text-gray-700 leading-relaxed">
                 <h4 class="text-2xl font-bold text-gray-900">Blessing Gwindi — Managing Director & Founder</h4>
                 <p>
-                  Blessing is the Managing Director and Founder of Lucerna & Stern Health. A Registered Children’s Nurse with a Diploma in Higher Education, she brings extensive clinical and leadership experience from her work within the UK’s National Health Service (NHS) and related organisations, including NHS 111 and the Care Quality Commission (CQC).
+                  Blessing is the Managing Director and Founder of Lucerna & Stern Health. A Registered Children's Nurse with a Diploma in Higher Education, she brings extensive clinical and leadership experience from her work within the UK's National Health Service (NHS) and related organisations, including NHS 111 and the Care Quality Commission (CQC).
                 </p>
                 <p>
                   Throughout her career, Blessing has served in a variety of roles spanning School Nursing, Health Visiting, Safeguarding, and Learning Disability Services, as well as holding successive leadership positions across the NHS. Blessing also holds a Specialist BSc in Health Visiting from Brunel University. Her key strengths include health and social care regulation, safeguarding, service improvement, and organisational alignment with regulatory standards.
                 </p>
                 <p>
                   At Lucerna & Stern Health, Blessing combines her professional rigor with a compassionate vision — leading the agency to provide exceptional, person-centred domiciliary care for families in Zimbabwe and for members of the diaspora seeking trusted care for their loved ones back home.
+                </p>
+              </div>
+              
+              <div v-if="selectedProfile === 'farirayi'" class="space-y-4 text-gray-700 leading-relaxed">
+                <h4 class="text-2xl font-bold text-gray-900">Farirayi Nyawasha — Operations Director</h4>
+                <p>
+                  Farirayi serves as the Operations Director at Lucerna & Stern Health, bringing a wealth of operational expertise and strategic vision to our organization. With a strong background in healthcare operations and business management, she ensures that our care services run smoothly and efficiently.
+                </p>
+                <p>
+                  Her role encompasses overseeing day-to-day operations, managing care coordination, and ensuring that our high standards of service delivery are maintained across all client interactions. Farirayi's attention to detail and commitment to excellence helps us provide seamless, reliable care services.
+                </p>
+                <p>
+                  With a deep understanding of both the healthcare industry and the unique needs of Zimbabwean families, Farirayi plays a crucial role in bridging the gap between our clinical excellence and operational efficiency, ensuring that every client receives the personalized care they deserve.
                 </p>
               </div>
             </div>

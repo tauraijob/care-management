@@ -528,6 +528,66 @@ export const emailTemplates = {
       </body>
       </html>
     `
+  }),
+
+  technicalIssueNotification: (reporterName: string, subject: string, priority: string, description: string, issueId: string) => ({
+    subject: `Technical Issue #${issueId}: ${subject}`,
+    htmlContent: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Technical Issue Report</title>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #f1f5f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+          <!-- Header -->
+          <div style="background: linear-gradient(135deg, #dc2626, #ef4444); color: white; padding: 40px 30px; text-align: center; border-radius: 8px 8px 0 0;">
+            <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 32px;">🔧</span>
+            </div>
+            <h1 style="margin: 0; font-size: 28px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">Technical Issue Report</h1>
+            <p style="margin: 10px 0 0; font-size: 16px; opacity: 0.9;">Issue ID: #${issueId}</p>
+          </div>
+          
+          <!-- Content -->
+          <div style="padding: 40px 30px;">
+            <p style="font-size: 18px; color: #1e293b; margin-bottom: 20px; font-weight: 600;">New technical issue reported by ${reporterName}</p>
+            
+            <!-- Issue Details -->
+            <div style="background: #fef2f2; padding: 25px; border-radius: 12px; margin: 30px 0; border-left: 5px solid #dc2626; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+              <h3 style="color: #dc2626; margin-top: 0; margin-bottom: 15px; font-size: 18px;">📋 Issue Details</h3>
+              <p style="color: #374151; margin: 10px 0;"><strong>Subject:</strong> ${subject}</p>
+              <p style="color: #374151; margin: 10px 0;"><strong>Priority:</strong> <span style="background: ${priority === 'CRITICAL' ? '#dc2626' : priority === 'HIGH' ? '#ea580c' : priority === 'MEDIUM' ? '#d97706' : '#16a34a'}; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;">${priority}</span></p>
+              <p style="color: #374151; margin: 10px 0;"><strong>Issue ID:</strong> #${issueId}</p>
+              <p style="color: #374151; margin: 10px 0;"><strong>Reported:</strong> ${new Date().toLocaleString()}</p>
+            </div>
+            
+            <!-- Description -->
+            <div style="background: #f8fafc; padding: 25px; border-radius: 12px; margin: 30px 0; border: 1px solid #e2e8f0;">
+              <h3 style="color: #1e40af; margin-top: 0; margin-bottom: 15px; font-size: 18px;">📝 Description</h3>
+              <p style="color: #475569; line-height: 1.7; margin: 0; font-size: 16px; white-space: pre-wrap;">${description}</p>
+            </div>
+            
+            <!-- Action Required -->
+            <div style="background: #fef3c7; padding: 25px; border-radius: 12px; margin: 30px 0; border-left: 5px solid #f59e0b;">
+              <h3 style="color: #92400e; margin-top: 0; margin-bottom: 15px; font-size: 18px;">⚡ Action Required</h3>
+              <p style="color: #92400e; margin: 0; font-size: 16px;">Please review this technical issue and respond within 2 hours for ${priority.toLowerCase()} priority issues.</p>
+            </div>
+            
+            <p style="color: #475569; margin-top: 40px; text-align: center;">Best regards,<br><strong style="color: #1e40af;">Lucerna & Stern Health System</strong></p>
+          </div>
+          
+          <!-- Footer -->
+          <div style="background: #1e293b; color: #94a3b8; padding: 20px 30px; text-align: center; border-radius: 0 0 8px 8px; font-size: 14px;">
+            <p style="margin: 0;">© 2025 Lucerna & Stern Health. All rights reserved.</p>
+            <p style="margin: 5px 0 0;">Professional care services with Zimbabwean heart</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `
   })
 }
 
@@ -648,6 +708,14 @@ export const emailService = {
     const template = emailTemplates.generalNotification(name, title, message)
     return await sendEmail(template, {
       to: [{ email, name }]
+    })
+  },
+
+  // Technical support
+  sendTechnicalIssueNotification: async (adminEmail: string, reporterName: string, subject: string, priority: string, description: string, issueId: string) => {
+    const template = emailTemplates.technicalIssueNotification(reporterName, subject, priority, description, issueId)
+    return await sendEmail(template, {
+      to: [{ email: adminEmail, name: 'Technical Support' }]
     })
   }
 }

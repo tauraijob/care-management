@@ -26,15 +26,17 @@ model User {
 
     // Relations
     patients         Patient[]
-    bookings         Booking[]       @relation("ClientBookings")
-    carerBookings    Booking[]       @relation("CarerBookings")
+    bookings         Booking[]        @relation("ClientBookings")
+    carerBookings    Booking[]        @relation("CarerBookings")
     notifications    Notification[]
     documents        Document[]
     logs             Log[]
-    sentMessages     Message[]       @relation("SentMessages")
-    receivedMessages Message[]       @relation("ReceivedMessages")
+    sentMessages     Message[]        @relation("SentMessages")
+    receivedMessages Message[]        @relation("ReceivedMessages")
     reports          Report[]
     certifications   Certification[]
+    technicalIssues  TechnicalIssue[] @relation("TechnicalIssues")
+    resolvedIssues   TechnicalIssue[] @relation("ResolvedIssues")
 
     @@map("users")
 }
@@ -272,4 +274,39 @@ enum ReportStatus {
     PROCESSING
     COMPLETED
     FAILED
+}
+
+model TechnicalIssue {
+    id          String            @id @default(cuid())
+    subject     String
+    priority    TechnicalPriority
+    description String
+    status      TechnicalStatus   @default(OPEN)
+    reportedBy  String
+    reportedAt  DateTime          @default(now())
+    resolvedAt  DateTime?
+    resolvedBy  String?
+    resolution  String?
+    createdAt   DateTime          @default(now())
+    updatedAt   DateTime          @updatedAt
+
+    // Relations
+    reporter User  @relation("TechnicalIssues", fields: [reportedBy], references: [id])
+    resolver User? @relation("ResolvedIssues", fields: [resolvedBy], references: [id])
+
+    @@map("technical_issues")
+}
+
+enum TechnicalPriority {
+    LOW
+    MEDIUM
+    HIGH
+    CRITICAL
+}
+
+enum TechnicalStatus {
+    OPEN
+    IN_PROGRESS
+    RESOLVED
+    CLOSED
 }
