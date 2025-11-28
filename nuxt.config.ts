@@ -22,7 +22,7 @@ export default defineNuxtConfig({
           'X-Content-Type-Options': 'nosniff',
           'X-XSS-Protection': '1; mode=block',
           'Referrer-Policy': 'strict-origin-when-cross-origin',
-          'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'none';",
+          'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https: https://www.google-analytics.com https://www.googletagmanager.com; frame-ancestors 'none';",
           'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
           'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
         }
@@ -58,15 +58,47 @@ export default defineNuxtConfig({
         { name: 'privacy-policy', content: '/privacy-policy' },
         { name: 'terms-of-service', content: '/terms-of-service' },
         // Security
-        { name: 'referrer', content: 'strict-origin-when-cross-origin' }
+        { name: 'referrer', content: 'strict-origin-when-cross-origin' },
+        // Open Graph / Facebook
+        { property: 'og:type', content: 'website' },
+        { property: 'og:title', content: 'Lucerna & Stern Health - Premium Healthcare Solutions' },
+        { property: 'og:description', content: 'Secure, premium healthcare booking platform for diaspora clients managing care for loved ones in Zimbabwe.' },
+        { property: 'og:url', content: 'https://lucernaandsternhealth.co.zw' },
+        { property: 'og:site_name', content: 'Lucerna & Stern Health' },
+        { property: 'og:locale', content: 'en_ZW' },
+        // Twitter Card
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'Lucerna & Stern Health - Premium Healthcare Solutions' },
+        { name: 'twitter:description', content: 'Secure, premium healthcare booking platform for diaspora clients managing care for loved ones in Zimbabwe.' },
+        // Additional SEO
+        { name: 'language', content: 'English' },
+        { name: 'geo.region', content: 'ZW' },
+        { name: 'geo.placename', content: 'Harare, Zimbabwe' }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'manifest', href: '/site.webmanifest' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        { rel: 'preconnect', href: 'https://www.googletagmanager.com' },
+        { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' }
       ],
       script: [
+        // Google tag (gtag.js)
+        {
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-V8TZXMWTTW',
+          async: true
+        },
+        {
+          innerHTML: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-V8TZXMWTTW');
+          `,
+          type: 'text/javascript'
+        },
+        // Structured Data
         {
           type: 'application/ld+json',
           innerHTML: JSON.stringify({
