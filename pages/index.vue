@@ -13,12 +13,12 @@
         </p>
         <p class="text-lg mb-12 text-white">Professional. Personal. Present.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <button class="btn-primary">
+          <NuxtLink to="/contact" class="btn-primary">
             Get Started
-          </button>
-          <button class="btn-secondary text-white border-white hover:bg-transpare hover:text-white">
+          </NuxtLink>
+          <NuxtLink to="/services" class="btn-secondary text-white border-white hover:bg-transpare hover:text-white">
             Speak to a Care Coordinator
-          </button>
+          </NuxtLink>
         </div>
         <div class="mt-[5em]"></div>
       </div>
