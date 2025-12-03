@@ -122,6 +122,26 @@
 </template>
 
 <script setup>
+// SEO for homepage
+useSeo({
+  title: 'Home - Premium Healthcare Solutions in Zimbabwe',
+  description: 'Lucerna & Stern Health provides professional, culturally-sensitive home care services in Zimbabwe. Trusted by diaspora families for quality care of loved ones. Personal care, companion care, live-in care, and specialized medical services.',
+  keywords: 'home care Zimbabwe, healthcare Zimbabwe, diaspora healthcare, elderly care Zimbabwe, personal care services, home health aide, Zimbabwe healthcare, medical care Harare',
+  canonical: 'https://lucernahealth.co.zw',
+  structuredData: {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Lucerna & Stern Health',
+    url: 'https://lucernahealth.co.zw',
+    description: 'Premium healthcare booking platform for diaspora clients managing care for loved ones in Zimbabwe',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://lucernahealth.co.zw/search?q={search_term_string}',
+      'query-input': 'required name=search_term_string'
+    }
+  }
+})
+
 // Homepage with hero banner, three pillars, and services sections
 const slides = [
   {

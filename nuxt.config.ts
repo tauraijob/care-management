@@ -39,6 +39,7 @@ export default defineNuxtConfig({
 
   // App configuration
   app: {
+    baseURL: '/',
     head: {
       title: 'Lucerna & Stern Health - Premium Healthcare Solutions',
       meta: [
@@ -63,13 +64,21 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: 'Lucerna & Stern Health - Premium Healthcare Solutions' },
         { property: 'og:description', content: 'Secure, premium healthcare booking platform for diaspora clients managing care for loved ones in Zimbabwe.' },
-        { property: 'og:url', content: 'https://lucernaandsternhealth.co.zw' },
+        { property: 'og:url', content: 'https://lucernahealth.co.zw' },
+        { property: 'og:image', content: 'https://lucernahealth.co.zw/uploads/logo.png' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:alt', content: 'Lucerna & Stern Health - Premium Healthcare Solutions' },
         { property: 'og:site_name', content: 'Lucerna & Stern Health' },
         { property: 'og:locale', content: 'en_ZW' },
         // Twitter Card
         { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:site', content: '@lucernahealth' },
+        { name: 'twitter:creator', content: '@lucernahealth' },
         { name: 'twitter:title', content: 'Lucerna & Stern Health - Premium Healthcare Solutions' },
         { name: 'twitter:description', content: 'Secure, premium healthcare booking platform for diaspora clients managing care for loved ones in Zimbabwe.' },
+        { name: 'twitter:image', content: 'https://lucernahealth.co.zw/uploads/logo.png' },
+        { name: 'twitter:image:alt', content: 'Lucerna & Stern Health - Premium Healthcare Solutions' },
         // Additional SEO
         { name: 'language', content: 'English' },
         { name: 'geo.region', content: 'ZW' },
@@ -78,6 +87,8 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'manifest', href: '/site.webmanifest' },
+        { rel: 'canonical', href: 'https://lucernahealth.co.zw' },
+        { rel: 'alternate', hreflang: 'en', href: 'https://lucernahealth.co.zw' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         { rel: 'preconnect', href: 'https://www.googletagmanager.com' },
@@ -105,19 +116,39 @@ export default defineNuxtConfig({
             '@context': 'https://schema.org',
             '@type': 'MedicalOrganization',
             name: 'Lucerna & Stern Health',
-            description: 'Premium healthcare booking platform for diaspora clients',
-            url: 'https://lucernaandsternhealth.co.zw',
+            alternateName: 'Lucerna Health',
+            description: 'Premium healthcare booking platform for diaspora clients managing care for loved ones in Zimbabwe. Professional, personal, and culturally-sensitive home care services.',
+            url: 'https://lucernahealth.co.zw',
+            logo: 'https://lucernahealth.co.zw/uploads/logo.png',
             telephone: '+263 710708027',
+            email: 'info@lucernaandsternhealth.co.zw',
             address: {
               '@type': 'PostalAddress',
               streetAddress: '6 Chelmsford Road',
               addressLocality: 'Belgravia',
               addressRegion: 'Harare',
+              postalCode: '',
               addressCountry: 'ZW'
             },
+            areaServed: {
+              '@type': 'Country',
+              name: 'Zimbabwe'
+            },
+            serviceType: [
+              'Home Health Care',
+              'Personal Care',
+              'Companion Care',
+              'Live-In Care',
+              'Skilled Nursing',
+              'Physiotherapy',
+              'Occupational Therapy',
+              'Speech Therapy'
+            ],
             sameAs: [
               'https://wa.me/263710708027'
-            ]
+            ],
+            priceRange: '$$',
+            currenciesAccepted: 'USD, ZWL'
           })
         }
       ]
@@ -168,7 +199,7 @@ export default defineNuxtConfig({
       UserAgent: '*',
       Allow: '/',
       Disallow: ['/admin/', '/client/', '/carer/', '/api/'],
-      Sitemap: 'https://lucernahealth.com/sitemap.xml'
+      Sitemap: 'https://lucernahealth.co.zw/sitemap.xml'
     }
   },
 
@@ -180,8 +211,16 @@ export default defineNuxtConfig({
       '/carer/**',
       '/api/**',
       '/login',
-      '/register'
-    ]
+      '/register',
+      '/pay',
+      '/profile',
+      '/settings'
+    ],
+    defaults: {
+      changefreq: 'monthly',
+      priority: 0.7,
+      lastmod: new Date().toISOString()
+    }
   },
 
   // Runtime configuration

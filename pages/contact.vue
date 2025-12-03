@@ -260,7 +260,32 @@ const submitForm = async () => {
   }
 }
 
-useHead({ title: 'Contact Us - Lucerna & Stern Health' })
+useSeo({
+  title: 'Contact Us',
+  description: 'Get in touch with Lucerna & Stern Health. Contact our care team in Zimbabwe for home care services, consultations, and support. Email: info@lucernaandsternhealth.co.zw | Phone: +263 710708027',
+  keywords: 'contact healthcare Zimbabwe, home care consultation, healthcare support Zimbabwe, care coordinator, healthcare booking Zimbabwe',
+  canonical: 'https://lucernahealth.co.zw/contact',
+  structuredData: {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: 'Contact Lucerna & Stern Health',
+    description: 'Contact our healthcare team for consultations and care services in Zimbabwe',
+    url: 'https://lucernahealth.co.zw/contact',
+    mainEntity: {
+      '@type': 'Organization',
+      name: 'Lucerna & Stern Health',
+      telephone: '+263 710708027',
+      email: 'info@lucernaandsternhealth.co.zw',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '6 Chelmsford Road',
+        addressLocality: 'Belgravia',
+        addressRegion: 'Harare',
+        addressCountry: 'ZW'
+      }
+    }
+  }
+})
 </script>
 
 <style scoped>
