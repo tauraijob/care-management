@@ -479,11 +479,10 @@
 // Main navigation tabs
 const route = useRoute()
 const hash = computed(() => (route.hash || '').replace('#', ''))
-const validMain = ['story', 'team', 'why']
+const validMain = ['story', 'why']
 const activeMainTab = computed(() => validMain.includes(hash.value) ? hash.value : 'story')
 const mainTabs = ref([
   { id: 'story', title: 'Our Story' },
-  { id: 'team', title: 'Our Team' },
   { id: 'why', title: 'Why Lucerna & Stern Health' }
 ])
 

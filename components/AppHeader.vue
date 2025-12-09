@@ -47,7 +47,6 @@
               <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div class="py-2">
                   <NuxtLink to="/about#story" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-primary hover:text-white">Our Story</NuxtLink>
-                  <NuxtLink to="/about#team" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-primary hover:text-white">Our Team</NuxtLink>
                   <NuxtLink to="/about#why" class="block px-4 py-2 text-gray-700 hover:bg-lucerna-primary hover:text-white">Why Lucerna & Stern Health</NuxtLink>
                 </div>
               </div>
@@ -98,7 +97,6 @@
               <div class="text-gray-600 font-medium mb-2">About Us</div>
               <div class="pl-4 space-y-1">
                 <NuxtLink to="/about#story" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Our Story</NuxtLink>
-                <NuxtLink to="/about#team" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Our Team</NuxtLink>
                 <NuxtLink to="/about#why" @click="mobileMenuOpen = false" class="block py-1 text-gray-500 hover:text-lucerna-primary">Why Lucerna & Stern Health</NuxtLink>
               </div>
             </div>
